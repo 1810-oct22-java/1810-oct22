@@ -77,3 +77,13 @@ class C extends B{
 		this.me = me;
 	}
 }
+
+
+class D {
+	
+	/* recursive constructors 
+	public D() {
+		this();
+	} */
+	
+}
