@@ -70,6 +70,10 @@ public class Threads101 {
 				System.out.println(i + ") IN LAMBDA THREAD");
 			}
 		};
+	//	Runnable lambda3 = lambda; 
+		
+		Runnable lambda2 = () -> System.out.println("do things");
+		
 		Thread lamThread = new Thread(lambda);
 		lamThread.start();
 //		lamThread.start(); //BAD -- leads to IllegalThreadStateException bc thread is already started
