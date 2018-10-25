@@ -1,4 +1,4 @@
-package com.ex.threads;
+package com.revature.threads;
 
 import java.util.ArrayList;
 import java.util.Vector;

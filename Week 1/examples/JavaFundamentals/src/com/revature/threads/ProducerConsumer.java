@@ -1,4 +1,4 @@
-package com.ex.threads;
+package com.revature.threads;
 
 public class ProducerConsumer {
 	
