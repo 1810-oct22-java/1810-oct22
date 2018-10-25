@@ -17,13 +17,11 @@ public class Arguments {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		System.out.println(validInt("100"));
 	}
 	
-	public static int validInt(String[] args, int std) {
-		int clean = std;
+	public static int validInt(String[] args, int deflt) {
+		int clean = deflt;
 		
 		// clean up the input data
 		if(args.length > 0) {
@@ -38,8 +36,8 @@ public class Arguments {
 		return i;
 	}
 	
-	public static String validString(String[] args, String std) {
-		String clean = new String(std);
+	public static String validString(String[] args, String deflt) {
+		String clean = new String(deflt);
 		
 		// clean up the input data
 		if(args.length > 0) {

@@ -39,16 +39,32 @@ public class Palindromes {
 		
 		// iterate through the list and save the palandromes
 		for (String str: forward) {
-			// reverse the current string
-			String rev = ReverseString.reverse(str);
-			
 			// if the forward string is the same as the reversed then we have a palandrome
-			if(forward.contains(rev)) {
+			if(isPalindrome(str)) {
 				// add it to the palandromes
-				palindromes.add(rev);
+				palindromes.add(str);
 			}
 		}
 		
 		System.out.println("Palindromes: " + palindromes.toString());
+	}
+	
+	/**
+	 * returns true if the passed in string is a palindrome and false if not
+	 * @param forward
+	 * @return
+	 */
+	public static boolean isPalindrome(String forward) {
+		boolean b = false;
+		
+		// reverse the current string
+		String rev = ReverseString.reverse(forward.trim());
+					
+		// if the forward string is the same as the reversed then we have a palandrome
+		if(forward.contains(rev)) {
+			b = true;
+		}
+		
+		return b;
 	}
 }

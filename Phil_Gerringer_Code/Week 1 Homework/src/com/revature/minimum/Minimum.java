@@ -20,7 +20,12 @@ public class Minimum {
 
 	}
 	
-	//return the minimum of two numbers
+	/**
+	 * returns the minimum of two numbers
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public static int get(int x, int y) {
 		return x<y ? x : y;
 	}

@@ -28,11 +28,12 @@ public class LetterCount {
 	 * @param str
 	 * @return
 	 */
-	static int count(String str) {
+	public static int count(String str) {
 		int count = 0;
 		
 		// this seems too simple for homework
-		count = str.length();
+		// I trimmed off the spaces
+		count = str.trim().length();
 		
 		return count;
 	}

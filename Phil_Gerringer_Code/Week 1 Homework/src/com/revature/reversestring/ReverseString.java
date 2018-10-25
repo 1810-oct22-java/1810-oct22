@@ -38,6 +38,6 @@ public class ReverseString {
 			rev.append(str.charAt(x-1));
 		}
 		
-		return rev.toString();
+		return rev.toString().trim();
 	}
 }

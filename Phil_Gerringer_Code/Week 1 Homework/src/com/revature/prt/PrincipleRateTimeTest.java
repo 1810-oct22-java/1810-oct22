@@ -1,0 +1,38 @@
+package com.revature.prt;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class PrincipleRateTimeTest {
+
+	PrincipleRateTime prt;
+	
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+	}
+
+	@AfterAll
+	static void tearDownAfterClass() throws Exception {
+	}
+
+	@BeforeEach
+	void setUp() throws Exception {
+		prt = new PrincipleRateTime();
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		prt = null;
+	}
+
+	@Test
+	void test() {
+		
+	}
+
+}

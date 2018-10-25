@@ -54,6 +54,11 @@ public class Prime {
             }
         }
         
+        // final quick check for zero - not prime
+        if (n == 0) {
+        	b = false;
+        }
+        
         return b;
 	}
 }
