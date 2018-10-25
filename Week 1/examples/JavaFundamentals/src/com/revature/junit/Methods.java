@@ -22,5 +22,11 @@ public class Methods {
 		}
 		return total;
 	}
+	
+	public boolean isPalindrome(String str) {
+		StringBuilder sb = new StringBuilder(str); 
+		return sb.reverse().toString().equals(str);
+	}
+	
 
 }

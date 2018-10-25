@@ -68,5 +68,11 @@ public class MethodsTest {
 	public void anotherTest() {
 		assertTrue(m.add(1)==1);
 	}
+	
+	@Test
+	public void testPalindrome() {
+		assertTrue(m.isPalindrome("racecar"));
+		assertFalse(m.isPalindrome("this is not a palindrome"));
+	}
 
 }
