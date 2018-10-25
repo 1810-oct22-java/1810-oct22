@@ -1,6 +1,6 @@
 package com.revature.oop;
 
-public class MultipleInheritance implements A, B{
+public class MultipleInheritance extends C implements A, B{
 	/*
 	 * Methods in interfaces are implicitly public and 
 	 * abstract. In order to implement methods in interfaces
@@ -16,7 +16,7 @@ public class MultipleInheritance implements A, B{
 		m.test();
 	}
 
-	@Override //not necessary but restricts method to follow overriding rules
+	@Override //not necessary but restricts method to follow overriding rules-9
 	public void doAThings() {
 		// TODO Auto-generated method stub
 		
@@ -48,4 +48,8 @@ interface B{
 	default void test() {
 		System.out.println("I am the test method of interface B");
 	}
+}
+
+abstract class C{
+	
 }
