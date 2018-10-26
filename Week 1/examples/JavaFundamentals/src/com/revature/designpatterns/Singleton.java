@@ -26,8 +26,39 @@ public class Singleton {
 	public static Singleton getInstance() {
 		return singleton;
 	}
-	
-	
-	
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public static void test() {
+		System.out.println("in eager singleton");
+	}
 }
+
+//Lazily instantiate single instance of this class
+class LazySingleton{
+	
+	//JUST declaration, NOT instantiation
+	private static LazySingleton instance;
+	
+	private LazySingleton() {
+		System.out.println("Lazily instantiating singleton");
+	}
+	
+	public static LazySingleton getInstance() {
+		if(instance == null) {
+			instance = new LazySingleton();
+		}
+		return instance;
+	}
+	
+	public static void test() {
+		System.out.println("in lazy singleton class");
+	}
+}
+
