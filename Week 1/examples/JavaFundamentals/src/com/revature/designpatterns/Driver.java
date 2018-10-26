@@ -7,8 +7,20 @@ public class Driver {
  */
 	
 	public static void main(String[] args) {
-		singletonDemo();
+		//singletonDemo();
+		factoryDemo("cake");
+		factoryDemo("brownie");
+		factoryDemo("I really love desserts");
 	}
+	
+	
+	static void factoryDemo(String dessertType) {
+		//Dessert d = new Cake();
+		Dessert d = DessertFactory.getDessert(dessertType);
+		System.out.println(d.makeMe());
+	}
+	
+	
 	
 	static void singletonDemo() {
 	//	Singleton s1 = new Singleton(); //WILL NOT COMPILE! 
@@ -21,7 +33,7 @@ public class Driver {
 		
 		Singleton.test();
 		LazySingleton.test();
-		
-		
 	}
+	
+	
 }
