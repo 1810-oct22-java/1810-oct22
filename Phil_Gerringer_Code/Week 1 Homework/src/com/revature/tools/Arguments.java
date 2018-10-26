@@ -20,6 +20,13 @@ public class Arguments {
 		System.out.println(validInt("100"));
 	}
 	
+	/**
+	 * Validates the argument (only one) is a valid int type and then returns the value.  Uses the 
+	 * deflt as a default if no int found.
+	 * @param args
+	 * @param deflt
+	 * @return
+	 */
 	public static int validInt(String[] args, int deflt) {
 		int clean = deflt;
 		
@@ -31,11 +38,24 @@ public class Arguments {
 		return clean;
 	}
 	
+	/**
+	 * Returns a int value from a parsed string
+	 * @param str
+	 * @return
+	 */
 	public static int validInt(String str) {
 		int i = Integer.parseInt(str);
 		return i;
 	}
 	
+	/**
+	 * Validates the argument (only one) is a valid String type and then returns the value.  Uses the 
+	 * deflt as a default if no String found.
+	 * 
+	 * @param args
+	 * @param deflt
+	 * @return
+	 */
 	public static String validString(String[] args, String deflt) {
 		String clean = new String(deflt);
 		
@@ -46,5 +66,4 @@ public class Arguments {
 		
 		return(clean);
 	}
-
 }

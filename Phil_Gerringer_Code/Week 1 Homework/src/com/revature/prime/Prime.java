@@ -54,8 +54,8 @@ public class Prime {
             }
         }
         
-        // final quick check for zero - not prime
-        if (n == 0) {
+        // final quick check for zero or one - not prime
+        if ((n == 0) || (n == 1)) {
         	b = false;
         }
         

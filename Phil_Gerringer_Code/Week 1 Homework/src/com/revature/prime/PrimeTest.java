@@ -32,9 +32,10 @@ class PrimeTest {
 
 	@Test
 	void test() {
-		assertEquals(true, Prime.isPrime(1));
+		assertEquals(false, Prime.isPrime(1));
 		assertEquals(false, Prime.isPrime(4));
 		assertEquals(false, Prime.isPrime(0));
+		assertEquals(true, Prime.isPrime(5));
 	}
 
 }
