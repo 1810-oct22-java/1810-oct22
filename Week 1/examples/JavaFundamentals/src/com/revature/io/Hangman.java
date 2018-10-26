@@ -39,8 +39,8 @@ public class Hangman {
 	static void guess(String word) {
 		char[] guessed = new char[word.length()];
 		String wrong = "";
-		for(char c : guessed) {
-			c = '_';
+		for(int i = 0; i < word.length(); i++) {
+			guessed[i] = '_';
 		}
 
 		while(!String.valueOf(guessed).equals(word)) {
@@ -48,60 +48,61 @@ public class Hangman {
 				System.out.println("Sorry! Youre out of guesses! Your word was "+ word );
 				break;
 			}
-		}
-		printGuess(guessed);
-		System.out.println("Guess a letter! :)");
 
-		Scanner scan = new Scanner(System.in);
-		String letter = scan.nextLine();
-		//do some input validation here to make sure input is 1 letter
-		if(word.contains(letter)) { //if the guess is correct
-			for(int i = 0; i < word.length(); i++) {
-				if(word.charAt(i)==letter.charAt(0)) {
-					guessed[i] = letter.charAt(0);
+			printGuess(guessed);
+			System.out.println("Guess a letter! :)");
+
+			Scanner scan = new Scanner(System.in);
+			String letter = scan.nextLine();
+			//do some input validation here to make sure input is 1 letter
+			if(word.contains(letter)) { //if the guess is correct
+				for(int i = 0; i < word.length(); i++) {
+					if(word.charAt(i)==letter.charAt(0)) {
+						guessed[i] = letter.charAt(0);
+					}
 				}
 			}
-		}
-		else if(wrong.contains(letter)) {
-			System.out.println("You guessed that already! Pay attention!");
-		}
-		else {
-			wrong += letter + " ";
-			System.out.println("WRONG! Your incorrect guesses are " + wrong);
+			else if(wrong.contains(letter)) {
+				System.out.println("You guessed that already! Pay attention!");
+			}
+			else {
+				wrong += letter + " ";
+				System.out.println("WRONG! Your incorrect guesses are " + wrong);
+			}
 		}
 
 	}
 
 
 
-static void printGuess(char[] letters) {
-	System.out.print("GUESSED: ");
-	for(char c : letters) {
-		System.out.print(c + " ");
-	}
-	System.out.println(); //move to new line
-}
-
-//get random word from text file
-static String getWord() {
-	ArrayList<String> words = new ArrayList<String>();
-	try(BufferedReader br = new BufferedReader(new FileReader(wordFilePath));){
-
-		String line = null;
-		while((line=br.readLine())!=null) {
-			words.add(line);
+	static void printGuess(char[] letters) {
+		System.out.print("GUESSED: ");
+		for(char c : letters) {
+			System.out.print(c + " ");
 		}
-		int randomNum = (int) (Math.random() * words.size()-1);
-		return words.get(randomNum);
-
-	} catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
+		System.out.println(); //move to new line
 	}
-	//just in case we catch a filenotfoundexception or ioexception return null. 
-	return null;
-}
+
+	//get random word from text file
+	static String getWord() {
+		ArrayList<String> words = new ArrayList<String>();
+		try(BufferedReader br = new BufferedReader(new FileReader(wordFilePath));){
+
+			String line = null;
+			while((line=br.readLine())!=null) {
+				words.add(line);
+			}
+			int randomNum = (int) (Math.random() * words.size()-1);
+			return words.get(randomNum);
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//just in case we catch a filenotfoundexception or ioexception return null. 
+		return null;
+	}
 
 
 
