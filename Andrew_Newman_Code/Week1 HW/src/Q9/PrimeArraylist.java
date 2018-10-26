@@ -8,6 +8,7 @@ public class PrimeArraylist {
 		ArrayList<Integer> Numbers = new ArrayList<>();
 		
 		for(int i=1;i<101;i++) {
+			if(i==1) {continue;}
 			Numbers.add(i);
 			boolean isPrime = true;
 			for(int j=2;j<i;j++) {
