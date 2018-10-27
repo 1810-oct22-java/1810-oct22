@@ -2,6 +2,7 @@ package com.revature.question9;
 
 import java.util.ArrayList;
 
+//no JUNIT as the main method just prints to the console
 public class Question9 {
 	
 	public static void main(String[] args) {

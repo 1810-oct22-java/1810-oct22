@@ -6,7 +6,7 @@ public class Question6 {
 		System.out.println(isEven(n));
 	}
 	
-	static boolean isEven(int n) {
+	public static boolean isEven(int n) {
 		if (n/2*2 == n) {
 			return true;
 		}

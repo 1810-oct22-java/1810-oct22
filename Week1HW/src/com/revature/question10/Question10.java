@@ -7,7 +7,7 @@ public class Question10 {
 		System.out.println(min(n,m));
 	}
 	
-	static int min(int n, int m) {
+	public static int min(int n, int m) {
 		return n < m ? n : m;
 	}
 }

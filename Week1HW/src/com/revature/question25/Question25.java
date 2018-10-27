@@ -3,7 +3,7 @@ package com.revature.question25;
 public class Question25 {
 	
 	public static void main(String[] args) {
-		int n = 1492;
+		int n = 2018;
 		String answer = roman(n);
 		System.out.println(answer);
 	}
@@ -43,7 +43,7 @@ public class Question25 {
 			n = n-40;
 		}
 		while (n >= 10) {
-			answer = answer + "L";
+			answer = answer + "X";
 			n = n-10;
 		}
 		while (n >= 9) {

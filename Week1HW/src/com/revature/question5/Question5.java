@@ -8,7 +8,7 @@ public class Question5 {
 		System.out.println(s);
 	}
 	
-	static String substring(String str, int idx) {
+	public static String substring(String str, int idx) {
 		StringBuilder sb = new StringBuilder(str);
 		sb.delete(idx,sb.length());
 		return sb.toString();
