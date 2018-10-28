@@ -1,0 +1,11 @@
+package com.revature.reversedstring;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+@RunWith(Suite.class)
+@SuiteClasses({ ReversedStringTest.class })
+public class AllTests {
+
+}
