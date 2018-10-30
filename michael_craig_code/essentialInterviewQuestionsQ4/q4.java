@@ -1,4 +1,4 @@
-package EssentialInterviewQuestions;
+package essentialInterviewQuestionsQ4;
 
 //import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class q4 {
 				num *= x-i;
 			}
 		}
-		System.out.println(num);
+		System.out.println("N factorial of " + x + " equals: " + num);
 	}
 	
 }

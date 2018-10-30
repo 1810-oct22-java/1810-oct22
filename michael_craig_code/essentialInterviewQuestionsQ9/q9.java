@@ -1,4 +1,4 @@
-package EssentialInterviewQuestions;
+package essentialInterviewQuestionsQ9;
 
 import java.util.TreeSet;
 

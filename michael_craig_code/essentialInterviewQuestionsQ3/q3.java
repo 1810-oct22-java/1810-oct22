@@ -1,4 +1,4 @@
-package EssentialInterviewQuestions;
+package essentialInterviewQuestionsQ3;
 
 public class q3 {
 

@@ -1,4 +1,4 @@
-package EssentialInterviewQuestions;
+package essentialInterviewQuestions1;
 
 public class q1 {
 
@@ -6,7 +6,7 @@ public class q1 {
 		int arr[] = { 1, 0, 5, 6, 3, 2, 3, 7, 9, 8, 4 };
 		bubbleSort(arr);
 		for (int i = 0; i < arr.length; i++) {
-			System.out.print(arr[i] + ", ");
+			System.out.print(arr[i] + " ");
 		}
 	}
 

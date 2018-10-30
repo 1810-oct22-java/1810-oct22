@@ -1,4 +1,4 @@
-package EssentialInterviewQuestions;
+package essentialInterviewQuestionsQ8;
 
 //import java.util.ArrayList;
 
