@@ -51,6 +51,9 @@ select * from employee where to_date(birthdate, 'dd-MON-yy') > to_date( '31-DEC-
 --4.1
 
 
+--6.1
+
+
 --7.1
 select c.firstname, i.invoiceid --g.name, count(t.trackid) 
 from customer c
@@ -66,3 +69,28 @@ select al.title, ar.name
 from album al
 right join artist ar
 on ar.artistid = al.artistid;
+
+select al.title, ar.name
+from album al, artist ar;
+
+select e1.lastname as EMPLOYEE, e2.lastname as MANAGER
+from employee e1
+full join employee e2
+on e1.reportsto = e2.employeeid;
+
+select album.title as "ALBUM TITLE", artist.name as ARTIST, t.name as SONG, pt.trackid, pl.name, g.name as GENRE, mt.name as MEDIA, il.unitprice, iv.total, c.company, e.title
+from album 
+join artist on album.artistid = artist.ARTISTID
+join track t on t.ALBUMID = album.ALBUMID
+join playlisttrack pt on pt.trackid = t.trackid
+join playlist pl on pl.playlistid = pt.playlistid
+join genre g on t.genreid = g.genreid
+join mediatype mt on mt.mediatypeid = t.mediatypeid
+join invoiceline il on il.trackid = t.trackid
+join invoice iv on iv.invoiceid = il.invoiceid
+join customer c on c.customerid = iv.customerid
+join employee e on e.firstname = c.firstname;
+
+
+
+
