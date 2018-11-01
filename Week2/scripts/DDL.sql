@@ -92,9 +92,21 @@ BEGIN
 END;
 /
 -------------------------------------- DML----------------------------------------
-INSERT INTO BN_GENRE (GENRE_ID, NAME) VALUES(7, 'History');
+INSERT INTO BN_GENRE ( NAME) VALUES('test');
+commit;
 
 select * from bn_genre;
+
+insert into bn_book (isbn, author, title, price, genre)
+values('0000000001', 1, 'Harry Potter and the Sorcerers Stone', 14.99, 25);
+
+select * from bn_genre where genre_id = 22;
+
+commit;
+
+
+insert into bn_author(first_name, last_name, bio) 
+values('JK', 'Rowling', 'Phenominal author of the reknowned Harry Potter series');
 
 
 
