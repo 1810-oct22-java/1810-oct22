@@ -90,5 +90,11 @@ FOR EACH ROW
 BEGIN 
     SELECT BN_GENRE_SEQ.NEXTVAL INTO :NEW.GENRE_ID FROM DUAL;
 END;
+/
+-------------------------------------- DML----------------------------------------
+INSERT INTO BN_GENRE (GENRE_ID, NAME) VALUES(7, 'History');
+
+select * from bn_genre;
+
 
 
