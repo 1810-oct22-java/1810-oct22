@@ -11,10 +11,12 @@ public class App {
 	public static void main(String[] args) {
 
 		DAO<Genre, Integer> gDao = new GenreDao();
-		List<Genre> genres = gDao.findAll();
-		for(Genre g : genres) {
-			System.out.println(g);
-		}
+//		List<Genre> genres = gDao.findAll();
+//		for(Genre g : genres) {
+//			System.out.println(g);
+//		}
+		
+		Genre g = gDao.save(new Genre("Fantasy"));
 
 	}
 

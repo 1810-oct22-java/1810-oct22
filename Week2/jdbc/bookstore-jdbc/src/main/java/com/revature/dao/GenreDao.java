@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,7 +29,7 @@ public class GenreDao implements DAO<Genre, Integer>{
 		List<Genre> genres = new ArrayList<Genre>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String query = "select * from bn_genre order by name";
+			String query = "select * from bn_genre order by name" ;
 			
 			//STATEMENT INTERFACE - implementation exposed via connection
 			Statement statement = conn.createStatement();
@@ -50,14 +51,53 @@ public class GenreDao implements DAO<Genre, Integer>{
 		return genres;
 	}
 
+	/*
+	 * PREPARED STATEMENT
+	 */
 	@Override
 	public Genre findById(Integer id) {
-		return null;
+		Genre g = null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			String sql = "select * from bn_genre where genre_id = ? ";
+			PreparedStatement ps = conn.prepareStatement(sql); 
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				g = new Genre();
+				g.setId(rs.getInt(1));
+				g.setName(rs.getString(2));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return g;
 	}
 
 	@Override
 	public Genre save(Genre obj) {
-		return null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			conn.setAutoCommit(false);
+			
+			String sql = "INSERT INTO BN_GENRE (NAME) VALUES(?)";
+			String[] keyNames = {"Genre_Id"};
+			
+			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
+			ps.setString(1, obj.getName());
+			
+			int numRows = ps.executeUpdate();
+			if(numRows > 0) {
+				ResultSet pk = ps.getGeneratedKeys();
+				while(pk.next()) {
+					obj.setId(pk.getInt(1));
+				}
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 
 	@Override
