@@ -1,26 +1,11 @@
 package com.revature.main;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
-import com.revature.pojos.User;
-import com.revature.service.AccountService;
-import com.revature.service.AccountTypeService;
-import com.revature.service.UserService;
-
-public class app {
-
-	static UserService uService = new UserService();
-	static AccountService aService = new AccountService();
-	static AccountTypeService accTypeService = new AccountTypeService();
+public class UserInterface {
 
 	public static void main(String[] args) {
-		run();
-	}
-
-	private static void run() {
 
 		int input = 0;
 		int choice = 0;
@@ -75,9 +60,7 @@ public class app {
 			String another = "Z";
 
 			while (!another.equals("Y") && !another.equals("N")) {
-				if (!another.equals("Z")) {
-					System.out.println("Please enter a valid response");
-				}
+				if(!another.equals("Z")) {System.out.println("Please enter a valid response");} 
 				try {
 					another = scan.nextLine().toUpperCase();
 				} catch (Exception e) {
@@ -90,10 +73,11 @@ public class app {
 		}
 
 		System.out.println("Goodbye");
+
 	}
 
 	private static int deposit(String user, Scanner scan) {
-		int totalBalance = 200;
+		int totalBalance = 100;
 		int amount = 0;
 
 		System.out.println("Please enter amount to deposit: ");
@@ -152,33 +136,13 @@ public class app {
 		System.out.println("Log In: ");
 		System.out.println("Please enter your username - ");
 		String username = scan.nextLine();
-		List<User> users = uService.getAllUsers();
-		ArrayList<String> usernames = new ArrayList<String>();
-		for (User u : users) {
-			usernames.add(u.getUserName());
-			;
-		}
+		// user validation
 
-		if (usernames.contains(username)) {
-			String storedPassword = uService.getPassword(username);
-			System.out.println("Please enter your password - ");
-			String password = scan.nextLine();
-			
-			if(password.equals(storedPassword)) {
-				return username;
-			}else {
-				System.out.println("Incorrect Password, Please log in again." + "\n");
-				logIn(scan);
-			}
-		} else {
-			System.out.println("Username Does Not Exists");
-			System.out.println("Please Try again" + "\n");
-			logIn(scan);
-		}
-
+		System.out.println("Please enter your password - ");
+		String password = scan.nextLine();
 		// password validation
 
-		return null;
+		return username;
 
 	}
 
@@ -187,31 +151,15 @@ public class app {
 		System.out.println("Account Creation: ");
 		System.out.println("Please enter a username - ");
 		String username = scan.nextLine();
-		List<User> users = uService.getAllUsers();
-		ArrayList<String> usernames = new ArrayList<String>();
-		for (User u : users) {
-			usernames.add(u.getUserName());
-			;
-		}
+		// String validation
+		// check uniqueness
+		// store
 
-		if (usernames.contains(username)) {
-			System.out.println("Username Already Exists");
-			System.out.println("Choose a different Username" + "\n");
-			accountCreation(scan);
-		} else {
-			System.out.println("Please enter a password - ");
-			String password = scan.nextLine();
-			System.out.println("Please enter your FirstName - ");
-			String firstName = scan.nextLine();
-			System.out.println("Please enter your LastName - ");
-			String lastName = scan.nextLine();
+		System.out.println("Please enter a password - ");
+		String password = scan.nextLine();
+		// store value
 
-			uService.insertUser(firstName, lastName, username, password);
-
-			return username;
-		}
-
-		return "";
+		return username;
 	}
 
 	public static void displayInitialOptions() {
@@ -221,5 +169,4 @@ public class app {
 		System.out.println("2. Log in");
 
 	}
-
 }
