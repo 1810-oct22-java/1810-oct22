@@ -113,10 +113,19 @@ select album.title, artist.name
 from album, artist where album.artistid = artist.artistid;
 
 --INNER JOIN AKA JOIN
-select  art.name as ARTIST, al.title AS "ALBUM TITLE", t.name as SONG
+select  art.name as ARTIST, al.title AS "ALBUM TITLE", t.name as SONG, g.name as GENRE, 
+pl.name as PLAYLIST, e.LASTNAME
 from album al
 join artist art on al.artistid = art.ARTISTID
 join track t on t.ALBUMID = al.ALBUMID
+join genre g on g.genreid = t.genreid
+join mediatype mt on mt.MEDIATYPEID = t.MEDIATYPEID
+join playlisttrack plt on plt.trackid = t.trackid 
+join playlist pl on plt.playlistid = pl.PLAYLISTID
+join invoiceline inl on inl.TRACKID = t.trackid
+join invoice inv on inv.INVOICEID = inl.INVOICEID
+join customer c on c.customerid = inv.CUSTOMERID
+join employee e on c.SUPPORTREPID = e.employeeid
 order by art.name;
 
 select title from album;
@@ -132,9 +141,9 @@ select * from genre natural full join artist;
 select * from employee;
 
 -- FULL SELF JOIN - all employee/manager combinations 
-select e1.lastname as EMPLOYEE, e2.lastname as MANAGER
+select e1.employeeid as EMPLOYEE, e2.employeeid as MANAGER
 from employee e1
-full join employee e2
+right join employee e2
 on e1.reportsto = e2.employeeid;
 
 -- LEFT SELF JOIN - every employee + their boss
@@ -154,6 +163,18 @@ where e1.reportsto is not null;
 --CROSS JOIN - Cartesian product of two tables
 select e1.lastname as MANAGER, e2.lastname as EMPLOYEE
 from employee e1, employee e2;
+
+------------ FUN THINGS W JOINS 
+-- find # of tracks in each genre, alphebetize by genre
+
+----------------- FUN QUERIES
+-- find # of tracks of each genre. alphabetize by genre
+select g.name , count(t.trackid) as "NUM SONGS"
+from track t
+inner join genre g
+on g.genreid = t.genreid
+group by g.name, g.genreid
+order by g.name;
 
 
 
