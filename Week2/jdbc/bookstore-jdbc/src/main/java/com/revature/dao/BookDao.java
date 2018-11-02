@@ -26,7 +26,7 @@ public class BookDao implements DAO<Book, Integer> {
 	public List<Book> findAll() {
 		List<Book> books = new ArrayList<Book>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "{ call GET_ALL_BOOKS(?) }";
+			String sql = "{ call get_all_books(?) }";
 			CallableStatement cs = conn.prepareCall(sql);
 			cs.registerOutParameter(1, OracleTypes.CURSOR);
 			cs.execute();
