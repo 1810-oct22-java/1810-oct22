@@ -26,7 +26,7 @@ BEGIN
   INTO total
   FROM bn_book
   WHERE genre =
-    ( SELECT genre_id FROM bn_genre WHERE lower(name) = gtitle
+    ( SELECT genre_id FROM bn_genre WHERE lower(name) = lower(gtitle)
     );
   RETURN total;
 END;
@@ -105,3 +105,43 @@ SONG_LIST SYS_REFCURSOR;
       );
       RETURN SONG_LIST;
   END;
+  
+  
+  /
+  select NUM_BOOKS_BY_GENRE('Fantasy') from dual;
+  
+  -------------------stored procedure to return all books 
+  create or replace procedure get_all_books
+  (book_cursor OUT SYS_REFCURSOR)
+  AS
+  BEGIN
+  OPEN book_cursor FOR select * from bn_book;
+  end;
+  /
+  ----
+  select * from bn_book;
+  /
+  update bn_book set title = 'Harry Potter - the Sorcerers Stone', price = 19.99 where book_id = 1;
+  
+  
+  
+  
+  --- testing get all books 
+  /
+  DECLARE
+    BOOKS_CURS SYS_REFCURSOR;
+    B_ID NUMBER(10);
+    B_ISBN VARCHAR2(10);
+    B_AUTHOR NUMBER(10);
+    B_TITLE VARCHAR2(100); 
+    B_PRICE NUMBER(6,2);
+    B_GENRE NUMBER(10);
+  BEGIN 
+    GET_ALL_BOOKS(BOOKS_CURS);
+    LOOP
+      FETCH BOOKS_CURS INTO B_ID, B_ISBN, B_AUTHOR, B_TITLE, B_PRICE, B_GENRE;
+      EXIT WHEN BOOKS_CURS%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE(B_ID || ', ' || B_TITLE);
+    END LOOP;
+  END;
+  /

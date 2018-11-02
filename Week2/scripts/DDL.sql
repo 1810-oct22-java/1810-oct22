@@ -72,9 +72,12 @@ FOR EACH ROW -- necessary to change value in a table
 BEGIN 
     -- SQL statement(s) to operate when event happens
     -- incrementing book seq and assigning it to a new book_id(book's pk) value
-    SELECT BN_BOOK_SEQ.NEXTVAL INTO :NEW.BOOK_ID FROM DUAL;
+    SELECT BN_BOOK_SEQ.NEXTVAL INTO NEW.BOOK_ID  :FROM DUAL;
 END;
 /
+
+select bn_book_seq.nextVal from dual;
+
 
 CREATE OR REPLACE TRIGGER BN_AUTHOR_TRIG
 BEFORE INSERT ON BN_AUTHOR
@@ -85,17 +88,23 @@ END;
 
 /
 CREATE OR REPLACE TRIGGER BN_GENRE_TRIG
-BEFORE INSERT ON BN_GENRE
+Before INSERT ON BN_GENRE
 FOR EACH ROW
 BEGIN 
     SELECT BN_GENRE_SEQ.NEXTVAL INTO :NEW.GENRE_ID FROM DUAL;
 END;
 /
+DROP TRIGGER EXAMPLE_TRIG;
+/
+CREATE OR REPLACE TRIGGER Example_trig
+after INSERT ON BN_Genre
+FOR EACH ROW
+BEGIN 
+    DBMS_OUTPUT.put_line('Added genre');
+END;
+/
 -------------------------------------- DML----------------------------------------
-INSERT INTO BN_GENRE ( NAME) VALUES('test');
-commit;
-
-select * from bn_genre;
+select * from bn_genre order by genre_id;
 
 insert into bn_book (isbn, author, title, price, genre)
 values('0000000001', 1, 'Harry Potter and the Sorcerers Stone', 14.99, 25);
@@ -104,9 +113,48 @@ select * from bn_genre where genre_id = 22;
 
 commit;
 
+set serveroutput on;
 
 insert into bn_author(first_name, last_name, bio) 
 values('JK', 'Rowling', 'Phenominal author of the reknowned Harry Potter series');
+/
+
+select b.book_id, b.isbn, a.first_name, a.last_name, b.title, b.price, g.name 
+from bn_book b
+inner join bn_author a on a.author_id = b.author
+inner join bn_genre g on g.genre_id = b.genre
+where book_id = 1;
+
+/
+create or replace procedure get_book_info (B_ID IN Number, INFO_CURSOR OUT SYS_REFCURSOR)
+AS
+BEGIN
+open info_cursor for
+select b.book_id, b.isbn, a.first_name, a.last_name, b.title, b.price, g.name 
+from bn_book b
+inner join bn_author a on a.author_id = b.author
+inner join bn_genre g on g.genre_id = b.genre
+where book_id = B_ID;
+end;
+/
+
+DECLARE
+    BOOKS_CURS SYS_REFCURSOR;
+    B_ID NUMBER(10);
+    B_ISBN VARCHAR2(10);
+    A_FN NUMBER(10);
+    A_LN VARCHAR2(100); 
+    B_TITLE VARCHAR2(100); 
+    B_PRICE NUMBER(6,2);
+    G_NAME NUMBER(10);
+  BEGIN 
+    GET_BOOK_INFO(1, BOOKS_CURS);
+    LOOP
+      FETCH BOOKS_CURS INTO B_ID, B_ISBN, A_FN, A_LN, B_TITLE, B_PRICE, G_NAME;
+      EXIT WHEN BOOKS_CURS%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE(B_TITLE || ', ' || A_FN || ' ' || A_LN );
+    END LOOP;
+  END;
 
 
 
