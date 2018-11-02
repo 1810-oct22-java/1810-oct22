@@ -43,7 +43,8 @@ public class ConnectionFactory {
 	public Connection getConnection() {
 		Connection conn = null;
 		Properties prop = new Properties();
-		String path = "C:/Users/Genesis/my_git_repos/1810-oct22/Week2/jdbc/bookstore-jdbc/src/main/resources/database.properties";
+		//String path = "C:/Users/Genesis/my_git_repos/1810-oct22/Week2/jdbc/bookstore-jdbc/src/main/resources/database.properties";
+		String path = "src/main/resources/database.properties";
 		
 			try {
 				prop.load(new FileReader(path));
