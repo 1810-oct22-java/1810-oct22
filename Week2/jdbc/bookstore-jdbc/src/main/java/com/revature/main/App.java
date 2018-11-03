@@ -1,9 +1,14 @@
 package com.revature.main;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+import com.revature.pojos.Book;
+import com.revature.service.BookService;
+
 public class App {
+	static BookService bService = new BookService();
 
 	public static void main(String[] args) {
 		run();
@@ -26,17 +31,27 @@ public class App {
 			case 2: 
 			case 3: 
 			case 4:
-			default: //means that they did not enter a number that we want
+			default: 
+				System.out.println("Please enter a number on our menu");
+				run(); break;
 			}
 		}
 		catch(InputMismatchException e) {
 			System.out.println("Sorry! You must enter a number from our menu");
-			run();
+			run(); 
 		}
 	}
 
 	static void viewAllBooks() {
-		//consult my service layer, which will get the books from my dao
+		List<Book> books = bService.getAllBooks();
+		if(books == null) {
+			System.out.println("Our book supply is currently empty. Come back tomorrow!");
+		}
+		else {
+			for(Book b : books) {
+				System.out.println(b.getTitle());
+			}
+		}
 	}
 
 }

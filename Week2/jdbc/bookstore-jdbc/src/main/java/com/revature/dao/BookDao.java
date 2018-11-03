@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,14 @@ import com.revature.util.ConnectionFactory;
 import oracle.jdbc.internal.OracleTypes;
 
 public class BookDao implements DAO<Book, Integer> {
+	
+	public static void main(String[] args) {
+		BookDao b = new BookDao();
+		List<Book> books = b.findAll();
+		for(Book t : books) {
+			System.out.println(t);
+		}
+	}
 
 	@Override
 	public List<Book> findAll() {
@@ -27,12 +36,17 @@ public class BookDao implements DAO<Book, Integer> {
 			
 			while(rs.next()) {
 				Book temp = new Book();
-				
+				temp.setId(rs.getInt("book_id"));
+				temp.setIsbn(rs.getString(2));
+				temp.setAuthorId(rs.getInt(3));
+				temp.setTitle(rs.getString(4));
+				temp.setGenreId(rs.getInt(5));
+				books.add(temp);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return books;
 	}
 
 	@Override
@@ -49,7 +63,17 @@ public class BookDao implements DAO<Book, Integer> {
 
 	@Override
 	public Book update(Book obj) {
-		// TODO Auto-generated method stub
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String sql = "update bn_book set title = ?, price = ? where book_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, obj.getTitle());
+			ps.setDouble(2, obj.getPrice());
+			ps.setInt(3, obj.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
