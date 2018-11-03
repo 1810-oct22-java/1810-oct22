@@ -1,4 +1,4 @@
-package com.banking.logging;
+package com.banking.io;
 
 import org.apache.log4j.Logger;
 
@@ -20,5 +20,14 @@ public class Log {
 	public static Logger getInstance(Object obj) {
 		
 		return Logger.getLogger(obj.getClass());
+	}
+	
+	/**
+	 * Allows static methods to use the logger effectively
+	 * @param clazz
+	 * @return
+	 */
+	public static Logger getInstance(Class<? extends Object> clazz) {
+		return Logger.getLogger(clazz);
 	}
 }
