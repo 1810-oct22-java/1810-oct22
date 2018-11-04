@@ -13,4 +13,79 @@ A) SELECT * FROM ALBUM ORDER BY TITLE DESC;
 B) SELECT FIRSTNAME FROM CUSTOMER ORDER BY CITY
 */
 
-SELECT * FROM ALBUM ORDER BY TITLE DESC;
+/* SELECT * FROM ALBUM ORDER BY TITLE DESC; */
+
+SELECT count(*) FROM INVOICELINE;
+
+/*DELETE FROM INVOICE WHERE INVOICEID = 50 OR INVOICEID = 61 OR INVOICEID = 116 OR INVOICEID = 245 OR INVOICEID = 268 OR INVOICEID = 290 OR INVOICEID = 342;*/
+
+/*DELETE FROM INVOICELINE WHERE INVOICEID = 50 OR INVOICEID = 61 OR INVOICEID = 116 OR INVOICEID = 245 OR INVOICEID = 268 OR INVOICEID = 290 OR INVOICEID = 342;*/
+
+/*DELETE FROM INVOICELINE WHERE INVOICEID IN (SELECT INVOICEID FROM INVOICE WHERE CUSTOMERID IN ( SELECT CUSTOMERID FROM CUSTOMER WHERE FIRSTNAME = 'Aaron' AND LASTNAME = 'Mitchell'));*/
+
+/* SELECT TOTAL FROM INVOICE WHERE ROWNUM = 1 ORDER BY TOTAL DESC FETCH NEXT 1 ROWS ONLY; */
+/* SELECT MAX(TOTAL) FROM INVOICE; */
+
+/*
+DELETE FROM INVOICELINE WHERE INVOICEID IN (SELECT INVOICEID FROM INVOICE WHERE CUSTOMERID IN ( SELECT CUSTOMERID FROM CUSTOMER WHERE FIRSTNAME = 'Aaron' AND LASTNAME = 'Mitchell'));
+
+SELECT TRACKID FROM (SELECT TRACKPRICE FROM;
+
+SELECT TRACKID,UNITPRICE FROM (SELECT * FROM TRACK ORDER BY UNITPRICE DESC) WHERE ROWNUM = 1;
+*/
+
+/*
+2.1 SELECT
+
+A) SELECT * FROM EMPLOYEE;
+B) SELECT * FROM  EMPLOYEE WHERE LASTNAME = 'King';
+C) SELECT * FROM  EMPLOYEE WHERE FIRSTNAME = 'Andrew' AND REPORTSTO IS NULL;
+*/
+
+/*
+2.2 ORDER BY
+
+A) SELECT * FROM ALBUM ORDER BY TITLE DESC;
+B) SELECT FIRSTNAME FROM CUSTOMER ORDER BY CITY;
+*/
+
+/* 
+2.3 INSERT INTO
+
+A) INSERT INTO Track (TrackId, Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES (3504, 'For Those About To Rock (We Salute You)', 1, 1, 1, 'Angus Young, Malcolm Young, Brian Johnson', 343719, 11170334, 0.99);
+INSERT INTO Track (TrackId, Name, AlbumId, MediaTypeId, GenreId, Milliseconds, Bytes, UnitPrice) VALUES (3505, 'Balls to the Wall', 2, 2, 1, 342562, 5510424, 0.99);
+B) INSERT INTO Employee (EmployeeId, LastName, FirstName, Title, ReportsTo, BirthDate, HireDate, Address, City, State, Country, PostalCode, Phone, Fax, Email) VALUES (9, 'King', 'Robert', 'IT Staff', 6, TO_DATE('1970-5-29 00:00:00','yyyy-mm-dd hh24:mi:ss'), TO_DATE('2004-1-2 00:00:00','yyyy-mm-dd hh24:mi:ss'), '590 Columbia Boulevard West', 'Lethbridge', 'AB', 'Canada', 'T1K 5N8', '+1 (403) 456-9986', '+1 (403) 456-8485', 'robert@chinookcorp.com');
+INSERT INTO Employee (EmployeeId, LastName, FirstName, Title, ReportsTo, BirthDate, HireDate, Address, City, State, Country, PostalCode, Phone, Fax, Email) VALUES (10, 'Callahan', 'Laura', 'IT Staff', 6, TO_DATE('1968-1-9 00:00:00','yyyy-mm-dd hh24:mi:ss'), TO_DATE('2004-3-4 00:00:00','yyyy-mm-dd hh24:mi:ss'), '923 7 ST NW', 'Lethbridge', 'AB', 'Canada', 'T1H 1Y8', '+1 (403) 467-3351', '+1 (403) 467-8772', 'laura@chinookcorp.com');
+C) INSERT INTO Customer (CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId) VALUES (60, 'Luís', 'Gonçalves', 'Embraer - Empresa Brasileira de Aeronáutica S.A.', 'Av. Brigadeiro Faria Lima, 2170', 'São José dos Campos', 'SP', 'Brazil', '12227-000', '+55 (12) 3923-5555', '+55 (12) 3923-5566', 'luisg@embraer.com.br', 3);
+INSERT INTO Customer (CustomerId, FirstName, LastName, Address, City, Country, PostalCode, Phone, Email, SupportRepId) VALUES (61, 'Leonie', 'Köhler', 'Theodor-Heuss-Straße 34', 'Stuttgart', 'Germany', '70174', '+49 0711 2842222', 'leonekohler@surfeu.de', 5);
+*/
+
+/*
+2.4 UPDATE
+
+A) UPDATE CUSTOMER SET FIRSTNAME = 'Robert', LASTNAME = 'Walter' WHERE FIRSTNAME = 'Aaron' AND LASTNAME = 'Mitchell';
+B) UPDATE ARTIST SET NAME = 'CCR' WHERE NAME = 'Creedence Clearwater Revival'; 
+*/
+
+/*
+2.5 LIKE
+
+A) SELECT * FROM INVOICE WHERE BILLINGADDRESS LIKE 'T%';
+*/
+
+/*
+2.6 BETWEEN
+
+A) SELECT * FROM INVOICE WHERE TOTAL > 15 AND TOTAL < 30;
+B) SELECT * FROM EMPLOYEE WHERE HIREDATE > '01-JUN-03' AND HIREDATE < '01-MAR-04';
+
+*/
+
+/*
+2.7 DELETE
+
+A) DELETE FROM INVOICELINE WHERE INVOICEID IN (SELECT INVOICEID FROM INVOICE WHERE CUSTOMERID IN ( SELECT CUSTOMERID FROM CUSTOMER WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter'));
+DELETE FROM INVOICE WHERE CUSTOMERID IN ( SELECT CUSTOMERID FROM CUSTOMER WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter');
+DELETE FROM CUSTOMER WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter'; 
+*/
+
