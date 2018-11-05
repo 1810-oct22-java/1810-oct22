@@ -1,0 +1,160 @@
+-- DML: data manipulation language
+
+-- SELECT
+SELECT * FROM Artist;
+SELECT NAME FROM Artist;
+
+SELECT NAME FROM Artist WHERE ArtistId <- 10;
+SELECT * FROM Artist WHERE Name = 'Audioslave';
+
+-- LIKE Operator
+SELECT * FROM Artist WHERE Name LIKE 'T_e C%';
+SELECT * FROM Artist WHERE lower(Name) LIKE '%the%';
+
+/* System defined functions
+ --> Scalar functions - functions that operate on single values. ie upper90 lower() length()
+ --> Agregate functions - functions that operate on multiple rows of a column ie max() min() count() sum()
+*/
+
+-- SCALAR
+SELECT lower(Name) FROM Artist;
+SELECT length(Name) FROM Artist;
+SELECT * FROM Artist WHERE length(Name) > 25;
+
+
+-- Aggregate examples
+SELECT count(*) FROM Artist;
+SELECT count(Name) FROM Artist;
+
+
+SELECT count(customerid), company 
+FROM Customer 
+GROUP BY company
+ORDER BY company DESC;
+
+
+-- SUBQUERIES
+SELECT genreid FROM genre WHERE name = 'Drama';
+SELECT * FROM track WHERE genreid = 20;
+ -- Nested query
+SELECT * FROM track WHERE genreid = 
+(SELECT genreid FROM genre WHERE name = 'Drama');
+
+SELECT * FROM track WHERE genreid IN
+(SELECT genreid FROM genre WHERE name LIKE 'B%');
+
+
+select g.name
+from genre g
+where g.genreid in
+    (select t.genreid  
+    from track_view t 
+    where t.genreid = g.genreid);
+
+-- VIEW - "Virtual Table" - subset of data used for easy retireval of query
+CREATE VIEW track_view AS 
+SELECT * FROM  track WHERE albumid > 100 AND albumid < 120;
+
+SELECT * FROM track_view;
+DROP VIEW track_view;
+
+
+-- Set Operations
+-- Used to compare similar result sets(must be same number and type of columns)
+
+create view set_a as
+select * from customer;
+
+create view set_b as
+select * from set_a union;
+select * from set_b;
+
+
+-- JOINS
+-- without JOIN keyword
+select album.title, artist.name from album, artist where album.artistid = artist.artistid;
+
+-- with JOIN keyword
+select album.title as "ALBUM TITLE", artist.name as ARTIST, t.name as SONG, pt.trackid, pl.name, g.name as "GENRE", mt.name as "MEDIA", il.unitprice, iv.total, c.company, e.title
+from album 
+join artist on album.artistid = artist.ARTISTID
+join track t on t.ALBUMID = album.ALBUMID
+join playlisttrack pt on pt.trackid = t.trackid
+join playlist pl on pl.playlistid = pt.playlistid
+join genre g on t.genreid = g.genreid
+join mediatype mt on mt.mediatypeid = t.mediatypeid
+join invoiceline il on il.trackid = t.trackid
+join invoice iv on iv.invoiceid = il.invoiceid
+join customer c on c.customerid = iv.customerid
+join employee e on e.firstname = c.firstname
+;
+
+
+-- Natural JOIN - oracle attempt to match columns based on names
+select album.title, artist.name from artist natural join album;
+
+--SELF JOIN
+select * from employee;
+
+-- full self join - all employee/manager combonations
+select e1.lastname as EMPLOYEE, e2.lastname as MANAGER
+from employee e1
+full join employee e2
+on e1.reportsto = e2.employeeid;
+
+-- left self join - every employee + their boss
+select e1.lastname as EMPLOYEE, e2.lastname as MANAGER
+from employee e1
+left join employee e2
+on e1.reportsto = e2.employeeid;
+
+-- right self join with conditions - only see people who are not managers
+select e1.lastname as EMPLOYEE, e2.lastname as MANAGER
+from employee e1
+right join employee e2
+on e1.reportsto = e2.employeeid
+where e1.reportsto is null;
+
+-- cross join - Cartesian product of two tables
+select e1.lastname as MANAGER, e2.lastname as EMPLOYEE 
+from employee e1, employee e2;
+
+-- FUN THINGS WITH JOINS
+-- find the number of tracks in each genre, alphabetize by genre
+select genreid, count(name) from track
+group by genreid;
+
+select g.name, count(t.trackid) 
+from track t
+join genre g on g.genreid = t.genreid
+group by g.name, g.genreid
+order by g.name;
+
+
+-- TRIGGERS
+CREATE OR REPLACE TRIGGER BN_BOOK_TRIG -- DECLARE AND NAME TRIGGER
+BEFORE INSERT ON BN_BOOK -- WHEN WILL TRIGGER EXECUTE
+FOR EACH ROW -- NECESSARY TO CHANGE VALUE IN A TABLE
+BEGIN
+    -- SQL STATEMENT TO OPERATE WHEN EVENT HAPPENS
+    -- INCFEMNTING BOOK SEG AND ASSIGNING IT TO A NEW BOOK_ID(BOOK'S PK) VALUE
+    SELECT BN_BOOK_SEQ.NEXTVAL INTO :NEW.BOOK_ID FROM DUAL;
+END;
+/
+CREATE OR REPLACE TRIGGER BN_AUTHOR_TRIG 
+BEFORE INSERT ON BN_AUTHOR 
+FOR EACH ROW 
+BEGIN
+    SELECT BN_AUTHOR_SEQ.NEXTVAL INTO :NEW.AUTHOR_ID FROM DUAL;
+END;
+/
+CREATE OR REPLACE TRIGGER BN_GENRE_TRIG 
+BEFORE INSERT ON BN_GENRE 
+FOR EACH ROW 
+BEGIN
+    SELECT BN_GENRE_SEQ.NEXTVAL INTO :NEW.GENRE_ID FROM DUAL;
+END;
+/
+
+
+
