@@ -4,7 +4,7 @@ public class AccountType {
 	private int typeId;
 	private String type;
 	
-	AccountType(){}
+	public AccountType(){}
 
 	public AccountType(int typeId, String type) {
 		super();

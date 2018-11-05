@@ -24,6 +24,7 @@ public class app {
 
 		int input = 0;
 		int choice = 0;
+		int accInput = 0;
 		int tBalance = 0;
 		String user;
 		boolean anotherTransaction = true;
@@ -52,17 +53,32 @@ public class app {
 
 		while (anotherTransaction == true) {
 
-			while (choice != 1 && choice != 2 && choice != 3) {
+			while (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
 				if (choice != 0) {
 					System.out.println("Invalid selection, Please try again.");
 				}
 				choice = displayTranscations(scan);
 			}
 
-			if (choice == 1) {
+			if (choice == 2) {
 				tBalance = withdraw(user, scan);
-			} else if (choice == 2) {
+			} else if (choice == 3) {
 				tBalance = deposit(user, scan);
+			} else if (choice == 1) {
+				displayAccounts(user);
+				while (accInput != 1 && accInput != 2 && accInput != 3) {
+					if (accInput != 0) {
+						System.out.println("Invalid selection, Please try again." + "\n");
+					}
+					accInput = accountCreationdisplay(scan,user);
+				}
+				
+				if(accInput == 1) {
+					
+				}else {
+					
+				}
+				
 			} else {
 				System.out.println("Goodbye");
 				System.exit(0);
@@ -131,9 +147,10 @@ public class app {
 	private static int displayTranscations(Scanner scan) {
 
 		System.out.println("Please choose a transaction: ");
-		System.out.println("1. Withdraw");
-		System.out.println("2. Deposit");
-		System.out.println("3. Log Out");
+		System.out.println("1. Create a new account type");
+		System.out.println("2. Withdraw");
+		System.out.println("3. Deposit");
+		System.out.println("4. Log Out");
 
 		int choice;
 		try {
@@ -144,7 +161,36 @@ public class app {
 		scan.nextLine();
 
 		return choice;
+	}
 
+	private static void displayAccounts(String user) {
+
+		int uid = uService.getId(user);
+		System.out.println("User Accounts:  ");
+		for (String s : accTypeService.convertToName(aService.createdAccounts(uid))) {
+			System.out.println(s);
+		}
+	}
+
+	private static int accountCreationdisplay(Scanner scan, String user) {
+
+		int input = 0;
+		int uid = uService.getId(user);
+		
+		System.out.println("What type of account would you like to create?");
+		System.out.println("1. Checkings");
+		System.out.println("2. Savings");
+		System.out.println("3. Credit");
+
+		try {
+			input = scan.nextInt();
+		} catch (InputMismatchException ime) {
+			input = 0;
+		}
+		
+		aService.createdAccounts(user);		
+
+		return input;
 	}
 
 	private static String logIn(Scanner scan) {
@@ -163,10 +209,10 @@ public class app {
 			String storedPassword = uService.getPassword(username);
 			System.out.println("Please enter your password - ");
 			String password = scan.nextLine();
-			
-			if(password.equals(storedPassword)) {
+
+			if (password.equals(storedPassword)) {
 				return username;
-			}else {
+			} else {
 				System.out.println("Incorrect Password, Please log in again." + "\n");
 				logIn(scan);
 			}

@@ -1,17 +1,29 @@
 package com.revature.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.dao.AccountTypeDAO;
-import com.revature.dao.DAO;
 import com.revature.pojos.AccountType;
 
 public class AccountTypeService {
 
-	public static DAO<AccountType,Integer> acDao = new AccountTypeDAO();
+	public static AccountTypeDAO acDao = new AccountTypeDAO();
 	
 	public List<AccountType> getAllAccountTypes(){
-		List<AccountType> accTypes = null;
-		return accTypes;
+		List<AccountType> accountTypes = acDao.findAll();
+		if(accountTypes.isEmpty()) return null;
+		
+		return accountTypes;
+	}
+	
+	public List<String> convertToName(List<Integer> accounts){
+		List<String> names = new ArrayList<String>();
+		
+		for(Integer i : accounts) {
+			names.add(acDao.findById(i).getType());
+		}
+		
+		return names;
 	}
 }
