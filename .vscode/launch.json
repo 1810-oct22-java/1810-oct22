@@ -1,0 +1,219 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookDao<bookstore-jdbc>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.revature.dao.BookDao",
+            "args": "",
+            "projectName": "bookstore-jdbc"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExampleDao<bookstore-jdbc>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.revature.dao.ExampleDao",
+            "args": "",
+            "projectName": "bookstore-jdbc"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<bookstore-jdbc>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.revature.main.App",
+            "args": "",
+            "projectName": "bookstore-jdbc"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LoggingExample<myfirstmavenproject>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.rev.logging.LoggingExample",
+            "args": "",
+            "projectName": "myfirstmavenproject"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BubbleSort",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question01.BubbleSort",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Fibonacci",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question02.Fibonacci",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ReverseString",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question03.ReverseString",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Factorial",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question04.Factorial",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Substring",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question05.Substring",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FindIntergers",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question06.FindIntergers",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Palindromes",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question08.Palindromes",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Primes",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question09.Primes",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Minimum",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question10.Minimum",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EvenNumbers",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question12.EvenNumbers",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Triangle",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question13.Triangle",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EvenIntegerandOdd",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question19.EvenIntegerandOdd",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ReadData",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question20.ReadData",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StringToDate",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question23.StringToDate",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RomanNumeralRepresentation",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.HW1.question25.RomanNumeralRepresentation",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": "<debug port of remote debuggee>"
+        }
+    ]
+}
