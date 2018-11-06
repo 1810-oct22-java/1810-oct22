@@ -40,18 +40,74 @@ public class AccountDAO implements DAO<Account,Integer>{
 
 	@Override
 	public Account findById(Integer id) {
-		return null;
+		Account u = new Account();
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "SELECT * FROM Bank_Account WHERE accountid = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				u.setAccountId(rs.getInt(1));
+				u.setTypeId(rs.getInt(2));
+				u.setOwner(rs.getInt(3));
+				u.setBalance(rs.getInt(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return u;
 	}
 
 	@Override
 	public Account save(Account obj) {
-		return null;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "INSERT INTO Bank_Account(TYPEID,OWNER,BALANCE) VALUES(?,?,?)";
+			String[] keynames = { "Accountid" };
+
+			PreparedStatement ps = conn.prepareStatement(sql, keynames);
+			ps.setInt(1, obj.getTypeId());
+			ps.setInt(2, obj.getOwner());
+			ps.setInt(3, obj.getBalance());
+			int numRows = ps.executeUpdate();
+			if (numRows == 1) {
+				ResultSet pk = ps.getGeneratedKeys();
+
+				while (pk.next()) {
+					obj.setAccountId(pk.getInt(1));
+				}
+				conn.commit();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return obj;
 	}
 
 	@Override
 	public Account update(Account obj) {
-		return null;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "Update Bank_Account SET BALANCE = ? WHERE Owner = ? AND typeid = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, obj.getBalance());
+			ps.setInt(2, obj.getOwner());
+			ps.setInt(3, obj.getTypeId());
+			ps.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return obj;
 	}
+	
 
 	@Override
 	public void delete(Account obj) {	

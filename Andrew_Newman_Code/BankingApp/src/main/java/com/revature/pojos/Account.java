@@ -8,9 +8,8 @@ public class Account {
 	
 	public Account() {}
 
-	public Account(int accountId, int typeId, int owner, int balance) {
+	public Account(int typeId, int owner, int balance) {
 		super();
-		this.accountId = accountId;
 		this.typeId = typeId;
 		this.owner = owner;
 		this.balance = balance;

@@ -1,16 +1,17 @@
 package com.revature.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.pojos.AccountType;
-import com.revature.pojos.User;
 import com.revature.util.ConnectionFactory;
+
+import oracle.jdbc.internal.OracleTypes;
 
 public class AccountTypeDAO implements DAO<AccountType,Integer> {
 
@@ -19,10 +20,11 @@ public class AccountTypeDAO implements DAO<AccountType,Integer> {
 		List<AccountType> Accounts = new ArrayList<AccountType>();
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String query = "SELECT * from bank_Account_type";
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(query);
-
+			String query = "{call get_all_accountTypes}";
+			CallableStatement cs = conn.prepareCall(query);
+			cs.registerOutParameter(1, OracleTypes.CURSOR);
+			cs.execute();
+			ResultSet rs = (ResultSet) cs.getObject(1);
 			while (rs.next()) {
 				AccountType temporary = new AccountType();
 				temporary.setTypeId(rs.getInt(1));
