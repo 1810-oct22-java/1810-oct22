@@ -1,9 +1,5 @@
 package com.revature.util;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
-
 import com.revature.exception.input.*;
 
 public class InputValidation {
@@ -11,7 +7,7 @@ public class InputValidation {
 	public static Boolean checkStringInput(String input) throws TooManyCharactersInputException, NotEnoughCharactersInputException, IllegalCharactersInputException {
 		
 		//The user is not allowed to enter input greater than 10 characters
-		if(input.length() >= 10) throw new TooManyCharactersInputException();
+		if(input.length() > 10) throw new TooManyCharactersInputException();
 		
 		//The user is not allowed to enter input less than 4 characters
 		if(input.length() < 4) throw new NotEnoughCharactersInputException();

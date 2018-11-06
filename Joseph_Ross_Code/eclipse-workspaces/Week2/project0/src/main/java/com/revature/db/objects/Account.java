@@ -36,7 +36,7 @@ public class Account {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public Account(int accountId, int userId, String accountType, double accountBalance) {
+	public Account(int accountId, String accountType, double accountBalance, int userId) {
 		super();
 		this.accountId = accountId;
 		this.userId = userId;
