@@ -5,6 +5,11 @@ public class Account {
 	private int accountId;
 	private int userId;
 	private String accountType;
+	@Override
+	public String toString() {
+		return "Account [accountId=" + accountId + ", userId=" + userId + ", accountType=" + accountType
+				+ ", accountBalance=" + accountBalance + "]";
+	}
 	private double accountBalance;
 	
 	public int getAccountId() {
@@ -31,4 +36,12 @@ public class Account {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
+	public Account(int accountId, int userId, String accountType, double accountBalance) {
+		super();
+		this.accountId = accountId;
+		this.userId = userId;
+		this.accountType = accountType;
+		this.accountBalance = accountBalance;
+	}
+	public Account() { super(); }
 }
