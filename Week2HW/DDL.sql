@@ -2,6 +2,7 @@
 contains a genre, book, author table
 */
 
+
 --CREATE TABLE [table name] ([column info]) [table level constraints];
 CREATE TABLE BN_GENRE(
  

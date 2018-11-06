@@ -66,7 +66,7 @@ public class BookDao implements DAO<Book, Integer> {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setDouble(1, obj.getPrice());
 			ps.setInt(2, obj.getId());
-			ps.executeUpdate(); //execute is for stored procedures and functions, this returns rows updated
+			ps.executeUpdate(); //execute is for stored procedures and functions, this returns rows updated 
 			//executequery will give results
 			
 		} catch (SQLException e) {
