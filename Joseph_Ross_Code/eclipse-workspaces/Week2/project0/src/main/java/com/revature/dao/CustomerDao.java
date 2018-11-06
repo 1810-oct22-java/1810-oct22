@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.db.objects.Customer;
-import com.revature.exceptions.customerdao.*;
+import com.revature.exception.customerdao.*;
 import com.revature.util.ConnectionFactory;
 
 public class CustomerDao {

@@ -1,4 +1,4 @@
-package com.revature.exceptions.customerdao;
+package com.revature.exception.customerdao;
 
 public class InvalidAccountCredentialsException extends Exception{
 
