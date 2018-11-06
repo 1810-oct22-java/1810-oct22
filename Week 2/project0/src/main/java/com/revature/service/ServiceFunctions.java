@@ -14,21 +14,15 @@ import com.revature.pojos.User;
 public class ServiceFunctions {
 	
 	public static void start() {
-		//SCANNER
+		//SCANNER - Register or email
 		Scanner sc = new Scanner(System.in);
-		String in = sc.nextLine();;
-		if (in.toLowerCase().equals("y") || in.toLowerCase().equals("yes")) {
-			System.out.println("y");
+		String in = sc.nextLine();
+		if (in.toLowerCase().equals("r") || in.toLowerCase().equals("register")) {
 			newUser();
 		}
-		else if (in.toLowerCase().equals("n") || in.toLowerCase().equals("no")) {
-			System.out.println("n");
-			User u = checkPassword();
+		else { 
+			User u = checkPassword(in);
 			userFun(u);
-		}
-		else {
-			System.out.println("Command not recognized. Please enter Y or N");
-			start();
 		}
 	}
 	
@@ -58,23 +52,21 @@ public class ServiceFunctions {
 	}
 	
 	public static void printMenu() {
-		System.out.println("##############################");
-		System.out.println("------------------------------");
-		System.out.println("| Please select an option:   |");
-		System.out.println("| 1) Make a deposit          |");
-		System.out.println("| 2) Withdraw funds          |");
-		System.out.println("| 3) Check your balance      |");
-		System.out.println("| 4) Create a new account    |");
-		System.out.println("| 5) Quit Bank App           |"); 
-		System.out.println("------------------------------");
+		System.out.println("##############################################################");
+		System.out.println("#------------------------------------------------------------#");
+		System.out.println("#| Please select an option:                                 |#");
+		System.out.println("#| 1) Make a deposit                                        |#");
+		System.out.println("#| 2) Withdraw funds                                        |#");
+		System.out.println("#| 3) Check your balance                                    |#");
+		System.out.println("#| 4) Create a new account                                  |#");
+		System.out.println("#| 5) Quit Bank App                                         |#"); 
+		System.out.println("#------------------------------------------------------------#");
 	}
 	
-	public static User checkPassword() {
+	public static User checkPassword(String email) {
 		UserDao uDao = new UserDao();
-		System.out.println("Enter your email:");
-		Scanner sc = new Scanner(System.in);
-		String email = sc.nextLine();
 		User u = uDao.findByEmail(email);
+		Scanner sc = new Scanner(System.in);
 		while (u == null) {
 			System.out.println("Enter a valid email:");
 			email = sc.nextLine();
@@ -86,8 +78,8 @@ public class ServiceFunctions {
 			System.out.println("Wrong password!");
 			System.out.print("Enter again (or press q to re-enter email):");
 			pass = sc.nextLine();
-			if (pass == "q") {
-				checkPassword();
+			if (pass.toLowerCase().equals("q")) {
+				checkPassword(email);
 			}
 		}
 		return u;
