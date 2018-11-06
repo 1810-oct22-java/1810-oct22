@@ -11,7 +11,7 @@ import java.util.List;
 import com.revature.pojos.Genre;
 import com.revature.util.ConnectionFactory;
 
-public class GenreDao implements DAO<Genre, Integer>{
+public class GenreDao implements DAO<Genre, Integer>{ 
 	
 	/*
 	 * STATEMENT - important interface in JDBC API
@@ -34,6 +34,7 @@ public class GenreDao implements DAO<Genre, Integer>{
 			//STATEMENT INTERFACE - implementation exposed via connection
 			Statement statement = conn.createStatement();
 			
+
 			//ResultSet Interface - represents the result set of a DB query
 			ResultSet rs = statement.executeQuery(query);
 
@@ -43,6 +44,7 @@ public class GenreDao implements DAO<Genre, Integer>{
 				temp.setId(rs.getInt(1));
 				temp.setName(rs.getString(2));
 				genres.add(temp);
+				
 			}
 			
 		} catch (SQLException e) {
