@@ -6,12 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import com.revature.pojos.BookInfo;
 import com.revature.util.ConnectionFactory;
+
+import oracle.jdbc.internal.OracleTypes;
 
 public class ExampleDao {
 	
 	public static void main(String[] args) {
-		System.out.println(getBooksByGenre("Fantasy"));
+		System.out.println(getBookInfo(1));
 	}
 	
 		static int getBooksByGenre(String genre) {
@@ -29,5 +32,34 @@ public class ExampleDao {
 		}
 		return total;
 	}
+		
+		static BookInfo getBookInfo(int id) {
+			BookInfo b = null;
+			try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+				String sql = "{ call get_book_info(?, ?)}";
+				CallableStatement cs = conn.prepareCall(sql);
+				cs.setInt(1, id);
+				cs.registerOutParameter(2, OracleTypes.CURSOR);
+				
+				cs.executeUpdate();
+				
+				ResultSet rs = (ResultSet) cs.getObject(2);
+				// b.book_id, b.isbn, a.first_name, a.last_name, b.title, b.price, g.name
+				while(rs.next()) {
+					b = new BookInfo();
+					b.setId(rs.getInt(1));
+					b.setIsbn(rs.getString(2));
+					b.setFn(rs.getString(3));
+					b.setLn(rs.getString(4));
+					b.setTitle(rs.getString(5));
+					b.setPrice(rs.getDouble(6));
+					b.setGenre(rs.getString(7));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return b;
+		}
 
 }
