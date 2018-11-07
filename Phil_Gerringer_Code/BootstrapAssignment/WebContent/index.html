@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<title>Normal Form</title>
+</head>
+<body>
+
+<div class="jumbotron">
+	<h1>A Discussion of Normal Forms</h1>
+	<p class="lead">Normalization is a database design technique which organizes tables in a manner that seeks to eliminate redundant data and ensure dependency of data.</p>
+</div>
+
+<table class="table table-bordered">
+	<thead class="table-info">
+		<tr>
+			<th>Form</th>
+			<th>Rules</th>
+			<th>Example</th>			
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1st</td>
+			<td>
+				<ul>
+				<li>Every table must have at least one unique (PK) key</li>
+				<li>All fields must be Atomic fields - each field should only contain one value</li>
+				<li>All columns must not repeat </li>
+				</ul>
+			</td>
+			<td>
+				<img src="images/NF1.jpg" alt="Normal Form 1">
+				<p>In this example notice there is no primary (PK) key.  The NAME field also implies that first 
+				name and last name are included as values in the field.  
+				Also, note the children seem to have their own column.  This example violates Normal Form 1.</p>
+			</td>
+		</tr>
+		<tr>
+			<td>2nd</td>
+			<td>
+				<ul>
+					<li>Each table must satisfy 1st Normal Form</li>
+					<li>Must have a single column primary key - to prevent partial dependencies</li>
+				</ul>
+			</td>
+			<td>
+				<img src="images/address.jpg" alt="Address Table"><img src="images/streets.jpg" alt="Streets Table">
+				<p>In this example, notice the ADDRESS table has a composite key 
+				consisting of HOUSE_NUMBER and STREET_NAME.  If the STREETS table had a foreign (FK) key between its NAME field and 
+				ADDRESS.STREET_NAME then a partial dependency would exist.  Only half of the PK in STREETS is mapped to an FK and 2nd 
+				Normal Form would have been violated.</p>
+			</td>
+		</tr>
+		<tr>
+			<td>3rd</td>
+			<td>
+				<ul>
+					<li>Each table must satisfy 1st and 2nd Normal Form</li>
+					<li>No transitive functional dependencies must exist - a change in a non-key column forces a change in another 
+					non-key column</li>
+				</ul>
+			</td>
+			<td>
+				<img src="images/new_address.jpg" alt="New Parent Table">
+				<p>In the example above, a SUFFIX field has been added.  Imagine a row is referencing Mr. Bob Crane.  
+				If we change the NAME to Betsy Crane, the SUFFIX will also need to be changed to Ms.  This would violate 
+				3rd Normal Form.</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<table class="table table-bordered">
+	<thead class="table-info">
+		<tr>
+			<th>Solution</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><img src="images/fixed.JPG" alt="Normalized"></td>
+			<td>
+				<p>The above proposes several violations of normalization.  The ERD to the left is a suggestion as to a schema 
+				that exists in 3rd Normal Form.</p>
+				<p>Notice:</p>
+				<ul>
+				<li>Every table has one, and only one, primary key.</li>
+				<li>Every column only has one specific piece of data.  (Atomic) </li>
+				<li>Child table has been created to eliminate multiple children columns. </li>
+				<li>No transitive functional dependencies exist </li>
+				</ul>
+			</td>
+		</tr>
+</table>
+
+<h4 class="text-black-50">References</h4>
+<ul>
+<li class="text-black-50">http://www.businessintelligence-solutions.com/differences-1st-2nd-3rd-normal-form/</li>
+<li class="text-black-50">https://www.guru99.com/database-normalization.html</li>
+</ul>
+
+</body>
+</html>
