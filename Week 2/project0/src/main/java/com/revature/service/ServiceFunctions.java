@@ -42,7 +42,6 @@ public class ServiceFunctions {
 		String fn = sc.nextLine();
 		System.out.print("What is your Last Name: ");
 		String ln = sc.nextLine();
-		System.out.println(ln);
 		u.setEmail(email);
 		u.setPassword(password);
 		u.setFirstName(fn);
