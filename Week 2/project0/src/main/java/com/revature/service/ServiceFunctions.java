@@ -36,12 +36,29 @@ public class ServiceFunctions {
 		System.out.print("Enter an email: ");
 		Scanner sc = new Scanner(System.in);
 		String email = sc.nextLine();
+		boolean b;
+		while (email.equals("") || existUser(email)) {
+			System.out.println("Must Enter a Valid Email!");
+			email = sc.nextLine();
+		}
 		System.out.print("Enter a password: ");
 		String password = sc.nextLine();
+		while (password.equals("")) {
+			System.out.println("Must Enter a Valid Password!");
+			password = sc.nextLine();
+		}
 		System.out.print("What is your First Name: ");
 		String fn = sc.nextLine();
+		while (fn.equals("")) {
+			System.out.println("Must Enter a Name!");
+			fn = sc.nextLine();
+		}
 		System.out.print("What is your Last Name: ");
 		String ln = sc.nextLine();
+		while (ln.equals("")) {
+			System.out.println("Must Enter a Name!");
+			ln = sc.nextLine();
+		}
 		u.setEmail(email);
 		u.setPassword(password);
 		u.setFirstName(fn);
@@ -52,6 +69,17 @@ public class ServiceFunctions {
 		uDao.insert(u);
 		
 		newAccount(u);
+	}
+	
+	public static boolean existUser(String email) {
+		UserDao uDao = new UserDao();
+		List<User> users = uDao.findAll();
+		for (User u : users) {
+			if (u.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static void printMenu() {
@@ -217,8 +245,14 @@ public class ServiceFunctions {
 	}
 	
 	public static void withdraw (Account a) {
-		System.out.println("How much money would you like to withdraw?");
 		Scanner sc = new Scanner(System.in);
+		if (a.getBalance() == 0 || a.getType()!=3) {
+			System.out.println("Must have funds to withdraw!");
+			sc.nextLine();
+			userFun(a);
+			return;
+		}
+		System.out.println("How much money would you like to withdraw?");
 		double amount;
 		try {
 			amount = sc.nextDouble();
@@ -228,7 +262,7 @@ public class ServiceFunctions {
 			sc.nextLine();
 			amount = sc.nextDouble();
 		}
-		while (amount <= 0) {	
+		while (amount < 0) {	
 			System.out.println();
 			System.out.println("Enter positive number!");
 			amount = sc.nextDouble();
