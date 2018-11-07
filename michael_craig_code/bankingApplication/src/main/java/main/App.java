@@ -59,16 +59,18 @@ public class App {
 		try {
 			int x = uService.createUser(new User(scanFirst, scanLast, scanUser, scanPass));
 			if (x == 1) {
-				System.out.println("Oh no! That username has already taken.");
+				System.out.println("Oh no! That username has already been taken.");
+				run();
 			} else if (x == 2) {
 				System.out.println("User created");
+				run();
 			} else {
 				System.out.println("Sorry, please try again.");
-			}			
+				run();
+			}
 		} catch (Exception e) {
 			
 		}
-		run();
 	}
 
 	static void login() {
@@ -102,7 +104,8 @@ public class App {
 	}
 
 	static void accountHome() {
-		System.out.println("Account Home Page" + "\nOptions" + "\n 1. Open new Account" + "\n 2. View existing accounts" + "\n 3. Log out");
+		System.out.println("Account Home Page" + "\nOptions" + "\n 1. Open new Account" + "\n 2. View existing accounts"
+				+ "\n 3. Log out");
 		Scanner scan = new Scanner(System.in);
 		try {
 			int option = scan.nextInt();
@@ -122,23 +125,23 @@ public class App {
 				break;
 			}
 		} catch (InputMismatchException e) {
-			System.out.println("Please enter a number from the menu");
+			System.out.println("Please enter a number from the menu1");
 			accountHome();
 		} catch (NullPointerException e) {
-			System.out.println("Please enter a number from the menu");
+			e.printStackTrace();
+			System.out.println("Please enter a number from the menu2");
 			accountHome();
 		}
 	}
-
 
 	private static void viewAccounts() {
 		List<AccountInfo> a = aIService.accsForUser(uService.getLoggedUser().getUserName());
 		int total = 0;
 		int i;
 		for (i = 0; i < a.size(); i++) {
-			System.out.println(i+1 + ". " + aIService.accTypeInfo(a.get(i).getTypeId()));
+			System.out.println(i + 1 + ". " + aIService.accTypeInfo(a.get(i).getTypeId()));
 		}
-		System.out.println((i+1) + ". Go Back");
+		System.out.println((i + 1) + ". Go Back");
 		Scanner scan = new Scanner(System.in);
 		int res = scan.nextInt(a.size() + 1);
 		if (res == 0) {
@@ -150,9 +153,8 @@ public class App {
 		}
 	}
 
-
 	private static void myAccounts(AccountInfo ai) {
-		System.out.println("Options" + "\n 1. Deposit" + "\n 2. Withdraw" + "\n 3. Go Back");
+		System.out.println("Options" + "\n 1. Deposit" + "\n 2. Withdraw" + "\n 3. Delete Account" + "\n 4. Go Back");
 		Scanner scan = new Scanner(System.in);
 		int res = scan.nextInt();
 		switch (res) {
@@ -163,6 +165,9 @@ public class App {
 			withdraw(ai);
 			break;
 		case 3:
+			deleteAccount(ai);
+			break;
+		case 4:
 			viewAccounts();
 			break;
 		default:
@@ -171,12 +176,18 @@ public class App {
 		}
 	}
 
+	private static void deleteAccount(AccountInfo ai) {
+		aIService.delete(ai);
+		System.out.println("Account deleted");
+		accountHome();
+	}
+
 	private static void deposit(AccountInfo ai) {
 		System.out.println("Please specify the amount you would like to deposit");
-		ai = aIService.update(ai);
 		int d = 0;
 		Scanner scan = new Scanner(System.in);
-		int res = scan.nextInt(aIService.deposit(d, ai));
+		int res = scan.nextInt();
+		aIService.deposit(res, ai);
 		if (res > 0) {
 			System.out.println("Success!  Your new balance is: " + aIService.balance(ai));
 		} else {
@@ -225,13 +236,13 @@ public class App {
 		System.out.println("Please specify the type of account you would like to open" + "\n 1. Credit"
 				+ "\n 2. Checking" + "\n 3. Savings" + "\n 4. Go back");
 		Scanner scan = new Scanner(System.in);
-		int res = scan.nextInt();
-		if (res == 1 || res == 2 || res == 3) {
+		int ress = scan.nextInt();
+		if (ress == 1 || ress == 2 || ress == 3) {
 			AccountInfo acc = new AccountInfo();
-			acc.setTypeId(res);
+			acc.setTypeId(ress);
 			acc.setUserId(uService.getLoggedUser().getId());
 			acc.setBalance(0);
-			AccountInfo ai = aIService.saveChange(acc);			
+			AccountInfo ai = aIService.saveChange(acc);
 			if (ai.getAccountId() > 0) {
 				System.out.println("SUCCESS!");
 			} else {

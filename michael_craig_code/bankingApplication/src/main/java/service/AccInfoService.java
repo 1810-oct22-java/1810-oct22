@@ -71,4 +71,8 @@ public class AccInfoService {
 		}
 		return x;
 	}
+	
+	public boolean delete (AccountInfo ai) {
+		return accountInfoDao.delete(ai.getAccountId());
+	}
 }

@@ -40,13 +40,13 @@ public class AccountInfoDao implements Dao<AccountInfo, Integer> {
 	@Override
 	public AccountInfo save(AccountInfo obj) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "insert into accountinfo (accountid, typeid, owner, balance, userid) values (?, ?, ?, ?, ?)";
+			String sql = "insert into accountinfo (typeid, owner, balance, userid) values (?, ?, ?, ?)";
 			String[] keys = { "accountid" };
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
 			ps.setInt(1, obj.getTypeId());
-			ps.setInt(2, obj.getUserId());
+			ps.setString(2, obj.getOwner());
 			ps.setInt(3, obj.getBalance());
-			ps.setString(4, obj.getOwner());
+			ps.setInt(4, obj.getUserId());
 			int x = ps.executeUpdate();
 			if (x > 0) {
 				ResultSet rs = ps.getGeneratedKeys();
@@ -155,8 +155,8 @@ public class AccountInfoDao implements Dao<AccountInfo, Integer> {
 		}
 		return x;
 	}
-	
-	public void deposit (int num, int id) {
+
+	public void deposit(int num, int id) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "{call deposit_procedure(?,?)}";
 			CallableStatement cs = conn.prepareCall(sql);
@@ -168,8 +168,8 @@ public class AccountInfoDao implements Dao<AccountInfo, Integer> {
 			e.printStackTrace();
 		}
 	}
-	
-	public void withdraw (int num, int id) {
+
+	public void withdraw(int num, int id) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "{call withdraw_procedure(?,?)}";
 			CallableStatement cs = conn.prepareCall(sql);
@@ -181,6 +181,20 @@ public class AccountInfoDao implements Dao<AccountInfo, Integer> {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public boolean delete(int id) {
+		boolean x = false;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "delete from accountinfo where accountid = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeQuery();
+			x = true;
+		} catch (Exception e) {
+
+		}
+		return x;
+	}
+
 }

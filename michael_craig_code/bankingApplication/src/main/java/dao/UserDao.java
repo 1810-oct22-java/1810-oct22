@@ -34,7 +34,6 @@ public class UserDao implements Dao<User, Integer> {
 			}
 			conn.commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return obj;
 	}
