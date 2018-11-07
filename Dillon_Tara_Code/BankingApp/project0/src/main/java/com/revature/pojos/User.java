@@ -2,7 +2,7 @@ package com.revature.pojos;
 
 public class User {
 	
-	private int userid;
+	private static int userid;
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -25,7 +25,7 @@ public class User {
 	}
 	
 
-	public int getUserid() {
+	public static int getUserid() {
 		return userid;
 	}
 

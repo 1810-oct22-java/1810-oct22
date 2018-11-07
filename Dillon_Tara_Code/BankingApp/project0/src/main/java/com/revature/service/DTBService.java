@@ -139,11 +139,13 @@ public class DTBService {
 						   "\n 3)  Log Out"	);
 		Scanner scan = new Scanner(System.in);
 		int opt = 0;
+		int userId = User.getUserid();
 		try {
+			opt = scan.nextInt();
 			switch(opt) {
-			case 1: depositMoney(opt);
+			case 1: depositMoney(userId);
 					break;
-			case 2: withdrawMoney(opt);
+			case 2: withdrawMoney(userId);
 					break;
 			case 3: entryMenu();
 					break;
