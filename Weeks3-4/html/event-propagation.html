@@ -50,16 +50,16 @@
 
         document.getElementById('inner').addEventListener('click', function(){
             alert("INNER");
-        } , capture);
+        } );
 
         document.getElementById('middle').addEventListener('click', function(){
             alert("MIDDLE");
            // event.stopPropagation(); //stops remaining events from happening
-        } , false);
+        } );
 
         document.getElementById('outer').addEventListener('click', function(){
             alert("OUTER");
-        } , capture);
+        } );
 
 
     </script>
