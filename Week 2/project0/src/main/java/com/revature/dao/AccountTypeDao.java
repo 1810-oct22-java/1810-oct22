@@ -1,6 +1,6 @@
 package com.revature.dao;
 
-import java.sql.CallableStatement;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,16 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.revature.pojos.AccountType;
-import com.revature.pojos.User;
 import com.revature.util.ConnectionFactory;
 
-import oracle.jdbc.internal.OracleTypes;
 
 public class AccountTypeDao implements Dao<AccountType, Integer> {
 
+	//USES STATEMENT
 	@Override
 	public List<AccountType> findAll() {
 		List<AccountType> ats = new ArrayList<AccountType>();

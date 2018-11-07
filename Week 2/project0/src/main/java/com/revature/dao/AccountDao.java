@@ -13,6 +13,7 @@ import com.revature.util.ConnectionFactory;
 
 public class AccountDao implements Dao<Account,Integer>{
 
+	//RETURNS A LIST OF ALL ACCOUNTS
 	@Override
 	public List<Account> findAll() {
 		List<Account> accounts = new ArrayList<Account>();
@@ -42,6 +43,7 @@ public class AccountDao implements Dao<Account,Integer>{
 		return accounts;
 	}
 
+	//FINDS ACCOUNT BY ACCOUNT ID
 	@Override
 	public Account findByID(Integer id) {
 		Account acc = null;
@@ -65,12 +67,14 @@ public class AccountDao implements Dao<Account,Integer>{
 		return acc;
 	}
 	
+	//NOT USED FOR ACCOUNTDAO
 	@Override
 	public Account findByEmail(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//INSERTS NEW ACCOUNT TO DATABASE
 	@Override
 	public Account insert(Account obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -98,6 +102,7 @@ public class AccountDao implements Dao<Account,Integer>{
 		return obj;
 	}
 
+	//UPDATES BALANCES IN ACCOUNTS
 	@Override
 	public Account update(Account obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -117,6 +122,7 @@ public class AccountDao implements Dao<Account,Integer>{
 		return obj;
 	}
 
+	//DELETE NOT IMPLEMENTED
 	@Override
 	public void delete(Account obj) {
 		// TODO Auto-generated method stub

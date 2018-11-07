@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.revature.pojos.Account;
 import com.revature.pojos.User;
 import com.revature.util.ConnectionFactory;
 
@@ -17,6 +16,8 @@ import oracle.jdbc.internal.OracleTypes;
 
 public class UserDao implements Dao<User, Integer> {
 
+	//FINDS ALL USERS AND RETURNS A LIST
+	//USES CALLABLE STATEMENT
 	@Override
 	public List<User> findAll() {
 		List<User> users = new ArrayList<User>();
@@ -49,6 +50,7 @@ public class UserDao implements Dao<User, Integer> {
 		return users;
 	}
 
+	//FINDS USER BY ID
 	@Override
 	public User findByID(Integer id) {
 		User u = null;
@@ -73,6 +75,7 @@ public class UserDao implements Dao<User, Integer> {
 		return u;
 	}
 
+	//FINDS USER BY EMAIL
 	public User findByEmail(String email) {
 		User u = null;
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -100,6 +103,7 @@ public class UserDao implements Dao<User, Integer> {
 		return u;
 	}
 	
+	//INSERTS A USER INTO DATABASE
 	@Override
 	public User insert(User obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -128,12 +132,14 @@ public class UserDao implements Dao<User, Integer> {
 		return obj;
 	}
 
+	//UPDATE IS NOT IMPLEMENTED
 	@Override
 	public User update(User obj) {
 		
 		return null;
 	}
-
+	
+	//DELETE IS NOT IMPLEMENTED
 	@Override
 	public void delete(User obj) {
 		// TODO Auto-generated method stub

@@ -6,6 +6,7 @@ public class BankApp {
 
 	public static void main(String[] args) {
 		
+		//MENU
 		System.out.println("##############################################################");
 		System.out.println("#------------------------------------------------------------#");
 		System.out.println("#|               Welcome to First Nautical                  |#");
@@ -13,6 +14,8 @@ public class BankApp {
 		System.out.println("#|        Enter your email, or press R to register          |#");
 		System.out.println("#------------------------------------------------------------#");
 		System.out.println("##############################################################");
+		
+		//START FUNCTION
 		ServiceFunctions.start();
 		
 	}

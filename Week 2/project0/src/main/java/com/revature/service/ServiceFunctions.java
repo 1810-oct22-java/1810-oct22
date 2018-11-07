@@ -1,21 +1,18 @@
 package com.revature.service;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 import com.revature.dao.AccountDao;
-import com.revature.dao.AccountTypeDao;
 import com.revature.dao.UserDao;
 import com.revature.exceptions.InvalidEntryException;
 import com.revature.pojos.Account;
-import com.revature.pojos.AccountType;
 import com.revature.pojos.User;
 
 public class ServiceFunctions {
 	
+	//CHECKS IF THE USER CHOOSES TO REGISTER OR SIGN IN
 	public static void start() {
 		//SCANNER - Register or email
 		Scanner sc = new Scanner(System.in);
@@ -30,35 +27,42 @@ public class ServiceFunctions {
 		}
 	}
 	
+	//FUNCTION TO CREATE NEW USER
 	public static void newUser() {
 		System.out.println("Welcome New User!");
 		User u = new User();
 		System.out.print("Enter an email: ");
 		Scanner sc = new Scanner(System.in);
 		String email = sc.nextLine();
-		boolean b;
+
+		//INPUT VALIDATION, CHECK IS USER EXISTS
 		while (email.equals("") || existUser(email)) {
 			System.out.println("Must Enter a Valid Email!");
 			email = sc.nextLine();
 		}
+		
 		System.out.print("Enter a password: ");
 		String password = sc.nextLine();
 		while (password.equals("")) {
 			System.out.println("Must Enter a Valid Password!");
 			password = sc.nextLine();
 		}
+		
 		System.out.print("What is your First Name: ");
 		String fn = sc.nextLine();
 		while (fn.equals("")) {
 			System.out.println("Must Enter a Name!");
 			fn = sc.nextLine();
 		}
+		
 		System.out.print("What is your Last Name: ");
 		String ln = sc.nextLine();
 		while (ln.equals("")) {
 			System.out.println("Must Enter a Name!");
 			ln = sc.nextLine();
 		}
+		
+		//SETS FIELDS IN NEW USER
 		u.setEmail(email);
 		u.setPassword(password);
 		u.setFirstName(fn);
@@ -68,9 +72,11 @@ public class ServiceFunctions {
 		UserDao uDao = new UserDao();
 		uDao.insert(u);
 		
+		//CALLS NEW ACCOUNT FUNCTION
 		newAccount(u);
 	}
 	
+	//CHECKS IF USER EXISTS
 	public static boolean existUser(String email) {
 		UserDao uDao = new UserDao();
 		List<User> users = uDao.findAll();
@@ -82,6 +88,7 @@ public class ServiceFunctions {
 		return false;
 	}
 	
+	//PRINTS MENU
 	public static void printMenu() {
 		System.out.println("##############################################################");
 		System.out.println("#------------------------------------------------------------#");
@@ -94,6 +101,7 @@ public class ServiceFunctions {
 		System.out.println("#------------------------------------------------------------#");
 	}
 	
+	//CHECKS PASSWORD, OR ASKS TO RE-INPUT EMAIL
 	public static User checkPassword(String email) {
 		UserDao uDao = new UserDao();
 		User u = uDao.findByEmail(email);
@@ -119,6 +127,7 @@ public class ServiceFunctions {
 		return u;
 	}
 	
+	//MAIN USER FUNCTION THAT PRINTS MENU, ASKS FOR COMMANDS
 	public static void userFun(Account a) {
 		UserDao uDao = new UserDao();
 		User u = uDao.findByID(a.getUserID());
@@ -151,6 +160,7 @@ public class ServiceFunctions {
 		}		
 	}
 	
+	//FINDS ACCOUNTS FOR EACH USER, STORES IN ARRAY OF ACCOUNTS
 	public static Account findAccount(User u) {
 		int id = u.getId();
 		AccountDao aDao = new AccountDao();
@@ -211,6 +221,7 @@ public class ServiceFunctions {
  		}
 	}
 	
+	//DEPOSIT FUNCTION
 	public static void deposit (Account a) {
 		System.out.println("How much money would you like to deposit?");
 		Scanner sc = new Scanner(System.in);
@@ -244,6 +255,7 @@ public class ServiceFunctions {
 		userFun(a);
 	}
 	
+	//WITHDRAW METHOD
 	public static void withdraw (Account a) {
 		Scanner sc = new Scanner(System.in);
 		if (a.getBalance() == 0 || a.getType()!=3) {
@@ -290,6 +302,7 @@ public class ServiceFunctions {
 		userFun(a);
 	}
 	
+	//CHECK BALANCE FUNCTION
 	public static void checkBalance (Account a) {
 		System.out.println("Your balance is: "+a.getBalance());
 		System.out.println("Press Enter to continue");
@@ -298,6 +311,7 @@ public class ServiceFunctions {
 		userFun(a);
 	}
 	
+	//CREATES NEW ACCOUNT
 	public static void newAccount (User u) {
 		int id = u.getId();
 		AccountDao aDao = new AccountDao();
