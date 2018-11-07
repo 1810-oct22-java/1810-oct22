@@ -1,0 +1,23 @@
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+}
+
+.container-fluid{
+    background-color: blueviolet;
+    padding: 50px;
+}
+
+.wrapper{
+    background-color: crimson;
+}
+
+#one{
+    background-color: darkblue;
+    margin-left: 20px;
+}
+
+#two{
+    background-color: rgb(0, 139, 86);
+    margin-left: 40px;
+}
