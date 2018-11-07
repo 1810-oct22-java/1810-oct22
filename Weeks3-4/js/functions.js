@@ -72,4 +72,38 @@ var counter = (function(){
 
 })();
 
-counter.privateCounter;
+counter.privateCounter; //will return undefined. do NOT have access to counter vars globally
+counter.value(); //return 0
+counter.increment();
+counter.increment();
+counter.increment();
+counter.value(); //return 3
+
+///////////////////////////////////////////////////////////////
+
+
+var makeCounter = function(){
+    var privateCounter = 0;
+    
+        function changeBy(val){
+            privateCounter += val; //pc = pc + val;
+        }
+    
+        return {
+            increment: function(){
+                changeBy(1);
+            },
+            decrement: function(){
+                changeBy(-1);
+            },
+            value: function(){
+                return privateCounter;
+            }
+        }
+};
+
+makeCounter.increment(); //will not work 
+var counter1 = makeCounter();
+counter1.increment();
+var counter2 = makeCounter();
+counter2.decrement();
