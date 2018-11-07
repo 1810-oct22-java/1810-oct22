@@ -11,6 +11,9 @@ import com.revature.dao.AccountDao;
 import com.revature.dao.CustomerDao;
 import com.revature.db.objects.Account;
 import com.revature.db.objects.Customer;
+import com.revature.exception.accountdao.AccountInformationUpdatedAfterLastRetriveException;
+import com.revature.exception.accountdao.InvalidTransactionTypeException;
+import com.revature.exception.accountdao.WithdrawAmountExceedsBalanceException;
 import com.revature.exception.customerdao.InvalidAccountCredentialsException;
 import com.revature.exception.customerdao.UsernameAlreadyTakenException;
 import com.revature.exception.input.IllegalCharactersInputException;
@@ -224,8 +227,8 @@ public class AppDriver {
 			
 			try {
 				NumberFormat.getCurrencyInstance(Locale.US).parse("$" + amount);
-				accountBalanceSelected = true;
 				newAccount.setAccountBalance(Double.parseDouble(amount));
+				accountBalanceSelected = true;
 			} catch (ParseException e) {
 				System.out.println("Error: Dollar amount is not in correct form. see examples");
 				continue;
@@ -245,8 +248,74 @@ public class AppDriver {
 		System.out.println("::TO DO:: With");
 	}
 	
-	public void deposit() {
-		System.out.println("::TO DO:: Depo");
+	public void changeBalance(String transType) {
+		
+		this.loadAccounts();
+		this.printAccounts();
+		
+		Account target = null;
+		Boolean accountSelected = false;
+		Boolean amountBalanceSelected = false;
+		double amount = 0;
+		
+		while(!accountSelected) {
+			
+			System.out.println("Enter the account id for the deposit");
+			String input = sc.nextLine();
+			
+			if(!input.replaceAll("[^0-9]{1,9}", "").equals(input)) {
+				System.out.println("Error Invalid Option: Please enter an option in the form of a single number!");
+				continue;
+			}
+			
+			target = this.getAccount(Integer.parseInt(input));
+			
+			if(target == null) {
+				System.out.println("That account does not exist!");
+				continue;
+			}
+			
+			accountSelected = true;
+		}
+			
+		while(!amountBalanceSelected) {
+			System.out.println("Enter amount:");
+			System.out.println("Examples: 900.00 34.56 0.56");
+			
+			String amountString = sc.nextLine();
+			
+			try {
+				NumberFormat.getCurrencyInstance(Locale.US).parse("$" + amountString);
+				amount = Double.parseDouble(amountString);
+				amountBalanceSelected = true;
+			} catch (ParseException e) {
+				System.out.println("Error: Dollar amount is not in correct form. see examples");
+				continue;
+			}
+		}
+			
+		try {
+			AccountDao.changeBalance(target, amount, transType);
+		} catch (WithdrawAmountExceedsBalanceException e) {
+			System.out.println("Error: Your balance is less than the withdraw amount. Aborting....");
+		} catch (SQLException e) {
+			System.out.println("An unknown error occured. Please restart program and try again.");
+		} catch (AccountInformationUpdatedAfterLastRetriveException e) {
+			System.out.println("Error: Your balance information was changed since last print. Aborting....");
+		} catch (InvalidTransactionTypeException e) {
+			//This won't happen in the program
+		}
+		
+		System.out.println("Account balance has been updated");
+		
+		this.loadAccounts();
+	}
+	
+	public Account getAccount(int id) {
+		
+		if(id < accounts.size()) return accounts.get(id);
+		
+		return null;
 	}
 	
 	public void transfer() {
@@ -264,6 +333,16 @@ public class AppDriver {
 			System.out.println("Please enter the id of the account you would like to transfer from");
 			
 			String accountId = sc.nextLine();
+			
+			if(!accountId.replaceAll("[^0-9]{1,2}", "").equals(accountId)) {
+				System.out.println("Error Invalid Option: Please enter an option in the form of a single number!");
+				continue;
+			} else if (accountId.length() != 1) {
+				System.out.println("Error Invalid Option: Multiple numbers detected as input.");
+				continue;
+			}
+			
+			
 			
 			
 		}
