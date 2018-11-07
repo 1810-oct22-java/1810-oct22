@@ -11,7 +11,6 @@ import com.revature.db.objects.Customer;
 import com.revature.exception.accountdao.AccountInformationUpdatedAfterLastRetriveException;
 import com.revature.exception.accountdao.InvalidTransactionTypeException;
 import com.revature.exception.accountdao.WithdrawAmountExceedsBalanceException;
-import com.revature.exception.customerdao.InvalidAccountCredentialsException;
 import com.revature.util.ConnectionFactory;
 
 public class AccountDao {

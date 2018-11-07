@@ -1,13 +1,18 @@
 package com.revature.main;
 
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
+import com.revature.dao.AccountDao;
 import com.revature.dao.CustomerDao;
 import com.revature.db.objects.Account;
 import com.revature.db.objects.Customer;
 import com.revature.exception.customerdao.InvalidAccountCredentialsException;
+import com.revature.exception.customerdao.UsernameAlreadyTakenException;
 import com.revature.exception.input.IllegalCharactersInputException;
 import com.revature.exception.input.NotEnoughCharactersInputException;
 import com.revature.exception.input.TooManyCharactersInputException;
@@ -77,18 +82,163 @@ public class AppDriver {
 				
 			}
 		}
-		
-		System.out.println("Logged on as: " + this.user.getUsername());
-		
 	}
 	
 	public void createAccount() {
-		System.out.println("::TO DO:: Cre");
+		
+		Boolean accountCreated = false;
+		Boolean passwordMade = false;
+		Boolean usernameMade = false;
+		
+		String username = null;
+		String password = null;
+		
+		while(!accountCreated) {
+			
+			System.out.println("Please enter a username: ");
+			username = this.sc.nextLine();
+			
+			if(!usernameMade) {
+				try {
+					InputValidation.checkStringInput(username);
+					usernameMade = true;
+					
+				} catch (TooManyCharactersInputException e) {
+					System.out.println("Username Invalid: Usernames must be under 11 characters");
+					continue;
+					
+				} catch (NotEnoughCharactersInputException e) {
+					System.out.println("Username Invalid: Usernames must be over 3 characters");
+					continue;
+					
+				} catch (IllegalCharactersInputException e) {
+					System.out.println("Username Invalid: Usernames can only contain numbers and letters!");
+					continue;
+					
+				}
+			}
+			
+			if(!passwordMade) {
+				System.out.println("Please enter a Password: ");
+				password = sc.nextLine();
+				passwordMade = true;
+				
+				try {
+					InputValidation.checkStringInput(password);
+					
+				} catch (TooManyCharactersInputException e) {
+					System.out.println("Password Invalid: Passwords must be under 11 characters");
+					continue;
+					
+				} catch (NotEnoughCharactersInputException e) {
+					System.out.println("Password Invalid: Passwords must be over 3 characters");
+					continue;
+					
+				} catch (IllegalCharactersInputException e) {
+					System.out.println("Password Invalid: Passwords can only contain numbers and letters!");
+					continue;
+					
+				}
+			}
+			
+			try {
+				this.user = CustomerDao.addUser(new Customer(username, password));
+				accountCreated = true;
+				
+			} catch (UsernameAlreadyTakenException e) {
+				System.out.println("Error: Another customer already has this username. Please pick another!");
+				System.out.println("Note: Your password is saved and will not need to be entered again.");
+				usernameMade = false;
+				
+			} catch (SQLException e) {
+				
+				System.out.println("An unknown error occured. I'm sorry please restart the program and try again");
+				System.exit(1);
+			}
+		}
+	}
+	
+	public void loadAccounts() {
+		try {
+			this.accounts = AccountDao.getAssociatedAccounts(this.user);
+		} catch (SQLException e) {
+			
+			System.out.println("An unknown error occured. I'm sorry please restart the program and try again");
+			System.exit(1);
+		}
 	}
 	
 	
 	public void printAccounts() {
-		System.out.println("::TO DO:: Pri");
+		
+		this.loadAccounts();
+		
+		System.out.println("Accounts: ");
+		System.out.println("Id\tType\tBalance");
+		
+		for(int i = 0; i < accounts.size(); i++) {
+			System.out.println(i + "\t" + accounts.get(i).getAccountType() + "\t" + accounts.get(i).getAccountBalance());
+		}
+	}
+	
+	public void createBankAccount() {
+		
+		Account newAccount = new Account();
+		Boolean accountTypeSelected = false;
+		Boolean accountBalanceSelected = false;
+		
+		while(!accountTypeSelected) {
+			System.out.println("Select Account Type");
+			System.out.println("Enter 1: for checking");
+			System.out.println("Enter 2: for savings");
+			
+			String input = this.sc.nextLine();
+			
+			if(!input.replaceAll("[^1-2]", "").equals(input)) {
+				System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 2!");
+				continue;
+			} else if (input.length() != 1) {
+				System.out.println("Error Invalid Option: Multiple numbers detected as input. Please enter an option in the form of a number from 1 to 2!");
+				continue;
+			}
+			
+			switch(input){
+				case "1":
+					newAccount.setAccountType("C");
+					accountTypeSelected = true;
+					break;
+				case "2":
+					newAccount.setAccountType("S ");
+					accountTypeSelected = true;
+					break;
+				default:
+					System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 2!");
+			}
+		}
+		
+		while(!accountBalanceSelected) {
+			System.out.println("Enter account deposit amount:");
+			System.out.println("Examples: 900.00 34.56 0.56");
+			
+			String amount = sc.nextLine();
+			
+			try {
+				NumberFormat.getCurrencyInstance(Locale.US).parse("$" + amount);
+				accountBalanceSelected = true;
+				newAccount.setAccountBalance(Double.parseDouble(amount));
+			} catch (ParseException e) {
+				System.out.println("Error: Dollar amount is not in correct form. see examples");
+				continue;
+			}
+		}
+		
+		try {
+			AccountDao.addAccount(this.user, newAccount);
+		} catch (SQLException e) {
+			System.out.println("An unknown error occured. I'm sorry please restart the program and try again");
+			System.exit(1);
+		}
+		
 	}
 
 	public void withdraw() {
@@ -100,7 +250,23 @@ public class AppDriver {
 	}
 	
 	public void transfer() {
-		System.out.println("::TO DO:: Trans");
+		
+		Account fromAccount;
+		Account toAccount;
+		
+		Boolean fromAccountSelected = false;
+		Boolean toAccountSelected = false;
+		
+		this.loadAccounts();
+		this.printAccounts();
+		
+		while(!fromAccountSelected) {
+			System.out.println("Please enter the id of the account you would like to transfer from");
+			
+			String accountId = sc.nextLine();
+			
+			
+		}
 	}
 
 	public static void main(String[] args) {
@@ -131,16 +297,22 @@ public class AppDriver {
 			switch(input) {
 				case "1":
 					app.createAccount();
+					loggedIn = true;
 					break;
 				case "2":
 					app.login();
+					loggedIn = true;
 					break;
 				default:
-					System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 6!");
+					System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 2!");
 			}
 		}
 		
+		System.out.println("Logged on as: " + app.user.getUsername());
+		
 		Boolean userIsDone = false;
+		
+		app.loadAccounts();
 		
 		//While user isn't done
 		while(!userIsDone) {
@@ -168,7 +340,7 @@ public class AppDriver {
 					app.printAccounts();
 					break;
 				case "2":
-					app.createAccount();
+					app.createBankAccount();
 					break;
 				case "3":
 					app.withdraw();
@@ -185,10 +357,8 @@ public class AppDriver {
 				default:
 					System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 6!");
 			}
-			
-			System.out.println("Thank you for banking with Ross Credit Union! Have a great day!");
-			
 		}
+		System.out.println("Thank you for banking with Ross Credit Union! Have a great day!");
 	}
 
 }
