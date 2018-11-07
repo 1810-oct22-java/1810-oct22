@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML Intro</title>
+
+    <style>
+    /*this is a comment in CSS not html*/
+
+    /*tag selector*/
+    li{
+        font-style:italic;
+        color:green;
+    }
+    /*class selector*/
+    .special{
+        border:2px dotted palevioletred;
+        border-radius:5px;
+    }
+
+/*ID selector */
+    #unordered{
+        color:yellow !important;
+    }
+    /*various other selectors*/
+    /*for all child li of element with the id unorder*/
+    #unordered li{
+        color:yellow !important;
+    }
+    /*for all labels followung a checked check box input*/
+    input[type=checkbox]:checked + label{
+        background-color:green;
+    }
+
+    </style>
+</head>
+<body>
+    <!-- this is a comment
+    this body tag is where all content to be displayed in the window exist-->
+    hello!   
+    <p>Hello!</p>
+    <h1 style="background-color: orangered">hello!</h1>
+    <h2>hello</h2>
+    <h3 class="special">hello! </h3>
+    <h4>hello!</h4>
+    <h5 class="special">hello! </h5>
+
+    <br>
+    <hr>
+    <br>
+
+
+    <h4>List:</h4>
+    <ul id="unordered" class="myThings">
+        <li>first</li>
+        <li>second</li>
+    </ul>
+    <ol id="ordered" class="myThings">
+        <li>first</li>
+        <li>second</li>
+    </ol>
+
+    <h4>Table</h4>
+    <table>
+        <thead>
+            <tr> 
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>gerald</td>
+                <td>roman</td>
+                <td>gr</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <iframe src="https://revature.com/" frameborder = "5px"></iframe>
+
+    <input type="checkbox" id="trueOrFalse" value="val"/>
+    <label for="val">checkbox Example</label>
+
+</body>
+</html>
