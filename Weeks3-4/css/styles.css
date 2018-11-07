@@ -11,9 +11,13 @@
     grid-template-columns: repeat(3,lfr);
 }
  /* Select all div elements wihere the 
+<<<<<<< HEAD
 
  parent is of .wrapper class */
 
+=======
+ parent is of .wrapper class */
+>>>>>>> master
 .wrapper > div {
     border: 2px solid green;
     border-radius: 5px;
@@ -53,4 +57,9 @@
 #five{
     grid-column: 1/3;
     grid-row: 2/2;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> master
