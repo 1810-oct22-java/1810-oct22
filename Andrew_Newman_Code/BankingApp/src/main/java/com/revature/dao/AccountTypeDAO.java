@@ -20,7 +20,7 @@ public class AccountTypeDAO implements DAO<AccountType,Integer> {
 		List<AccountType> Accounts = new ArrayList<AccountType>();
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String query = "{call get_all_accountTypes}";
+			String query = "{call get_all_accountTypes(?)}";
 			CallableStatement cs = conn.prepareCall(query);
 			cs.registerOutParameter(1, OracleTypes.CURSOR);
 			cs.execute();
