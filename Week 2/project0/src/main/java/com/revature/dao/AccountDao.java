@@ -18,7 +18,7 @@ public class AccountDao implements Dao<Account,Integer>{
 		List<Account> accounts = new ArrayList<Account>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String query = "SELECT * FROM BANK_ACCOUNT"; //no semicolon
+			String query = "SELECT * FROM BANK_ACCOUNT ORDER BY ACCOUNT_TYPE"; //no semicolon
 			
 			//STATEMENT INTERFACE - implementation exposed via connection
 			Statement statement = conn.createStatement();

@@ -1,12 +1,15 @@
 package com.revature.service;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import com.revature.dao.AccountDao;
 import com.revature.dao.AccountTypeDao;
 import com.revature.dao.UserDao;
+import com.revature.exceptions.InvalidEntryException;
 import com.revature.pojos.Account;
 import com.revature.pojos.AccountType;
 import com.revature.pojos.User;
@@ -22,7 +25,8 @@ public class ServiceFunctions {
 		}
 		else { 
 			User u = checkPassword(in);
-			userFun(u);
+			Account a = findAccount(u);
+			userFun(a);
 		}
 	}
 	
@@ -79,15 +83,18 @@ public class ServiceFunctions {
 			System.out.print("Enter again (or press q to re-enter email):");
 			pass = sc.nextLine();
 			if (pass.toLowerCase().equals("q")) {
-				checkPassword(email);
+				System.out.println("Enter your email address:");
+				String e2 = sc.nextLine();
+				u = checkPassword(e2);
+				return u;
 			}
 		}
 		return u;
 	}
 	
-	public static void userFun(User u) {
-		Account a = new Account();
-		a = findAccount(u);
+	public static void userFun(Account a) {
+		UserDao uDao = new UserDao();
+		User u = uDao.findByID(a.getUserID());
 		printMenu();
 		Scanner sc = new Scanner(System.in);
 		String opt = sc.nextLine();
@@ -95,7 +102,7 @@ public class ServiceFunctions {
 			case "1":
 				deposit(a);
 				break;
-			case "2":
+			case "2":	
 				withdraw(a);
 				break;
 			case "3":
@@ -106,9 +113,14 @@ public class ServiceFunctions {
 				break;
 			case "5":
 				System.exit(0);
+			case "Q":
+			case "q":
+				a=findAccount(u);
+				userFun(a);
+				break;
 			default :
 				System.out.println("Not a valid input!");
-				userFun(u);
+				userFun(a);
 		}		
 	}
 	
@@ -138,90 +150,139 @@ public class ServiceFunctions {
  		Scanner sc = new Scanner(System.in);
  		System.out.println("Or press Q to quit");
  		String opt = sc.nextLine();
+ 		Account a = new Account();
+ 		opt = opt.toLowerCase();
  		switch (opt) {
  			case "1" :
  				if (useracts[0]==null) {
  					System.out.println("Select correct account type!");
- 					findAccount(u);
+ 					a=findAccount(u);
+ 					return a;
  				}
  				return useracts[0];
  			case "2" :
  				if (useracts[1]==null) {
  					System.out.println("Select correct account type!");
- 					findAccount(u);
+ 					a=findAccount(u);
+ 					return a;
  				}
  				return useracts[1];
  			case "3" :
  				if (useracts[2]==null) {
  					System.out.println("Select correct account type!");
- 					findAccount(u);
+ 					a=findAccount(u);
+ 					return a;
  				}
  				return useracts[2];
- 			case "Q" :
+ 			case "quit" :
+ 			case "q" :
  				System.exit(0);
  			default :
  				System.out.println("Select correct account type!");
- 				findAccount(u);
- 				break;		
+ 				a = findAccount(u);
+ 				return a;		
  		}
-		return null;
 	}
 	
 	public static void deposit (Account a) {
 		System.out.println("How much money would you like to deposit?");
 		Scanner sc = new Scanner(System.in);
-		double amount = sc.nextDouble();
-		while (amount <= 0) {
-			System.out.println("Enter positive number!");
+		double amount;
+		try {
 			amount = sc.nextDouble();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Enter valid amount!");
+			sc.nextLine();
+			amount = sc.nextDouble();
+		}
+		while (amount <= 0) {
+			try {
+				throw new InvalidEntryException();
+			} catch (InvalidEntryException e) {
+				System.out.println("Enter positive number!");
+				amount = sc.nextDouble();
+			}
 		}
 		a.setBalance(a.getBalance()+amount);
 		System.out.println("Success! Current Balance = " + a.getBalance());
+		System.out.println("Press Enter to continue");
 		
 		//WRITE TO DATABASE
 		AccountDao aDao = new AccountDao();
 		aDao.update(a);
-		
-		UserDao uDao = new UserDao();
-		User u = uDao.findByID(a.getUserID());
-		userFun(u);
+		Scanner scan = new Scanner(System.in);
+		scan.nextLine();
+	
+		userFun(a);
 	}
 	
 	public static void withdraw (Account a) {
 		System.out.println("How much money would you like to withdraw?");
 		Scanner sc = new Scanner(System.in);
-		double amount = sc.nextDouble();
-		while (amount <= 0) {
+		double amount;
+		try {
+			amount = sc.nextDouble();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Enter valid amount!");
+			sc.nextLine();
+			amount = sc.nextDouble();
+		}
+		while (amount <= 0) {	
+			System.out.println();
 			System.out.println("Enter positive number!");
 			amount = sc.nextDouble();
 		}
 		while (a.getBalance()<amount) {
-			System.out.println("Not enough funds.");
-			System.out.println("How much money would you like to withdraw?");
-			amount = sc.nextDouble();
+			if (a.getType()==3) {
+				System.out.println("OVERDRAW FEE DEDUCTED");
+				a.setBalance(a.getBalance()-10);
+				break;
+			}
+			else {
+				System.out.println("Invalid Entry, try again");
+				amount = sc.nextDouble();
+			}
 		}
 		a.setBalance(a.getBalance()-amount);
 		System.out.println("Dispensing Cash. Current Balance = " + a.getBalance());
+		System.out.println("Press Enter to continue");
+		Scanner scan = new Scanner(System.in);
+		scan.nextLine();
 		
 		//WRITE TO DATABASE
 		AccountDao aDao = new AccountDao();
 		aDao.update(a);
-		
-		UserDao uDao = new UserDao();
-		User u = uDao.findByID(a.getUserID());
-		userFun(u);
+		userFun(a);
 	}
 	
 	public static void checkBalance (Account a) {
 		System.out.println("Your balance is: "+a.getBalance());
-		
-		
-		UserDao uDao = new UserDao();
-		User u = uDao.findByID(a.getUserID());
-		userFun(u);
+		System.out.println("Press Enter to continue");
+		Scanner sc = new Scanner(System.in);
+		sc.nextLine();
+		userFun(a);
 	}
 	
 	public static void newAccount (User u) {
+		int id = u.getId();
+		AccountDao aDao = new AccountDao();
+		List<Account> accounts = aDao.findAll();
+		Account useracts[] = new Account[3];
+ 		for (Account a : accounts) {
+			if (a.getUserID()==id) {
+				if (a.getType()==1) {
+					useracts[0]=a;
+				}
+				if (a.getType()==2) {
+					useracts[1]=a;
+				}
+				if (a.getType()==3) {
+					useracts[2]=a;
+				}
+			}
+		}
 		Scanner sc = new Scanner(System.in);
 		System.out.println("What type of account would you like?");
 		System.out.println("1) Savings");
@@ -229,28 +290,55 @@ public class ServiceFunctions {
 		System.out.println("3) Credit");
 		Account a = new Account();
 		String type = sc.nextLine();
+		boolean tof = true;
 		switch (type) {
 		case "1" :
-			a.setType(1);
+			if (useracts[0]!=null) {
+				System.out.println("ERROR! Cannot have more than one Savings Account");
+				tof = false;
+			}
+			else {
+				a.setType(1);
+			}
 			break;
 		case "2" :
-			a.setType(2);
+			if (useracts[1]!=null) {
+				System.out.println("ERROR! Cannot have more than one Checking Account");
+				tof = false;
+			}
+			else {
+				a.setType(2);
+			}
 			break;
 		case "3" :
-			a.setType(3);
+			if (useracts[2]!=null) {
+				System.out.println("ERROR! Cannot have more than one Credit Account");
+				tof = false;
+			}
+			else {
+				a.setType(3);
+			}
 			break;
+		case "Q":
+		case "q":
+			System.exit(0);
 		default :
 			System.out.println("Enter a valid option!");
 			newAccount(u);
 		}
-		a.setBalance(0);
-		a.setUserID(u.getId());
+		if (tof) {
+			a.setBalance(0);
+			a.setUserID(u.getId());
 		
-		//write to database insert(a)
-		AccountDao aDao = new AccountDao();
-		aDao.insert(a);
+			//write to database insert(a)
+			aDao.insert(a);
+			userFun(a);
+		}
+		else {
+			sc.nextLine();
+			newAccount(u);
+		}
 		
-		userFun(u);
 	}
 
 }
