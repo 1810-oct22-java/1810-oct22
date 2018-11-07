@@ -39,9 +39,14 @@ public class App {
 
 			if (newAccount == 1) {
 				createAccount(user);
-			} else {
+			} else if (newAccount == 2) {
 				Account selectedAccount = null;
 				selectedAccount = selectAccount(user);
+				if (selectedAccount == null) {
+					System.out.println("You have no accounts to select");
+					continue;
+				}
+
 				boolean selectingWOrD = true;
 				while (selectingWOrD) {
 					try {
@@ -60,6 +65,9 @@ public class App {
 
 					}
 				}
+			} else {
+				System.out.println("You did not enter 1 or 2");
+				continue;
 			}
 			System.out.println("Press 1 to stay. Press 2 to logout");
 
@@ -140,6 +148,9 @@ public class App {
 			} catch (InputMismatchException e) {
 				scan.nextLine();
 				System.out.println("Please enter a 1 or 2");
+			} catch(Exception e) {
+				scan.nextLine();
+				System.out.println("Please enter a 1 or 2");
 			}
 		}
 		return user;
@@ -152,7 +163,7 @@ public class App {
 		while (user == null) {
 			try {
 				System.out.println("Login");
-				System.out.println("Please enter your user name");
+				System.out.println("Please enter your username");
 				userName = scan.nextLine();
 				System.out.println("Please enter your password");
 				password = scan.nextLine();
@@ -161,7 +172,7 @@ public class App {
 			}
 			user = userService.loginUser(userName, password);
 			if (user == null) {
-				System.out.println("Incorrect user name or password");
+				System.out.println("Incorrect username or password");
 			}
 		}
 		System.out.println("Welcome " + user.getUserName());
@@ -169,24 +180,29 @@ public class App {
 	}
 
 	private static Account selectAccount(User user) {
+		boolean hasAccount = false;
 		System.out.println("Select which account you'd like to access by it's id");
 		List<Account> accounts = accountService.getUserAccounts(user);
 		for (Account account : accounts) {
 			if (account.getUserID() == user.getUserID()) {
+				hasAccount = true;
 				System.out.println("id) " + account.getAccountID() + " balance " + account.getBalance() + " balance "
 						+ accountTypeService.getNameFromID(account.getTypeID()));
 			}
+		}
+		if (!hasAccount) {
+			return null;
 		}
 		while (true) {
 			try {
 				int choice = scan.nextInt();
 				scan.nextLine();
-				System.out.println("after");
 				for (Account account : accounts) {
 					if (account.getAccountID() == choice) {
 						return account;
 					}
 				}
+				System.out.println("Please enter a valid option");
 			} catch (InputMismatchException e) {
 				scan.nextLine();
 				System.out.println("Please enter a valid option");
@@ -206,6 +222,8 @@ public class App {
 					return 1;
 				case 2:
 					return 2;
+				default:
+					System.out.println("Please select an option" + "\n 1) Withdraw" + "\n 2) Deposit");
 				}
 			} catch (InputMismatchException e) {
 				scan.nextLine();
@@ -216,12 +234,20 @@ public class App {
 
 	private static void deposit(Account account) {
 		System.out.println("Please enter how much you'd like to deposit");
-		try {
-			double amount = scan.nextDouble();
-			scan.nextLine();
-			accountService.deposit(amount, account);
-		} catch (InputMismatchException e) {
-			e.printStackTrace();
+		while (true) {
+			try {
+				double amount = scan.nextDouble();
+				scan.nextLine();
+				if(amount + account.getBalance() > 10000000) {
+					System.out.println("Sorry, but you need a premium account to store that much money");
+					break;
+				}
+				accountService.deposit(amount, account);
+				break;
+			} catch (InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Please enter a valid amount");
+			}
 		}
 
 	}
@@ -242,6 +268,7 @@ public class App {
 				}
 			} catch (OverBalanceException e) {
 				System.out.println(e.getMessage());
+				break;
 			} catch (InputMismatchException e) {
 				scan.nextLine();
 				System.out.println("Please enter a number");
@@ -253,10 +280,18 @@ public class App {
 	private static User createNewUser() {
 		try {
 			while (true) {
-				System.out.println("Please enter what you want your user name to be");
+				System.out.println("Please enter what you want your username to be");
 				String userName = scan.nextLine();
 				System.out.println("Please enter what you'd like your password to be");
 				String password = scan.nextLine();
+				if(userName.length()>30||password.length()>30) {
+					System.out.println("Your username or password was too long");
+					continue;
+				}
+				if(userName.length()<=0||password.length()<=0) {
+					System.out.println("You did not enter a username or password");
+					continue;
+				}
 				if (userService.createUser(userName, password)) {
 					break;
 				}
