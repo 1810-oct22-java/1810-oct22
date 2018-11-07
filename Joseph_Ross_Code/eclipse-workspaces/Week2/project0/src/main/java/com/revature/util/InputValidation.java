@@ -2,6 +2,7 @@ package com.revature.util;
 
 import com.revature.exception.input.*;
 
+//Used to check passwords and usernames
 public class InputValidation {
 
 	public static Boolean checkStringInput(String input) throws TooManyCharactersInputException, NotEnoughCharactersInputException, IllegalCharactersInputException {

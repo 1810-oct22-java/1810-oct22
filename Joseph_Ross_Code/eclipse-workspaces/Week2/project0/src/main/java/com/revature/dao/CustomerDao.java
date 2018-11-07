@@ -23,18 +23,20 @@ public class CustomerDao {
 			//If rs.next() is true then the username must be taken
 			if(rs.next()) throw new UsernameAlreadyTakenException();
 			
+			//Insert the new user
 			sql = "INSERT INTO customer(username,password) VALUES (?,?)";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
 			ps.executeQuery();
 			
+			//Get the user id
 			sql = "select * from customer where username = ?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
 			rs = ps.executeQuery();
 			
-			//If rs.next() is true then the username must be taken
+			//Save the id
 			if(rs.next()) user.setUserId(rs.getInt(1));
 			
 		}
@@ -44,6 +46,8 @@ public class CustomerDao {
 	public static Customer loginAttempt(Customer user) throws InvalidAccountCredentialsException, SQLException {
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			//Check and see if username and passord combo is valid
 			String sql = "select * from customer where username = ? and password = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getUsername());

@@ -124,10 +124,10 @@ public class AppDriver {
 			if(!passwordMade) {
 				System.out.println("Please enter a Password: ");
 				password = sc.nextLine();
-				passwordMade = true;
 				
 				try {
 					InputValidation.checkStringInput(password);
+					passwordMade = true;
 					
 				} catch (TooManyCharactersInputException e) {
 					System.out.println("Password Invalid: Passwords must be under 11 characters");
@@ -140,7 +140,7 @@ public class AppDriver {
 				} catch (IllegalCharactersInputException e) {
 					System.out.println("Password Invalid: Passwords can only contain numbers and letters!");
 					continue;
-					
+			
 				}
 			}
 			
@@ -165,7 +165,7 @@ public class AppDriver {
 		try {
 			this.accounts = AccountDao.getAssociatedAccounts(this.user);
 		} catch (SQLException e) {
-			
+			e.printStackTrace();
 			System.out.println("An unknown error occured. I'm sorry please restart the program and try again");
 			System.exit(1);
 		}
@@ -243,10 +243,6 @@ public class AppDriver {
 		}
 		
 	}
-
-	public void withdraw() {
-		System.out.println("::TO DO:: With");
-	}
 	
 	public void changeBalance(String transType) {
 		
@@ -260,7 +256,7 @@ public class AppDriver {
 		
 		while(!accountSelected) {
 			
-			System.out.println("Enter the account id for the deposit");
+			System.out.println("Enter the account id");
 			String input = sc.nextLine();
 			
 			if(!input.replaceAll("[^0-9]{1,9}", "").equals(input)) {
@@ -303,7 +299,7 @@ public class AppDriver {
 		} catch (AccountInformationUpdatedAfterLastRetriveException e) {
 			System.out.println("Error: Your balance information was changed since last print. Aborting....");
 		} catch (InvalidTransactionTypeException e) {
-			//This won't happen in the program
+			System.out.println("Hello");
 		}
 		
 		System.out.println("Account balance has been updated");
@@ -316,36 +312,6 @@ public class AppDriver {
 		if(id < accounts.size()) return accounts.get(id);
 		
 		return null;
-	}
-	
-	public void transfer() {
-		
-		Account fromAccount;
-		Account toAccount;
-		
-		Boolean fromAccountSelected = false;
-		Boolean toAccountSelected = false;
-		
-		this.loadAccounts();
-		this.printAccounts();
-		
-		while(!fromAccountSelected) {
-			System.out.println("Please enter the id of the account you would like to transfer from");
-			
-			String accountId = sc.nextLine();
-			
-			if(!accountId.replaceAll("[^0-9]{1,2}", "").equals(accountId)) {
-				System.out.println("Error Invalid Option: Please enter an option in the form of a single number!");
-				continue;
-			} else if (accountId.length() != 1) {
-				System.out.println("Error Invalid Option: Multiple numbers detected as input.");
-				continue;
-			}
-			
-			
-			
-			
-		}
 	}
 
 	public static void main(String[] args) {
@@ -401,16 +367,15 @@ public class AppDriver {
 			System.out.println("Enter 2: For creating a new account");
 			System.out.println("Enter 3: For withdraw money from account");
 			System.out.println("Enter 4: For depositing money from account");
-			System.out.println("Enter 5: For transferring money from one account to another");
-			System.out.println("Enter 6: For ending the program");
+			System.out.println("Enter 5: For ending the program");
 			
 			String input = app.sc.nextLine();
 			
-			if(!input.replaceAll("[^1-6]", "").equals(input)) {
-				System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 6!");
+			if(!input.replaceAll("[^1-5]", "").equals(input)) {
+				System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 5!");
 				continue;
 			} else if (input.length() != 1) {
-				System.out.println("Error Invalid Option: Multiple numbers detected as input. Please enter an option in the form of a number from 1 to 6!");
+				System.out.println("Error Invalid Option: Multiple numbers detected as input. Please enter an option in the form of a number from 1 to 5!");
 				continue;
 			}
 			
@@ -422,22 +387,18 @@ public class AppDriver {
 					app.createBankAccount();
 					break;
 				case "3":
-					app.withdraw();
+					app.changeBalance("withdraw");
 					break;
 				case "4":
-					app.deposit();
+					app.changeBalance("deposit");
 					break;
 				case "5":
-					app.transfer();
-					break;
-				case "6":
 					userIsDone = true;
 					break;
 				default:
-					System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 6!");
+					System.out.println("Error Invalid Option: Please enter an option in the form of a number from 1 to 5!");
 			}
 		}
 		System.out.println("Thank you for banking with Ross Credit Union! Have a great day!");
 	}
-
 }
