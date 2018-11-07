@@ -52,6 +52,8 @@ public class app {
 			user = logIn(scan);
 		}
 
+		System.out.println(user);
+
 		while (anotherTransaction == true) {
 			accInput = 0;
 			while (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
@@ -80,6 +82,7 @@ public class app {
 				}
 
 			} else {
+				displayBalances(user);
 				System.out.println("Goodbye");
 				System.exit(0);
 			}
@@ -113,41 +116,66 @@ public class app {
 
 	private static void displayBalances(String user) {
 		int uid = uService.getId(user);
-		int count = 1;
-		String[] output = {"Checking Balance ", "Saving Balance ", "Credit Balance "}; 
-		for(Account s : aService.getAllUserAccounts(uid)) {
-			System.out.println(output[count] + ":" + s.getBalance());
+		String[] output = { "Checking Balance", "Saving Balance", "Credit Balance" };
+		List<Account> accounts = aService.getAllUserAccounts(uid);
+		if (accounts.isEmpty()) {
+			System.out.println("No user accounts, Balances: 0");
+		} else {
+			for (Account s : accounts) {
+				switch (s.getTypeId()) {
+				case 1:
+					System.out.println(output[0] + ":" + s.getBalance());
+					break;
+				case 2:
+					System.out.println(output[1] + ":" + s.getBalance());
+					break;
+				case 3:
+					System.out.println(output[2] + ":" + s.getBalance());
+					break;
+				}
+			}
 		}
-		
 		System.out.println();
 	}
-	
-	
+
 	private static void deposit(String user, Scanner scan) {
 		int amount = 0;
 		int accType = 0;
 		int uid = uService.getId(user);
-		System.out.println("Please enter amount to deposit: ");
-		try {
-			amount = scan.nextInt();
-		} catch (InputMismatchException ime) {
-			System.out.println("Please enter a number" + "\n");
-			scan.nextLine();
-			deposit(user, scan);
-		}
-		scan.nextLine();
 
-		System.out.println("Which Account for deposit: ");
-		displayAccounts(user);
-		try {
-			accType = scan.nextInt();
-		} catch (InputMismatchException ime) {
-			System.out.println("Please enter a number" + "\n");
+		if (!aService.createdAccounts(uid).isEmpty()) {
+			System.out.println("You do not have any accounts");
+
+		} else {
+
+			System.out.println("Please enter amount to deposit: ");
+			try {
+				amount = scan.nextInt();
+			} catch (InputMismatchException ime) {
+				System.out.println("Please enter a number" + "\n");
+				scan.nextLine();
+				deposit(user, scan);
+			}
 			scan.nextLine();
-			deposit(user, scan);
+
+			System.out.println("Which Account for deposit: ");
+			displayAccounts(user);
+			try {
+				accType = scan.nextInt();
+			} catch (InputMismatchException ime) {
+				System.out.println("Please enter a number" + "\n");
+				scan.nextLine();
+				deposit(user, scan);
+			}
+			scan.nextLine();
+
+			if (!aService.createdAccounts(uid).contains(accType)) {
+				System.out.println("You do not have an account of that type");
+				deposit(user, scan);
+			}
+
+			aService.updateAccount(uid, accType, amount, "dep");
 		}
-		scan.nextLine();
-		aService.updateAccount(uid, accType, amount, "dep");
 	}
 
 	private static int withdraw(String user, Scanner scan) {
@@ -155,6 +183,10 @@ public class app {
 		int accType = 0;
 		int uid = uService.getId(user);
 
+		if (!aService.createdAccounts(uid).isEmpty()) {
+			System.out.println("You do not have any accounts");
+			return 0;
+		}
 		System.out.println("Please enter amount to withdraw: ");
 		try {
 			amount = scan.nextInt();
@@ -176,15 +208,25 @@ public class app {
 		}
 		scan.nextLine();
 
+		if (!aService.createdAccounts(uid).contains(accType)) {
+			System.out.println("You do not have an account of that type");
+			withdraw(user, scan);
+		}
+
 		int totalBalance = aService.getBalance(uid, accType);
 
 		totalBalance -= amount;
 
 		while (totalBalance < 0) {
-			totalBalance += amount;
-			System.out.println("Overdraft Error, Please enter an amount below " + totalBalance);
-			amount = scan.nextInt();
-			scan.nextLine();
+			try {
+				totalBalance += amount;
+				throw new NoMoneyException();
+			} catch (NoMoneyException e) {
+				System.out.println("Overdraft Error, Please enter an amount below or equal to " + totalBalance);
+				amount = scan.nextInt();
+				scan.nextLine();
+				totalBalance -= amount;
+			}
 		}
 
 		aService.updateAccount(uid, accType, amount, "with");
@@ -218,10 +260,11 @@ public class app {
 		System.out.println("User Accounts:  ");
 		List<Integer> types = aService.createdAccounts(uid);
 		for (String s : accTypeService.convertToName(types)) {
-			System.out.println(count + " " + s );
+			System.out.println(s);
 			count++;
 		}
-		System.out.println(" ");
+		System.out.println();
+		System.out.println("1: Checking / 2: Savings / 3: Credit");
 	}
 
 	private static int accountCreationdisplay(Scanner scan, String user) {
@@ -286,20 +329,24 @@ public class app {
 		} else {
 			System.out.println("Username Does Not Exists");
 			System.out.println("Please Try again" + "\n");
-			logIn(scan);
+			username = logIn(scan);
 		}
 
 		// password validation
 
-		return null;
+		return username;
 
 	}
 
 	private static String accountCreation(Scanner scan) {
-
+		String username = "";
+		String password = "";
 		System.out.println("Account Creation: ");
-		System.out.println("Please enter a username - ");
-		String username = scan.nextLine();
+		while (username.equals("")) {
+			System.out.println("Please enter a username - ");
+			username = scan.nextLine();
+		}
+
 		List<User> users = uService.getAllUsers();
 		ArrayList<String> usernames = new ArrayList<String>();
 		for (User u : users) {
@@ -312,18 +359,16 @@ public class app {
 			accountCreation(scan);
 		} else {
 			System.out.println("Please enter a password - ");
-			String password = scan.nextLine();
+			password = scan.nextLine();
+
 			System.out.println("Please enter your FirstName - ");
 			String firstName = scan.nextLine();
 			System.out.println("Please enter your LastName - ");
 			String lastName = scan.nextLine();
 
 			uService.insertUser(firstName, lastName, username, password);
-
-			return username;
 		}
-
-		return "";
+		return username;
 	}
 
 	public static void displayInitialOptions() {

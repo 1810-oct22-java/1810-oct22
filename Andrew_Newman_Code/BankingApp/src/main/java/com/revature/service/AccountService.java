@@ -21,9 +21,6 @@ public class AccountService {
 	public List<Account> getAllUserAccounts(int user) {
 		List<Account> accounts = aDao.findAllById(user);
 
-		if (accounts.isEmpty())
-			return null;
-
 		return accounts;
 	}
 	
