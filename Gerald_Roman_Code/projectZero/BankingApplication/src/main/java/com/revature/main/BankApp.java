@@ -33,7 +33,7 @@ public class BankApp {
 
 	static void run() {
 		System.out.println("========================================================================="
-				+ "\n============|| Hello! Welcome to the New Lehman Brothers! ||============="
+				+ "\n============||        Hello! Welcome to POJO Bank!        ||============="
 				+ "\n========================================================================="
 				+ "\n            ||        What would you like to do?          ||"
 				+ "\n            || 1. Existing Customer                       ||"
@@ -143,23 +143,27 @@ public class BankApp {
 					break;
 				// print balance
 				case 2:
-					// accDao();
 					deposit(u);
 					break;
 				case 3:
 					withdraw(u);
-					// do withdraw
 					break;
 				case 4:
 					newAccount(u);
 					break;
-				// create a new type of account
 				case 5:
-					System.out.println("Adios!");
+					System.out.println("");System.out.println("");
+					System.out.println("");System.out.println("");
+					System.out.println("");System.out.println("");
+					System.out.println("");System.out.println("");
+					System.out.println("");System.out.println("");
+					System.out.println("");System.out.println("");
+					System.out.println("");
+					System.out.println("Application has ended. Thank you for choosing us!");
 					System.exit(0);
 					break;
 				default:
-					System.out.println("Please enter a number from the menu");
+					System.out.println("Please enter a number from the menu!");
 					accountMenu(u);
 					break;
 				}
@@ -229,7 +233,7 @@ public class BankApp {
 				AccDao aDao = new AccDao();
 				aDao.update(a);
 			} else {
-				System.out.println("Can't withdraw amount\n");
+				System.out.println("Can't withdraw amount. Not enough funds.\n");
 				withdraw(u);
 			}
 		}
