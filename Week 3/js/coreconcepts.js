@@ -147,3 +147,32 @@ var addArrow = (a,b)=> {return a+b; }
 
 //scopes, hoising, operators, loops, statements
 
+//var will never give block scope unless "let" is included
+
+//var y
+window.onload = function() {
+    var count = 0;
+    doThings(count);
+}
+
+//declaring function
+// could be 
+// var f = function() {
+//      return "test";
+// }
+// IIFE - Immediately invoked function expression
+//
+
+
+function doThings(count) {
+    //implicit x,z
+    var x = 5;
+    console.log(z);
+    y = 6;
+    var z = 10;
+}
+
+function test() {
+
+}
+

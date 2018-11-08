@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+    <h1 align="center">Welcome to Rev Books</h1>
+    <div class="jumbotron">
+        <h4>Add a new book:</h4>
+        <br> ISBN:
+        <input type="number" id="isbn" class="col-4 form-control" maxlength="10" minlength="10">
+        <div class="danger" id="isbnwarning"></div>
+        <br> Title:
+        <input type="text" id="title" class="col-4 form-control">
+        <br> Price:
+        <input type="text" id="price" class="col-4 form-control">
+        <br> Genre:
+        <select id="genres" class="col-4 form-control">
+        </select>
+    </div>
+    <button id="add" class="btn btn-primary">Add Book!</button>
+    <hr>
+    <table class="table table-sm table-hover table-bordered thead-light">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Genre</th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            <tr>
+                <th id="nid"></th>
+                <th id="nisbn"></th>
+                <th id="nTitle"></th>
+                <th id="nPrice"></th>
+                <th id="nGenre"></th>
+            </tr>
+        </tbody>
+    </table>
+
+<script>
+    
+    window.onload = function() {
+        loadGenres();
+        document.getElementById('add').addEventListener("click",addBook);
+    }
+
+    function loadGenres() {
+        var genres = ["Fiction","Non-Fiction","History","Biography","Drama","Romance"];
+        for(let i = 0; i<genres.length; i++) {
+            let elem = document.createElement("option");
+            elem.value = genres[i];
+            elem.innerHTML = genres[i];
+            document.getElementById('genres').appendChild(elem);
+        }
+    }
+
+    var count = 100;
+    function addBook(){
+
+        //get data from input values
+        var isbn = document.getElementById('isbn').value;
+        var title = document.getElementById('title').value;
+        var price = document.getElementById('price').value;
+        var genres = document.getElementById('genres').value;
+        var id = count++;
+
+        /*
+        document.getElementById(`<td>{genres}<\td>`);?
+        or
+        */
+
+        //generate new DOM elements
+        var row = document.createElement("tr");
+        var cell1 = document.createElement("td");
+        var cell2 = document.createElement("td");
+        var cell3 = document.createElement("td");
+        var cell4 = document.createElement("td");
+        var cell5 = document.createElement("td");
+
+        cell1.innerText=id;
+        cell2.innerText=isbn;
+        cell3.innerText=title;
+        cell4.innerText=price;
+        cell5.innerText=genres;
+
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        row.appendChild(cell3);
+        row.appendChild(cell4);
+        row.appendChild(cell5);
+
+        document.getElementById("tablebody").appendChild(row);
+
+    }
+
+</script>
+
+</body>
+</html>

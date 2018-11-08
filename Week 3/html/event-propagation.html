@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+    
+    <h1>Understanding Event Handling</h1>
+    <h4>Events are things that can happen to HTML elements. When JS
+        is used in HTML pages, it can react to these events
+    </h4>
+
+    <div id="outer" class = "col-12" style = "background-color: rgb(243, 123, 53)" align="center">
+        <br>OUTER<br>
+        <div id="middle" class = "col-8" style = "background-color: green" align="center">
+            <br>MIDDLE<br>
+            <div id="inner" class = "col-4" style = "background-color: red" align="center">
+                <br>INNER<br>
+            </div>
+            <br>MIDDLE<br>
+        </div>
+        <br>OUTER<br>
+    </div>
+
+
+    <script>
+        var capture = true;
+
+        document.getElementById('inner').addEventListener('click',function() {
+            alert("INNER");
+        }, capture);
+
+        document.getElementById('middle').addEventListener('click',function() {
+            alert("MIDDLE");
+            event.stopPropagation();
+        }, false);
+
+        document.getElementById('outer').addEventListener('click',function() {
+            alert("OUTER");
+        }, capture);
+    </script>
+
+</body>
+</html>

@@ -37,7 +37,7 @@ public class ServiceFunctions {
 
 		//INPUT VALIDATION, CHECK IS USER EXISTS
 		while (email.equals("") || existUser(email)) {
-			System.out.println("Must Enter a Valid Email!");
+			System.out.println("Must Enter a Unique Email!");
 			email = sc.nextLine();
 		}
 		
@@ -242,7 +242,13 @@ public class ServiceFunctions {
 				amount = sc.nextDouble();
 			}
 		}
-		a.setBalance(a.getBalance()+amount);
+		if (a.getType()==1) {
+			System.out.println("Interest Added!");
+			a.setBalance(a.getBalance()+(amount*1.1));
+		}
+		else {
+			a.setBalance(a.getBalance()+amount);
+		}
 		System.out.println("Success! Current Balance = " + a.getBalance());
 		System.out.println("Press Enter to continue");
 		
@@ -258,7 +264,7 @@ public class ServiceFunctions {
 	//WITHDRAW METHOD
 	public static void withdraw (Account a) {
 		Scanner sc = new Scanner(System.in);
-		if (a.getBalance() == 0 || a.getType()!=3) {
+		if (a.getBalance() == 0 && a.getType()!=3) {
 			System.out.println("Must have funds to withdraw!");
 			sc.nextLine();
 			userFun(a);

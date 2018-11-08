@@ -15,7 +15,7 @@ function runFib() {
     console.log(n);
     console.log(`fib(n) = ${fib(n)}`);
 
-    document.getElementById('fibOutput').innerHTML = fib(n);
+    document.getElementById('fibOutput').innerHTML = `fib(n) = ${fib(n)}`;
 }
 
 function fib(n) {

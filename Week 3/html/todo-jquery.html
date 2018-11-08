@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Intro to jQuery</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+
+</head>
+<body>
+    
+    <div class = "jumbotron">
+        <input type="text" class = "form-control col-6" id="newItem" placeholder="New Item...">
+        <button id = "add" class = "btn-danger">Add Item</button>
+        <div class ="row">
+            <div class="col-sm-6">
+                <h3>To Buy:</h3>
+                <ul id="toBuy">
+                    <li>wine</li>
+                    <li>steak</li>
+                    <li>water</li>
+                    <li>pizza</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h3>Purchased:</h3>
+                <ul id="bought">
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+    //Welcome to jQuery!
+    /*
+        JQuery is a JS library used to shorten syntax and add a few features
+        to "vanilla" JavaScript
+
+        jQuery uses the CSS selectors to refer to elements
+        ie $('#add') can be used to select an element with the id of "add" as
+        opposed to in vanilla JS using document.getElementById('add')
+    */
+
+    
+        /*$('#add').on({
+            click: add,
+            mouseover: function(){
+                console.log("mouse over");
+            }
+        } );*/
+
+        $('#newItem').keydown(function (e) {
+            if(e.keyCode == 13) {
+                add();
+            }
+        });
+
+        function add(){
+            let newItem = $('#newItem').val();
+            let elem = $('<li></li>').text(newItem);
+            $('#toBuy').append(elem);
+            $('#newItem').val('');
+        }
+
+
+        /*$('#add').on('click',function(){
+            let newItem = $('#newItem').val();
+            //let elem = $(`<li>${newItem}</li>`);
+            let elem = $('<li></li>').text(newItem);
+            $('#toBuy').append(elem);
+            $('#newItem').val('');
+        });*/
+
+        $('#toBuy').on('click','li',function() {
+            let boughtItem = $(this);
+            $('#bought').append(boughtItem);
+            //$('#bought').append(this);
+        })
+
+    </script>
+
+</body>
+</html>
