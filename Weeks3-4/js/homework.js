@@ -5,13 +5,14 @@ window.onload = function(){
 
 document.getElementById('runFib').addEventListener("click", runFib, true);
 
+
 }
 
 function runFib(){
     //take input and call fibonacci function
     var n = document.getElementById('fibInput').value;
     console.log(n);
-    console.log(`fib(n) = ${fibR(n)}`);
+    document.getElementById("fibOutput").innerHTML = `fib(n) = ${fibR(n)}`;
 }
 
 function fibR(n){
