@@ -128,8 +128,11 @@
                     // this is the ONLY PLACE you should be manipulating your response
                     console.log(xhr.responseText);
                     globalperson = JSON.parse(xhr.responseText);
+                    $('#output').html(JSON.parse(xhr.responseText).name);
                 }
             }
+
+          
 
             //STEP 3 - open request
             var id = $('#swID').val();
@@ -139,6 +142,8 @@
             //STEP 4 - send request
             //xhr.send(body); where param is response body.. which GET requests do not have
             xhr.send(); 
+
+            console.log("SENT REQUEST " + xhr.responseText); // `SENT REQUEST ${xhr.responseText}`
 
         }
 
