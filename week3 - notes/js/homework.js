@@ -42,7 +42,8 @@ const bubbleSort = () => {
     document.getElementById("bubOutput").appendChild(div)
 }
 
-const reverseString = (str) => {
+const reverseString = () => {
+    let str = document.getElementById('revInput').value
     let revd = str.split("").reverse().join("")
     const div = document.createElement("DIV")
     var t = document.createTextNode(revd)
