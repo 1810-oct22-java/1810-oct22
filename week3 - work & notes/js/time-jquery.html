@@ -60,6 +60,47 @@
         <li id="min"></li>
     </ul>
 
+    <script>
+        $(() => {
+            setInterval(() => {
+                // second hand
+                let seconds = new Date().getSeconds()
+                console.log(`SECONDS: ${seconds}`);
+                let sDegrees = `rotate(${seconds*6}deg)`
+                $('#sec').css({
+                    'moz-transform': sDegrees,
+                    'webkit-transform': sDegrees
+                })
+
+                // minute hand
+                // let minute = new Date().getMinutes()
+                // console.log(`${minute}`);
+                
+            }, 1000)
+
+            setInterval(function() {
+                
+                // minute hand
+                let minutes = new Date().getMinutes()
+                console.log(`${minutes}`);
+
+                let mDegrees = `rotate(${minutes*6}deg)`
+                $('#min').css({
+                    'moz-transform': mDegrees,
+                    'webkit-transform': mDegrees
+                })
+
+                let hours = new Date().getHours()
+                let hDegrees = `rotate(${hours*30+(minutes/2)}deg)`
+                $('#hour').css({
+                    'moz-transform': hDegrees,
+                    'webkit-transform': hDegrees
+                })
+            }, 1000)
+
+        })
+    </script>
+
 </body>
 
 </html>
