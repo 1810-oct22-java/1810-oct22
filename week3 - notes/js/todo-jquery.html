@@ -33,13 +33,15 @@
             </div>
             <div class="col-lg-4">
                 <h3>Purchased</h3>
+                <ul class="purchased">
+
+                </ul>
             </div>
         </div>
     </div>
 
     <script>
         // welcome to jquery
-
 
         $('#add').on('click', () => {
             console.log('look at this')
@@ -48,6 +50,21 @@
             $('#toBuy').append(elem)
             $('#newItem').val()
         })
+
+        $('#toBuy').on('click', 'li', function() {
+            let text = $(this).html()    
+            $(this).remove()       
+            $('.purchased').append(`<li>${text}</li>`)
+        })
+
+        $('#add').on('keydown', function() {
+            let newItem = $('#newItem').val()
+            let elem = $(`<li>${newItem}</li>`)
+            $('#toBuy').append(elem)
+            $('#newItem').val()
+        })
+
+
     </script>
 
 
