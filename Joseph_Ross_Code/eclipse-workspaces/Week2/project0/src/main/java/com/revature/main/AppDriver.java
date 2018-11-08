@@ -298,6 +298,7 @@ public class AppDriver {
 			System.out.println("An unknown error occured. Please restart program and try again.");
 		} catch (AccountInformationUpdatedAfterLastRetriveException e) {
 			System.out.println("Error: Your balance information was changed since last print. Aborting....");
+			return;
 		} catch (InvalidTransactionTypeException e) {
 			System.out.println("Hello");
 		}
