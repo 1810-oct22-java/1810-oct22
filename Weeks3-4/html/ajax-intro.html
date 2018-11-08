@@ -98,7 +98,50 @@
         </li>
     </div>
 
-    
+    <hr>
+    <h4>Leverage AJAX to Use the Force</h4>
+    <input type="number" id="swID" class="form-control col-4">
+    <h5>Welcome to the force <span id="output"></span></h6>
+    <button id="go" class="btn btn-primary">Go!</button>
 
+
+    <script>
+
+        window.onload = function(){
+            $('#go').on('click', useTheForce);
+        }
+
+        function useTheForce(){
+            //AJAX!
+
+            //STEP 1 -  create the XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            /*STEP 2 - define functionality for response
+                - this does not necessarily have to be written second, but it 
+                is important to note that it will not be carried out synchronously 
+            */
+            xhr.onreadystatechange = function(){
+                console.log(xhr.readyState);
+                if(xhr.readyState == 4 && xhr.status == 200 ){
+                    // define functionality for response
+                    // this is the ONLY PLACE you should be manipulating your response
+                    console.log(xhr.responseText);
+                    globalperson = JSON.parse(xhr.responseText);
+                }
+            }
+
+            //STEP 3 - open request
+            var id = $('#swID').val();
+            var url = `https://swapi.co/api/people/${id}/`;
+            xhr.open('GET', url, true);
+
+            //STEP 4 - send request
+            //xhr.send(body); where param is response body.. which GET requests do not have
+            xhr.send(); 
+
+        }
+
+    </script>
 </body>
 </html>
