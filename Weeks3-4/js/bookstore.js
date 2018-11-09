@@ -29,8 +29,9 @@ function postGenreAJAX(){
     */
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send(JSON.stringify(genreObj));
-
 }
+
+
 
 function getGenresAJAX(){
     var xhr = new XMLHttpRequest();
