@@ -140,7 +140,7 @@
             xhr.open('GET', url, true);
 
             //STEP 4 - send request
-            //xhr.send(body); where param is response body.. which GET requests do not have
+            //xhr.send(body); where param is request body.. which GET requests do not have
             xhr.send(); 
 
             console.log("SENT REQUEST " + xhr.responseText); // `SENT REQUEST ${xhr.responseText}`
