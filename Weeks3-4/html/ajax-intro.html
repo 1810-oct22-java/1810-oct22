@@ -108,7 +108,10 @@
     <script>
 
         window.onload = function(){
-            $('#go').on('click', useTheForce);
+            $('#go').on('click',function(){
+                useTheForce();
+                doAjaxWithQuery();
+            });
         }
 
         function useTheForce(){
@@ -145,6 +148,24 @@
 
             console.log("SENT REQUEST " + xhr.responseText); // `SENT REQUEST ${xhr.responseText}`
 
+        }
+        ///AJAX WITH JQUERY
+        function doAjaxWithQuery(){
+            console.debug('TESTING OUR JQUERY AJAX METHOD')
+            globalSW = null;
+            $.ajax({
+                type:'GET',
+                url: `https://swapi.co/api/people/${$('#swID').val()}`,
+                //what happens upon a successful response from the server
+                success: function(response,status){
+                    globalSW = JSON.parse(response)
+                    console.log(response);
+                    console.log(status);
+                },
+                error: function(status,statusText){
+                    console.log(`ERROR: ${status}: ${statusText}`);
+                }
+            })
         }
 
     </script>
