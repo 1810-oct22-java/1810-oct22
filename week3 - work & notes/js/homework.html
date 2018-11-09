@@ -7,11 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <title>JS Assignment</title>
 </head>
 
 <body>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        #dateOutput {
+            float: right;
+        }
+    </style>
+
     <h1>JavaScript Assignment</h1>
+    <span id="dateOutput"></span>
 
     <h3>Problem 1: Fibonacci</h3>
     <input type="number" id="fibInput" class="form-control">
@@ -20,16 +32,46 @@
 
     <h3>Problem 2: BubbleSort</h3>
     <button class="btn btn-primary" id="bubbleSort">BubbleSort</button>
-    <p id="bubOutput"></p>
+    <p id="bubOutput">Original: </p>
+    <p id="bubOutput2">Bubbled: </p>
 
     <h3>Problem 3: Reverse String</h3>
     <input type="text" id="revInput" class="form-control">
     <button class="btn btn-primary" id="reverseString">Reverse</button>
     <p id="revOutput"></p>
 
+    <h3>Problem 4: nFactorial</h3>
+    <input type="number" id="nInput" class="form-control">
+    <button class="btn btn-primary" id="nFactorial">nFactorial</button>
+    <p id="nOutput"></p>
 
+    <h3>Problem 5: substring</h3>
+    <input type="text" id="subInput" class="form-control">
+    <input type="number" id="subInput2" class="form-control">
+    <input type="number" id="subInput3" class="form-control">
+    <button class="btn btn-primary" id="sub">substring</button>
+    <p id="subOutput"></p>
 
+    <h3>Problem 6: isEven</h3>
+    <input type="number" id="evenInput" class="form-control">
+    <button class="btn btn-primary" id="isEven">isEven</button>
+    <p id="evenOutput"></p>
+    
+    <h3>Problem 7: Palindrome</h3>
+    <input type="text" id="palInput" class="form-control">
+    <button class="btn btn-primary" id="palindrome">Palindrome</button>
+    <p id="palOutput"></p>
+    
+    <h3>Problem 10: Delete</h3>
+    <input type="number" id="deleteInput" class="form-control">
+    <button class="btn btn-primary" id="delete">Delete</button>
+    <p id="deleteOutput">Original length: </p>
+    <p id="deleteOutput2">New length: </p>
 
+    <h3>Problem 15: Descending</h3>
+    <button class="btn btn-primary" id="descending">Descending</button>
+    <p id="descOutput">Original: </p>
+    <p id="descOutput2">Big Number: </p>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
