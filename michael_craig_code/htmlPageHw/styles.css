@@ -1,14 +1,17 @@
-Body {
+body {
     Font-Size: 14px;
     Font-Family: "Times New Roman", serif;
     Color: black;
     Background-image: url("images/pattern1.png");
 }
 .content {
+    display: grid;
+    grid-template: 94% 6%/ 100%;
     margin: auto;
-    max-width: 980px;
+    width: 85%;
     background: #ffffff;
 }
+
 h1 {
     Font-Size: 50px;
     Font-Family: Arial, Helvetica, sans-serif;
@@ -43,7 +46,7 @@ h4 {
     padding-bottom: 10px;
     text-transform: uppercase;
 }
-h1, h2, p, h3, h4 {
+h1, h2, h5, h3, h4 {
     padding-left: 12px;
 }
 .pics {
@@ -55,11 +58,10 @@ h1, h2, p, h3, h4 {
     width: 0 auto;
     border: 5px solid #cccccc;
 }
-footer {
+
+.footer {
+    grid-area: 4 / 1 / span 1 / span 1;
     background: #f0776e;
-    text-align: right;
-    color: #ffffff;
-    padding-bottom: 25px;
-    padding-top: 8px;
-    padding-right: 10px;
+    padding: .75rem;
+    text-align: center;
 }
