@@ -61,6 +61,43 @@
         <li id="hour"></li>
         <li id="min"></li>
     </ul>
+
+    <script>
+    
+        $(document).ready(function(){
+
+            setInterval(function(){
+
+                sDegrees = `rotate(${(new Date().getSeconds()) * 6}deg)`;
+                $('#sec').css({
+                    'moz-transform': sDegrees,
+                    '-webkit-transform' : sDegrees
+                });
+                
+                minutes = (new Date().getMinutes() * 60) + new Date().getSeconds();
+                mDegg = minutes /10;
+                mDegrees = 'rotate(' + mDegg + 'deg)';
+
+                $('#min').css({
+                    'moz-transform': mDegrees,
+                    '-webkit-transform' : mDegrees
+                })
+                
+                hours = (new Date().getHours() * 60 * 12) + (new Date().getMinutes() * 60) + new Date().getSeconds();
+                hDegg = hours/;
+                hDegrees = 'rotate(' + hDegg + 'deg)';
+
+                $('#hour').css({
+                    'moz-transform': hDegrees,
+                    '-webkit-transform' : hDegrees
+                });              
+
+            }, 1000);
+
+        });
+    
+    </script>
+
 </body>
 
 </html>
