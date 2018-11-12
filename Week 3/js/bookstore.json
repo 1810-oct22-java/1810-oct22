@@ -1,0 +1,39 @@
+{
+    "books" : [
+        {
+            "id": 1,
+            "title": "Harry Potter and the Philosopher's Stone",
+            "isbn" : "1233456955",
+            "price" : 13.99,
+            "genreId" : 1,
+            "authorId" : 1
+        }
+    ],
+    "genres" : [
+        {
+            "id" : 1,
+            "genre" : "Fiction"
+        },
+        {
+            "id" : 2,
+            "genre" : "Fantasy"
+        },
+        {
+            "id" : 3,
+            "genre" : "History"
+        },
+        {
+            "id" : 4,
+            "genre" : "Non-Fiction"
+        }
+    ],
+    "authors" : [
+        {
+            "id" : 1,
+            "firstName" : "J.K.",
+            "lastName" : "Rowling",
+            "bio" : "She Wrote Harry Potter"
+        }
+
+    ]
+}

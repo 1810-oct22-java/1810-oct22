@@ -32,6 +32,13 @@
     - null
     - NaN (debatable .. type of NaN = number)
 
+
+A callback function is a function that is executed after another function has finished executing
+
+var whatever = function -> function expression
+
+IIFE- immediately invoked function expression
+
  */
 
  var a = 5;
@@ -176,3 +183,26 @@ function test() {
 
 }
 
+/*GUARD &&
+-takes two operands
+if the first operand is TRUTHY, it returns the 2nd operand(not true/false,
+    the operand itself)
+    otherwise it returns the first operand
+*/
+var currentSession = null;
+var userInfo = {username: "gab12", password: '123'};
+
+var getUser = currentSession && userInfo; //guards info behind the && signs
+
+/* 
+DEFAULT || 
+if the first operand is truthy, return it
+if not return the second operand
+*/
+
+var leaveEarlyByHours = 1;
+var regularLeave = 5;
+
+var timeOut = leaveEarlyByHours || regularLeave;
+
+var timeOut = (leaveEarlyByHours > 0) ? regularLeave - leaveEarlyByHours : regularLeave;
