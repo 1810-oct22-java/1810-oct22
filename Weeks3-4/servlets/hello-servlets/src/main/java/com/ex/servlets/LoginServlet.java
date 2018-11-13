@@ -56,6 +56,8 @@ public class LoginServlet extends HttpServlet {
 			text += "</h1><br> Your info is " + user.getData();
 		}
 		
+		writer.write(text);
+		
 	}
 
 }
