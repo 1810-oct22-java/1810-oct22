@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <style>
+        .br{
+            height: 200px;
+        }
+        #q1{
+            float: left;
+        }
+        #p1{
+            float:left;
+            clear: right;
+         
+        }
+
+        #q2{
+           clear: left;
+            float:left;
+        }
+        #p2{
+            float:left;
+        }
+
+        #q3{
+            clear: left;
+            float: left;
+        }
+
+        #p3{
+            float: left;
+        }
+        
+
+        #q4{
+            clear: left;
+            float: left;
+        }
+
+        #p4{
+            float: left;
+        }
+
+        #q5{
+            clear: left;
+            float: left;
+        }
+
+        #p5{
+            float: left;
+        }
+
+        #q6{
+            clear: left;
+            float: left;
+        }
+
+        #p6{
+            float: left;
+        }
+
+        #q7{
+            clear: left;
+            float: left;
+        }
+
+        #p7{
+            float: left;
+        }
+
+        #q8{
+            clear: left;
+            float: left;
+        }
+
+        #p8{
+            float: left;
+        }
+
+        #q9{
+            clear: left;
+            float: left;
+        }
+
+        #p9{
+            float: left;
+        }
+
+        #q10{
+            clear: left;
+            float: left;
+        }
+
+        #p10{
+            float: left;
+        }
+
+        #q11{
+            clear: left;
+            float: left;
+        }
+
+        #p11{
+            float: left;
+        }
+
+        #q12{
+            clear: left;
+            float: left;
+        }
+
+        #p12{
+            float: left;
+        }
+
+        #q13{
+            clear: left;
+            float: left;
+        }
+
+        #p13{
+            float: left;
+        }
+        #q14{
+            clear: left;
+            float: left;
+        }
+
+        #p14{
+            float: left;
+        }
+
+        #q15{
+            clear: left;
+            float: left;
+        }
+
+        #p15{
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript HomeWork: David Bock</h1>
+    <section id = "q1">
+        <h3>Problem 1: Fibonacci</h3>
+        <input type = "number" id = "fibInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFib">Run fibonacci!</button>
+        <p id = "fibOutput"></p>
+    </section>
+    <section id = "p1">
+   <!---         <img src = "https://i.kym-cdn.com/photos/images/original/001/240/449/84b.gif"> -->
+    </section>
+
+
+
+    <section id = "q2">
+        <h3>Problem 2: Bubble Sort</h3>
+        <input type = "number" id = "bubbleInput"  class = "form-control">
+        <button class = "btn btn-primary" id =  "runBubble">Run Bubblesort!</button>
+        <p id = "bubbleOutput"></p>
+    </section>
+    <section id = "p2">
+         <!---  <img src = "https://emojis.slackmojis.com/emojis/images/1495224267/2309/popcorn_parrot.gif?1495224267"> -->
+    </section>
+
+
+    <section id = "q3">
+        <h3>Problem 3: Reverse String</h3>
+        <input type = "text" id = "reverseStringInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runReverseString">Run Reverse String!</button>
+        <p id = "reverseStringOutput"></p>
+        </section>
+    <section id = "p3">
+    <!---    <img src = "https://cultofthepartyparrot.com/parrots/hd/parrotmustache.gif"> -->
+    </section>
+
+    <section id = "q4">
+
+        <h3>Problem 4: Factorial</h3>
+        <input type = "number" id = "factorialInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFactorial">Run factorial!</button>
+        <p id = "factorialOutput"></p>
+    </section>
+    <section id = "p4">
+   <!---     <img src = "https://i.imgur.com/KzEIkZG.gif">-->
+    </section>
+
+    <section id = "q5">
+        <h3>Problem 5: Substring</h3>
+        <div class="input-group" id = "gr">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputgroup"></span>
+            </div>
+            <input type="text"  id = "g1" class="form-control">
+            <input type="number"  id = "g2" class="form-control">
+            <input type="number" id = "g3" class="form-control">
+        </div>
+        <button class = "btn btn-primary" id =  "runSubStr">Substring!</button>
+        <p id = "subStrOutput"></p>
+    </section>
+    <section id = "p5">
+       <!--- <img src = "https://cultofthepartyparrot.com/parrots/hd/partyparrot.gif"> -->
+    </section>
+
+    <section id = "q6">
+        <h3>Problem 6: Even Number</h3>
+        <input type = "number" id = "isEvenInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runIsEven">Even Number!</button>
+        <p id = "isEvenOutput"></p>
+        </section>
+    <section id = "p6">
+        <!---<img src = "https://cultofthepartyparrot.com/parrots/hd/middleparrot.gif"> -->
+    </section>
+
+    <section id = "q7">
+        <h3>Problem 7: Palindrome</h3>
+        <input type = "text" id = "isPalindromeInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runIsPalindrome">Palindrome!</button>
+        <p id = "isPalindromeOutput"></p>
+    </section>
+    <section id = "p7">
+      <!---  <img src = "https://cultofthepartyparrot.com/parrots/hd/scienceparrot.gif"> -->
+    </section>
+
+    <section id = "q8">
+        <h3>Problem 8: Shapes</h3>
+        <input type = "number" id = "fibInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFib">Get Shape!</button>
+        <p id = "fibOUtput">inner HTML/inner TEXT</p>
+    </section>
+    <section id = "p8">
+       <!--- <img src = "https://cultofthepartyparrot.com/parrots/hd/beretparrot.gif"> -->
+    </section>
+
+    <section id = "q9">
+        <h3>Problem 9: Object Literal</h3>
+        <input type = "number" id = "fibInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFib">Object Literal!</button>
+        <p id = "fibOUtput">inner HTML/inner TEXT</p>
+    </section>
+    <section id = "p9">
+     <!---   <img src = "https://cultofthepartyparrot.com/parrots/hd/sushiparrot.gif">-->
+    </section>
+
+    <section id = "q10">
+        <h3>Problem 10: Delete Element</h3>
+        <input type = "number" id = "fibInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFib">Delete Element!</button>
+        <p id = "fibOUtput">inner HTML/inner TEXT</p>
+    </section>
+    <section id = "p10">
+      <!---  <img src = "https://cultofthepartyparrot.com/parrots/hd/bunnyparrot.gif">-->
+    </section>
+
+    <section id = "q11">
+        <h3>Problem 11: Splice Element</h3>
+        <input type = "number" id = "spliceElementInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runSpliceElement">Splice Element!</button>
+        <p id = "spliceElementOutput"></p>
+    </section>
+    <section id = "p11">
+       <!--- <img src = "https://cultofthepartyparrot.com/parrots/hd/donutparrot.gif">-->
+    </section>
+
+
+    <section id = "q12">
+        <h3>Problem 12: Define Object Using Constructor</h3>
+        <input type = "number" id = "fibInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFib">Define Object Using Constructor!</button>
+        <p id = "fibOUtput">inner HTML/inner TEXT</p>
+    </section>
+    <section id = "p12">
+       <!--- <img src = "https://cultofthepartyparrot.com/parrots/hd/hardhatparrot.gif"> -->
+    </section>
+    
+    <section id = "q13">
+        <h3>Problem 13: Define Object Using Literal</h3>
+        <input type = "number" id = "fibInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runFib">Define Object Using Literal!</button>
+        <p id = "fibOUtput">inner HTML/inner TEXT</p>
+    </section>
+    <section id = "p13">
+       <!-- <img src = "https://cultofthepartyparrot.com/parrots/hd/mardigrasparrot.gif"> -->
+    </section>
+
+    <section id = "q14">
+        <h3>Problem 14: Current Time</h3>
+        <p id = "fibOUtput">inner HTML/inner TEXT</p>
+    </section>
+    <section id = "p14">
+      <!--   <img src = "https://cultofthepartyparrot.com/parrots/hd/marshmallowparrot.gif"> -->
+    </section>
+
+    <section id = "q15">
+        <h3>Problem 15: Descending Order</h3>
+        <input type = "number" id = "descInput" class = "form-control">
+        <button class = "btn btn-primary" id =  "runDesc">Descend Order!</button>
+        <p id = "descOutput"></p>
+    </section>
+    <section id = "p15">
+       <!--  <img src = "https://cultofthepartyparrot.com/parrots/hd/pirateparrot.gif"> -->
+    </section>
+
+        <script type = "text/javascript" src = "homework.js"></script>   
+    
+</body>
+</html>
