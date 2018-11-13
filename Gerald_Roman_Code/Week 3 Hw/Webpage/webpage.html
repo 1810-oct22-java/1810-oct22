@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Webpage</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#nav">Four Pillars of Object Programming Language</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#abstraction">Abstraction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#encapsulation">Encapsulation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#polymorphism">Polymorphism</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#inheritance">Inheritance</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+
+            </span>
+        </div>
+    </nav>
+    </nav>
+    <section id="abstraction" class="container content-section text-center">
+        <h3>Abstraction</h3>
+        <div>
+            <p>
+                is the process of hidding the implementation details from the user. Data Abstraction may also defined
+                as
+                the
+                process of identify only the required characteristics of an object ignoring the irrelevant details. The
+                properties and behaviors of an object differentiate it from other objects of similar type and also help
+                in
+                classifying/grouping the objects.
+                In Java, abstraction is achieved by using classes and interfaces.
+            </p>
+        </div>
+        <img src="images/abstract-class-example.png" alt="abstract">
+    </section>
+
+    <section id="encapsulation" class="container content-section text-center">
+        <h3>Encapsulation</h3>
+        <div>
+            <p>
+                is the wrapping up of data under a single unit. It is the mechanism that binds together code and the
+                data it manipulates. The variables or The data in a class is hidden from other classes and can be
+                accessed only through any member function of own class in which they are declared.
+            </p>
+        </div>
+        <img src="images/Difference-between-Abstraction-vs-Encapsulation.png" alt="absvsenc">
+    </section>
+
+    <section id="polymorphism" class="container content-section text-center">
+        <h3>Polymorphism</h3>
+        <div>
+            <p>
+                Is the ability of an object to take on many forms, when a parent class reference is used to refer to a
+                child class object. The only way to access an object is through a reference variable. A reference
+                variable
+                can be of only one type. Once declared, the type of a reference variable cannot be changed.
+            </p>
+        </div>
+        <img src="images/Poly1.jpg" alt="poly">
+    </section>
+
+    <section id="inheritance" class="container content-section text-center">
+        <h3>Inheritance</h3>
+        <div>
+            <p>
+                Allows one class to inherit the features(fields and methods) of another class.
+                <ul>
+                    <li>Super Class: The class whose features are inherited is known as super class(or a base class or
+                        a
+                        parent
+                        class)</li>
+                    <li>Sub Class: The class that inherits the other class. The subclass can add its own fields and
+                        methods
+                        in
+                        addition to the superclass fields and methods</li>
+                    <li>Reusability: Inheritance supports the concept of reusability, when we want to create a new
+                        class
+                        and
+                        there is already a class that includes some of code that we want, we can derive our new class
+                        from
+                        the
+                        existing class.</li>
+                </ul>
+            </p>
+        </div>
+        <img src="images/types_of_inheritance.jpg.png" alt="inheritance">
+    </section>
+</body>
+
+</html>
