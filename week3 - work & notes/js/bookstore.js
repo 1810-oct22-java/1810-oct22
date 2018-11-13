@@ -1,32 +1,53 @@
 window.onload = function(){
     getGenresAJAX();
     document.getElementById('add').addEventListener('click', addBook);
-    $('#addGenre').on('click', addGenre)
+    $('#addGenre').on('click', addGenre);
+
 }
 
-addGenre = () => {
-    $('#newGenre').removeAttr("hidden")
-    $('#newGenre').keydown(e => {
-        if(e.keydown == 13) {
-            postGenreAJAX()
-        }
+function addGenre(){
+    $('#newGenre').removeAttr("hidden");
+    $('#newGenre').keydown(function(e){
+        if(e.keyCode == 13){
+                //write method to add new Genre 
+                postGenreAJAX();              
+            }
     })
 }
 
-getGenresAJAX = () => {
-    const xhr = new XMLHttpRequest()
+function postGenreAJAX(){
+    let genreObj = { genre : $('#newGenre').val()  };
+    console.log(genreObj);
+    var xhr = new XMLHttpRequest();
+    if(xhr.readyState == 4 && xhr.status == 201){ //201 - created
+        console.log(xhr.responseText);
+    }
+    xhr.open("POST","http://localhost:3000/genres", true );
+    /*
+    Must set this request header! Allows server to properly process 
+    request body of the POST request 
+    */
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(JSON.stringify(genreObj));
+
+}
+
+function getGenresAJAX(){
+    var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
-            const genres = JSON.parse(xhr.responseText)
-            console.log(genres);            
-            displayGenres(genres)
+            var genres = JSON.parse(xhr.responseText);
+            console.log(genres);
+            displayGenres(genres);
         }
     }
-    xhr.open("GET", "http://localhost:3000/genres", true)
-    xhr.send()
+    xhr.open("GET", "http://localhost:3000/genres", true);
+    xhr.send();
+
 }
 
 function displayGenres(genres){
+    //var genres = ["Fiction", "Non-Fiction", "History", "Drama", "Romance"];
     for(let i = 0; i < genres.length; i++) {
         let elem = document.createElement("option");
         elem.value = genres[i].id;

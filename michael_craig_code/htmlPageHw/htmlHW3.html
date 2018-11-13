@@ -28,21 +28,29 @@
             </ul>
         </div>
     </nav>
+    <img src="" alt="">
     <div class="container">
         <div class="content">
-            <h1>DevTips</h1>
-            <h2>Joins & Unions</h2>
+            <h1>devTips</h1>
+            <h2>Unions</h2>
             <div class="page">
-                <h3>An Overview</h3>
-                <h5>Joins and unions are used to bring information from one or more
-                    tables together. Generally, joins are used for combing rows of
-                    data, while unions are used for combining columns.</h5>
-                <img id="img1" src="https://i.stack.imgur.com/1Tfy0.jpg" alt="img">
-                <h5 id="p1Lower">The differences between unions and joins can sometimes be difficult for
-                    those new to relational database structure and interactivity. To explore
-                    further, please
-                    <a href="/Users/michaelcraig/my_git_repos/1810-oct22/michael_craig_code/htmlPageHw/htmlHW2.html">click here >></a>
+                <h5>There are two types of unions: union and union all.  These unions are 
+                    used to combine the results of two SELECT statements.  A couple conditions must
+                    be met for the union operator to run successfully:
+                    <ol>
+                        <li>Both SELECT statements must have the same number of expressions</li>
+                        <li>The corresponding expressions must have the same data type in the SELECT statements</li>
+                    </ol>
+                    The difference between union and union all is that union removes duplicate rows and
+                    union all does not, as shown in the diagrams below.
                 </h5>
+                <h5></h5>
+                <div>
+                    <img class="unionImg" src="http://www.softwaretestingclass.com/wp-content/uploads/2013/06/sql-union-query.png"
+                        alt="">
+                    <img class="unionImg" src="http://www.softwaretestingclass.com/wp-content/uploads/2013/06/sql-union-all-query.png"
+                        alt="">
+                </div>
             </div>
             <div class="footer">
                 <h2>MC &copy 2018</h2>

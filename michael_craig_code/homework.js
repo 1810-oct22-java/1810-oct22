@@ -1,5 +1,7 @@
 window.onload = () => {
     document.getElementById('runFib').addEventListener("click", runFib, true)
+    console.log(({}||false||{}||true)&&(new Boolean(false)&&'false'&&[]));
+    
 }
 
 const runFib = () => {
@@ -25,3 +27,4 @@ const fibR = (n) => {
 const bubbleSort = () => {
     
 }
+

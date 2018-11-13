@@ -1,34 +1,46 @@
 {
-    "books": [
-        {
-            "id":1,
-            "title":"Harry Potter and the Sorceror's Stone",
-            "isbn": 8377484855,
-            "price": 13.99,
-            "genreId": 1,
-            "authorId": 1
-        }
-    ],
-    "genres": [
-        {
-            "id": 1,
-            "genre": "Fiction"
-        },
-        {
-            "id": 2,
-            "genre": "Fantasy"
-        },
-        {
-            "id": 3,
-            "genre": "History"
-        }
-    ],
-    "authors": [
-        {
-            "id": 1,
-            "firstName": "J.K.",
-            "lastName": "Rowling",
-            "bio": "Wrote Harry Potter"
-        }
-    ]
+  "books": [
+    {
+      "id": 1,
+      "title": "Harry Potter and the Sorceror's Stone",
+      "isbn": 8377484855,
+      "price": 13.99,
+      "genreId": 1,
+      "authorId": 1
+    }
+  ],
+  "genres": [
+    {
+      "id": 1,
+      "genre": "Fiction"
+    },
+    {
+      "id": 2,
+      "genre": "Fantasy"
+    },
+    {
+      "id": 3,
+      "genre": "History"
+    },
+    {
+      "genre": "ca",
+      "id": 4
+    },
+    {
+      "genre": "ca",
+      "id": 5
+    },
+    {
+      "genre": "ca",
+      "id": 6
+    }
+  ],
+  "authors": [
+    {
+      "id": 1,
+      "firstName": "J.K.",
+      "lastName": "Rowling",
+      "bio": "Wrote Harry Potter"
+    }
+  ]
 }

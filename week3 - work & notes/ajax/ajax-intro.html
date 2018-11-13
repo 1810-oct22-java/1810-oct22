@@ -14,6 +14,8 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -110,7 +112,11 @@
 
     <script>
         window.onload = function () {
-            $('#go').on('click', useTheForce)
+            $('#go').on('click', function () {
+                useTheForce()
+                doAjaxWithjQuery()
+            })
+
         }
 
         function useTheForce() {
@@ -142,8 +148,27 @@
             xhr.open('get', url, true)
 
             // Step 4 - send request
-            // xhr.send(body) where param is response body - which GET requests dont have
+            // xhr.send(body) where param is request body - which GET requests dont have
             xhr.send()
+        }
+
+
+        // Ajax with jQuery
+
+        function doAjaxWithjQuery() {
+            console.debug('testing our jquery ajax function')
+            $.ajax({
+                type: "GET",
+                url: `https://swapi.co/api/people/${$('#swID').val()}`,
+                // what happens upon a successful response from server:
+                success: function (res, status) {
+                    console.log(res)
+                    console.log(status)
+                },
+                error: function (status, statusText) {
+                    console.log(`error: ${status}: ${statusText}`)
+                }
+            })
         }
 
     </script>
