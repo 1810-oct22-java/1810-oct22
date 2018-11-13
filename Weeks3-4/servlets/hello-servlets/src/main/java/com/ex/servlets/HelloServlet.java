@@ -35,13 +35,18 @@ public class HelloServlet extends GenericServlet {
 		
 		//PrintWriter allows you to write responses
 		
+		String context = getServletContext().getInitParameter("AppInfo");
+		String config = getServletConfig().getInitParameter("secret");
+		
 		PrintWriter writer = res.getWriter();
 		res.setContentType("text/html");
 		String text = "<h1>HELLO SERVLETS!</h1>"
 				+ "<br>"
 				+ "This is a response from the HELLOSERVLET"
 				+ "<br>"
-				+ "<i>Request #" + counter + "</i>";
+				+ "<i>Request #" + counter + "</i>"
+						+ "<br>ServletContext: " + context
+				+ "<br>ServletConfig: " + config;
 		writer.write(text); //sends parameter as response body
 		
 
