@@ -26,11 +26,12 @@
     for, break, continue, while
  - load and go delivery
  - Datatypes:
-    - number, string, booleans ("primitive types")
+    - number, string, boolean ("primitive types")
     - objects {}
     - undefined (default val of vars that were never defined)
     - null
     - NaN (debatable .. type of NaN = number)
+    - Symbol
 
 
 A callback function is a function that is executed after another function has finished executing
@@ -75,7 +76,7 @@ y = `The sum of 5 and 10 = ${5+10}`;
 /*
 DATA TYPES OF JS, and TYPE COERCION (coercion means force)
 
-- as a loosely typed language that is interpreted and not compile, JS
+- as a loosely typed language that is interpreted and not compiled, JS
 has to be able to accomodate comparisons between and manipulation on
 otherwise incompatible data types (such as string and number, or boolean and obj)
 - Type coercion is the process that JS takes to bring data from one
