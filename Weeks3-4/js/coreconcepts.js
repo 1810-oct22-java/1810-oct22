@@ -144,6 +144,24 @@ var addArrow = (a, b)=> {return a + b;}
 
 // scopes, hoising, operators, loops, statements, 
 
+//GUARD AND DEFAULT
+/*GUARD &&
+- takes two operands
+- if the first operand is TRUTHY , it returns the 2nd OPERAND(not true/false, but the operand itself)
+otherwise it returns the first operand
+*/
 
+var currentSession = null;// 'hasUser';
+var userInfo = {username:"gab12", password:'123'}
+var getUser = currentSession && userInfo;
 
+/*DEFAULT ||
+-if the first operand is truthy, return it
+if not return the second operand
+*/
 
+var leaveEarlyByHours = 1;
+var regularLeave = 5;
+var timeOut = leaveEarlyByHours || (regularLeave - leaveEarlyByHours);
+
+var timeOut = (leaveEarlyByHours > 0) ? regularLeave - leaveEarlyByHours : regularLeave
