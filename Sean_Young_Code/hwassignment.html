@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    <style>
+        body{
+            background-image: url("images/background.jpg");
+        }
+        .col-sm{
+            padding: 175px;
+            border-style:initial;
+        }
+        .jumbotron{
+            font-family: cursive;
+            background-color: black;
+            color:azure;
+            padding: 50px;
+            font-size:xx-large;
+        }
+        li{
+            text-align: left;
+        }
+        p{
+            text-align: left;
+        }
+        .col-md{
+            padding: 200px;
+        }
+        .div{
+            text-align: left
+        }
+        .center{
+            display: block;
+            margin-left:auto;
+            margin-right:auto;
+        }
+    </style>
+
+</head>
+
+    <div class = "jumbotron">
+        <h1 align = "center">Threads</h1>
+    </div>
+    
+    <body><div class="container-fluid">
+        <div class = "row">
+            <div class="col" class = "rounded" align="right">
+                <span class="rounded"></span>
+                <p style="text-align: left"><ul style="text-align: left">
+                    <h3>What Is Multithreading</h3>
+                    <li>
+                        Multithreading is a type of execution model that allows multiple threads to exist within the context.
+                        of a process such that they execute independently but share their process resources.
+                    </li>
+                    <li>
+                        Threading can be useful by allowing the main execution thread to be responsive to
+                        user, input, while the additional worker thread can execute long-running that do not need user intervention in the background.
+                    </li>
+                    
+                </ul></p>
+            </div>
+            <div class="col">
+                <p style="text-align: left"><ul>
+                    <h3>Thread States</h3>
+                    <li>
+                        <mark>New:</mark> A thread that has not yet started is in this state.
+                    </li>
+                    <li>
+                        <mark>Runnable:</mark> A thread executing in the JVM is in this state.
+                    </li>
+                    <li>
+                        <mark>Blocked:</mark> A thread that is blocked is waiting for a monitor lock is in this state.
+                    </li>
+                    <li>
+                        <mark>Waiting:</mark> A thread that is waiting indefinitely for another thread to perform a particular action is in this state.
+                    </li>
+                    <li>
+                        <mark>Timed Waiting:</mark> A thread that is waiting for another thread to perform an action for up to a specified waiting time is in this state.
+                    </li>
+                    <li>
+                        <mark>Terminated</mark> A thread that has exited is in this state.
+                    </li>
+                </ul></p>
+            </div>
+            
+            <div class="col">
+                    <p style="text-align: left">
+                            <h3>Extending a thread by class</h3>
+                            <img src="images/threadextend.jpg" class="center">
+                              </p>
+            </div>
+            <br>
+        </div>
+        <br>
+    </div>
+    <div class="container-fluid">
+            <div class = "row">
+                <div class="col">
+                        <p style="text-align: left"><ul>
+                                <h3>Thread Priorities</h3>
+                                <li>
+                                    Thread priority is used to determine when threads switch from running to waiting.
+                                </li>
+                                <li>
+                                    A thread with a higher priority will begin running over a lower priority without warning.
+                                </li>
+                                <li>
+                                   To set the priority of a thread we use the <strong>setPriority()</strong> function. This is a method of the Thread class.
+                                </li>
+                                <li>
+                                    Usually when setting thread priority we use integers, however in place of integers <strong>MIN_PRIORITY</strong>,
+                                     <strong>NORM_PRIORITY</strong>, and <strong>MAX_PRIORITY</strong> can be substituted.
+                                </li>
+                            </ul></p>
+                </div>
+                <div class="col" ><p style="text-align: left"><ul>
+                        <h3>Synchronization</h3>
+                        <li>
+                            When using threads these objects can behave in a asynchronous manner. One thread can attempt
+                             to read data that another thread is writing. This leads to inconsistency.
+                        </li>
+                        <li>
+                            In order to counter this there needs to be a way to stop more than one thread from acccessing a resource 
+                            at a time. This is achieved by using <u>Synchronization</u>.
+                        </li>
+                        <li>
+                            To implement this Java has a synchronous method. When using this method all other threads 
+                            wait until the thread that is using a resource within this synchronous method is finished with the process.
+                        </li>
+                    </ul></p></div>
+                <div class="col" ><p style="text-align: left">
+                        <h3>Runnable Interface Implemented</h3>
+                        <img src="images/implement.png" class="center">
+                    </p></div>
+            </div>
+            <br>
+        </div>
+
+        <div class=containr-fluid>
+            <div class=row>
+                <div class=col>
+                <img src="images/threads.jpg" class="center">
+                </div>
+            
+            <div class = col >
+            <img src="images/multithreading-python-31.png" class="center">
+            </div>
+        </div>
+        </div>
+        <div class = container-fluid>
+            <div class = row>
+                <div class = col>
+                    <ul>
+                        <h3>Sources</h3>
+                        <li>
+                            https://www.techopedia.com/definition/24297/multithreading-computer-architecture
+                        </li>
+                        <li>
+                                https://beginnersbook.com/2013/03/multithreading-in-java/
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+
+    <div class="col-md-6"> <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/290165460&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+    </div>
+</html>
