@@ -17,3 +17,15 @@
 	1. either add `@WebServlet` to top of class, OR
 	2. add `<servlet>` and `<servlet-mapping>` to web.xml
 	
+--
+###### Topics covered in this example:
+* web.xml
+* servlet-config
+* servlet-context
+* getting parameters from forms 
+* employing a service layer to carry out business logic 
+* PrintWriter
+* ObjectMapper
+* [load-on-startup](https://www.javatpoint.com/load-on-startup)
+* [`@WebServlet`](https://www.codejava.net/java-ee/servlet/webservlet-annotation-examples)
+	
