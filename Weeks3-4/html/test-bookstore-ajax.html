@@ -21,11 +21,18 @@
     <h5>Update Genre</h5>
     <input type="number" id="gUpdateId" class="form-control col-4">
     <input type="text" class="form-control col-6" id="newGenre">
+
+    <div id="errorMessage"></div>
+    <h6>Genres:</h6>
+    <ul id="genreList">
+
+    </ul>
     
 
 
     <script>
 
+        getGenresAJAX();
         $('#newGenre').keydown(function(e){
             if(e.keyCode == 13){
                     let id = $('#gUpdateId').val();
@@ -37,6 +44,7 @@
         })
     
         function updateGenreAJAX(id, gName){
+            $('#errorMessage').html('');
 
             var genreObj = {
                 genre: gName
@@ -51,8 +59,13 @@
                     switch(xhr.status){
                         case(200): console.log('success!'); break;
                         case(201): console.log('created'); break;
+                        case(404):{
+                            $('#errorMessage').html('STOP RIGHT THERE!');
+                            break;
+                        }
                         case(500): console.log('server error'); break;
                     }
+                    getGenresAJAX();
                 }
             }
             //xhr.(METHOD, URL, ASYNC, [USR, PWD])
@@ -65,10 +78,35 @@
             
             xhr.send(toSend);//send our object as a JSON string to server 
             console.log(toSend);
-            
-
-
         }
+
+function getGenresAJAX(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            var genres = JSON.parse(xhr.responseText);
+            console.log(genres);
+            displayGenres(genres);
+        }
+    }
+    xhr.open("GET", "http://localhost:3000/genres", true);
+    xhr.send();
+}
+
+
+
+
+
+
+function displayGenres(genres){
+    $('#genreList').empty();
+    for(let g of genres){
+        console.log(genres[g]);
+        let elem = $(`<li>${g.id}: ${g.genre}</li>`);
+        $('#genreList').append(elem);
+    }
+    
+}
     
     </script>
 
