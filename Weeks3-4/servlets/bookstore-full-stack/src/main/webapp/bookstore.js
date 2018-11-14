@@ -25,7 +25,7 @@ function loadHomeView(){
 			$('#view').html(xhr.responseText);
 		}
 	}
-	xhr.open("GET", "loadHome", true);
+	xhr.open("GET", "home.view", true);
 	xhr.send();
 	
 	
