@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Strings and StringBuilder</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    
+</head>
+<body>
+    <h1>Strings and StringBuilder</h1>
+
+        <br><br>
+      <div class="Left">
+        <button class="btn btn-danger" id="redirect" >Strings and <br>StringBuilder</button>
+        <br><br>
+        <button class="btn btn-danger" id="redirect1" >Java Date and <br> Time API</button>
+        <br><br>
+        <button class="btn btn-danger" id="redirect2" >Java Data<br> Types</button>
+    </div>
+    <div class = "Center"> 
+    In Java, Strings are immutable. A direct implication of this is... 
+    1. you cannot change a String object, once it is created.
+    2. you cannot extend String class.
+    Which of these methods are not a part of the String class?
+    reverse.
+    Which of these methods are a part of the String class?
+    trim, length, concat, hashCode.
+    <p>
+        <img src="Strings and Stringbuilder.bmp" height="480" width="850" alt="Strings and StringBuilder">
+      </p>
+      <p>
+        <img src="Strings and Stringbuilder1.bmp" height="300" width="850" alt="Strings and StringBuilder1">
+      </p>
+    </div>
+    <div class="Right">
+        <button class="btn btn-danger" id="redirect3" >Working with <br> Methods</button>
+        <br><br>
+        <button class="btn btn-danger" id="redirect4" >Creating & <br> Using Operators</button>
+        <br><br>
+        <button class="btn btn-danger" id="redirect5" >Lambda<br> Expressions</button>
+    </div>
+<!--
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Private</a></li>
+            <li><a href="#">Pictures</a></li>
+            <li class="active">Vacation</li> 
+          </ul>-->
+<style>
+.Right{
+    position: absolute;
+    right: 0px;
+    width: 150px;
+    border: 3px solid rgb(110, 33, 173);
+    padding: 10px;
+}
+.Center{
+    position: absolute;
+    left: 151px;
+    right: 151px;
+    width: 300x;
+    border: 3px solid rgb(110, 33, 173);
+    padding: 10px;
+}
+.Left{
+    position: absolute;
+    left: 0px;
+    width: 150px;
+    border: 3px solid rgb(110, 33, 173);
+    padding: 10px;
+}
+h1{
+    color:rgb(110, 33, 173);
+    text-align:center;
+}
+</style>
+
+    <script>
+   window.onload = function(){
+
+document.getElementById('redirect').addEventListener("click", redirect, true);
+document.getElementById('redirect1').addEventListener("click", redirect1, true);
+document.getElementById('redirect2').addEventListener("click", redirect2, true);
+document.getElementById('redirect3').addEventListener("click", redirect3, true);
+document.getElementById('redirect4').addEventListener("click", redirect4, true);
+document.getElementById('redirect5').addEventListener("click", redirect5, true);
+
+}
+
+
+             function redirect () {
+            window.location="William_Robinson_html_css_bootstrap_assignment1.html";
+        }
+           function redirect1 () {
+            window.location="William_Robinson_html_css_bootstrap_assignment2.html";
+        }
+         function redirect2 () {
+            window.location="William_Robinson_html_css_bootstrap_assignment3.html";
+        }
+             function redirect3 () {
+            window.location="William_Robinson_html_css_bootstrap_assignment4.html";
+        }
+        function redirect4 () {
+            window.location="William_Robinson_html_css_bootstrap_assignment5.html";
+        }
+        function redirect5 () {
+            window.location="William_Robinson_html_css_bootstrap_assignment6.html";
+        }
+        
+    </script>
+
+</body>
+</html>
