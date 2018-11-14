@@ -113,16 +113,22 @@
 
         window.onload = function(){
 <<<<<<< HEAD
+<<<<<<< HEAD
             $('#go').on('click',function(){
                 useTheForce();
                 doAjaxWithQuery();
             });
 =======
+=======
+>>>>>>> master
             $('#go').on('click', function(){
                 useTheForce();
                 doAjaxWithjQuery();
             });
         
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
         }
 
@@ -179,6 +185,27 @@
                 }
             })
         }
+
+
+        /// AJAX WITH jQUERY
+        function doAjaxWithjQuery(){
+            console.log('TESTING OUR jQUERY AJAX method')
+            globalSW = null;
+            $.ajax({
+                type: 'GET',
+                url: `https://swapi.co/api/people/${$('#swID').val()}`,
+                //what happens upon a successful response from the server:
+                success: function(response, status){
+                    console.log(response);
+                    console.log(status);
+                },
+                error: function(status, statusText){
+                    console.log(`ERROR: ${status}: ${statusText}`);
+                }
+            })
+        }
+
+
 
 
         /// AJAX WITH jQUERY

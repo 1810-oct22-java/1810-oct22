@@ -4,10 +4,41 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<display-name>hello-servlets</display-name>
+<<<<<<< HEAD
 
 	<servlet>
 		<servlet-name>H</servlet-name>
 		<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+=======
+	
+	  
+  <!-- WEB.XML aka Deployment Descriptor
+  is the file with which we configure our web apps 
+  Here, we indicate which url-patterns (endpoints) 
+  will map requests to respective servlets and 
+  configure other details like parameters and 
+  when to initialize our servlets-->
+	
+	<!-- SERVLET CONTEXT - parameter(s) applied to every servlet in the 
+	context of the container -->
+	<context-param>
+		<param-name>AppInfo</param-name>
+		<param-value>Hello there. This is an example of
+		servlet context. This App Info Data will be visible in every
+		servlet that is a part of this application</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>H</servlet-name>
+		<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+		<!-- SERVLET CONFIG = configuration information for a 
+		specific servlet -->
+		<init-param>
+			<param-name>secret</param-name>
+			<param-value>This secret was configured in my web.xml
+			this, friends, is Servlet Config</param-value>
+		</init-param>
+>>>>>>> master
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

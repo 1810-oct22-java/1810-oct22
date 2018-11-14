@@ -7,6 +7,7 @@ document.getElementById('runFib').addEventListener("click", runFib,true);
 }
 
 function runFib(){
+   
     //take input and call fibonacci function
     //console.log("clicking button");
     var n = document.getElementById('fibInput').value;
