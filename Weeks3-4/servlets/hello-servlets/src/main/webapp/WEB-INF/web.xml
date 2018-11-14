@@ -5,6 +5,14 @@
 	version="2.5">
 	<display-name>hello-servlets</display-name>
 	
+	  
+  <!-- WEB.XML aka Deployment Descriptor
+  is the file with which we configure our web apps 
+  Here, we indicate which url-patterns (endpoints) 
+  will map requests to respective servlets and 
+  configure other details like parameters and 
+  when to initialize our servlets-->
+	
 	<!-- SERVLET CONTEXT - parameter(s) applied to every servlet in the 
 	context of the container -->
 	<context-param>

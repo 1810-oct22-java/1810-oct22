@@ -22,6 +22,8 @@
 * web.xml
 * servlet-config
 * servlet-context
+* [GenericServlet](https://beginnersbook.com/2014/04/genericservlet-class/)
+* [HttpServlet](https://beginnersbook.com/2013/05/http-servlet/)
 * getting parameters from forms 
 * employing a service layer to carry out business logic 
 * PrintWriter
