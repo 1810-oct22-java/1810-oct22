@@ -8,7 +8,7 @@ window.onload = function(){
 	$('#booksNav').on('click', loadBooksView);
 	$('#genreNav').on('click', loadGenreView);
 	$('#authorNav').on('click', loadAuthorView);
-	
+
 }
 
 function loadHomeView(){
@@ -32,6 +32,7 @@ function loadHomeView(){
 	xhr.open("GET", "home.view", true);
 	xhr.send();	
 }
+
 function loadBooksView(){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
@@ -50,10 +51,35 @@ function loadGenreView(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			//do things w response
 			$('#view').html(xhr.responseText);
+			// manipulate Genre view
+			getGenres();
+			$('#addGenre').on('click', addGenre);
 		}
 	}
 	xhr.open("GET", "genre.view", true);
 	xhr.send();	
+}
+
+function getGenres(){
+	//send request to /genres
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			console.log(xhr.responseText);
+			let genres = JSON.parse(xhr.responseText);
+			for(let g of genres){
+				var li = $(`<li>${g.name}</li>`);
+				$('#genreList').append(li);
+			}
+		}
+	}
+	xhr.open("GET", "genres");
+	xhr.send();
+}
+
+
+function addGenre(){
+
 }
 
 function loadAuthorView(){
