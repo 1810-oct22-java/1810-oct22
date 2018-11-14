@@ -4,6 +4,7 @@
 
 window.onload = function(){
 	loadHomeView();
+	$('#booksNav').on('click', loadBooksView);
 }
 
 function loadHomeView(){
@@ -26,7 +27,17 @@ function loadHomeView(){
 		}
 	}
 	xhr.open("GET", "home.view", true);
-	xhr.send();
-	
-	
+	xhr.send();	
+}
+
+function loadBooksView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			//do things w response
+			$('#view').html(xhr.responseText);
+		}
+	}
+	xhr.open("GET", "books.view", true);
+	xhr.send();	
 }
