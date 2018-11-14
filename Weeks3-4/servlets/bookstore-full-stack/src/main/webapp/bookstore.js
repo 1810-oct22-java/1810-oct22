@@ -4,7 +4,11 @@
 
 window.onload = function(){
 	loadHomeView();
+	$('#homeNav').on('click', loadHomeView);
 	$('#booksNav').on('click', loadBooksView);
+	$('#genreNav').on('click', loadGenreView);
+	$('#authorNav').on('click', loadAuthorView);
+	
 }
 
 function loadHomeView(){
@@ -18,7 +22,6 @@ function loadHomeView(){
 	 * as usual -- but in this case, we will apply event listeners
 	 * to the new DOM elements
 	 */
-	
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
@@ -29,7 +32,6 @@ function loadHomeView(){
 	xhr.open("GET", "home.view", true);
 	xhr.send();	
 }
-
 function loadBooksView(){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
@@ -38,6 +40,30 @@ function loadBooksView(){
 			$('#view').html(xhr.responseText);
 		}
 	}
-	xhr.open("GET", "books.view", true);
+	xhr.open("GET", "book.view", true);
+	xhr.send();	
+}
+
+function loadGenreView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			//do things w response
+			$('#view').html(xhr.responseText);
+		}
+	}
+	xhr.open("GET", "genre.view", true);
+	xhr.send();	
+}
+
+function loadAuthorView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			//do things w response
+			$('#view').html(xhr.responseText);
+		}
+	}
+	xhr.open("GET", "author.view", true);
 	xhr.send();	
 }
