@@ -53,11 +53,9 @@ we use closures (nested functions) to emulate encalpsulation
 
 var counter = (function(){
     var privateCounter = 0;
-
     function changeBy(val){
         privateCounter += val; //pc = pc + val;
     }
-
     return {
         increment: function(){
             changeBy(1);
@@ -69,7 +67,6 @@ var counter = (function(){
             return privateCounter;
         }
     }
-
 })();
 
 counter.privateCounter; //will return undefined. do NOT have access to counter vars globally
