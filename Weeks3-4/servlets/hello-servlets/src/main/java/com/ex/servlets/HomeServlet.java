@@ -65,6 +65,9 @@ public class HomeServlet extends HttpServlet{
 					"<div class=\"jumbotron\">\r\n" + 
 					"	<h1>Welcome, "+ user.getUsername() +"</h1>\r\n" + 
 					"	<i>"+user.getData() +"</i>\r\n" + 
+					"<form method=\"GET\" action=\"logout\">\r\n" + 
+					"<input type=\"submit\" value=\"Log Out\" class=\"btn btn-primary\">\r\n" + 
+					"</form>" +
 					"</div>\r\n" + 
 					"\r\n" + 
 					"\r\n" + 
