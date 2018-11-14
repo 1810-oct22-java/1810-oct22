@@ -24,6 +24,8 @@ public class LoadViewsServlet extends HttpServlet {
 		switch(req.getRequestURI()) {
 		case "/bookstore-full-stack/home.view":
 			return "home";
+		case "/bookstore-full-stack/books.view":
+			return "books";
 		}
 		
 		return null;
