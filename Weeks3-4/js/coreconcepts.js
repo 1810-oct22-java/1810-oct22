@@ -47,16 +47,7 @@ DATA TYPES of JS and TYPE COERCION
 - as a loosely typed language that is intepreted and not compoiled, JS has to be able to accomodate comparisons between and manipulation on 
 otherwise incompatible data types(such as string)
 
-<<<<<<< HEAD
 -Type coercion is the process that JS takes to bring data from one type to another to compared actual value ass opposed to the datatype that the value would be held in
-=======
-//for.. of -- enhanced for 
-
-
-
-
-
->>>>>>> master
 
 == allows type coersion
 === restricts type coersion
@@ -123,76 +114,3 @@ var func = function(x){
     return x;
 }
 var add = function(a , b){return a + b};
-
-<<<<<<< HEAD
-var addArrow = (a,b)=> {return a + b;}
-=======
-var add = function(a, b){ return a + b};
-
-var addArrow = (a, b)=> {return a + b;}
-
-
-
-
-// scopes, hoising, operators, loops, statements, 
-
-//GUARD AND DEFAULT
-
-/* GUARD &&
-- takes two operands 
-if the first operand is TRUTHY, it returns the 2nd OPERAND(not true/false,
-  but the operand itself)
-  otherwise it returns the first operand
-*/
-
-var currentSession = 'hasUser';
-var userInfo = {username: "gab12", password: '123'};
-
-var getUser = currentSession && userInfo;
-
-
-/*
-DEFAULT || 
-if the first operand is truthy, return it
-if not return the second operand
-*/
-
-var leaveEarlyByHours = 1;
-var regularLeave = 5;
-
-var timeOut = leaveEarlyByHours || regularLeave;
-
-
-var timeOut = (leaveEarlyByHours > 0) ? 
-            regularLeave - leaveEarlyByHours : regularLeave;
-
-
-function understandingHoisting(){
-    // implicit declarations at top of scope
-    //var w, x, y, z;
-    console.log(z); //will not give interpreter error. will just print undefined
-    var x = 7;
-    var y = 10;
-    var z = 1;
-
-    if(z == 0){
-        //let a, b
-        let a = 1;
-        let b = 2;
-        var w = 'test';
-        c = 100; //declaration gets hoisted to top of page bc it was never declared
-        //c is global scoped because of this 
-    }
-
-}
-
-
-for (var i = 0; i < 10; i++) {
-    (function (j) {
-        setTimeout(function() {
-         console.log(j);
-      }, j*1000);
-    })(i);
-}
-
->>>>>>> master
