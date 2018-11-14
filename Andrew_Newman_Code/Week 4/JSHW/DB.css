@@ -1,0 +1,19 @@
+.jumbotron {
+    text-align : center 
+}   
+
+img{
+    height: 300px;
+    width: 500px
+}
+
+.row{
+    padding-top: 100px;
+    align-content: center;
+    align-self: center
+}
+
+.col-6{
+    align-content: center;
+    align-self: center
+}
