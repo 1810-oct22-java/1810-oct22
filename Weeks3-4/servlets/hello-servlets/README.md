@@ -30,4 +30,5 @@
 * ObjectMapper
 * [load-on-startup](https://www.javatpoint.com/load-on-startup)
 * [`@WebServlet`](https://www.codejava.net/java-ee/servlet/webservlet-annotation-examples)
+* [HttpSession](https://beginnersbook.com/2013/05/http-session/)
 	

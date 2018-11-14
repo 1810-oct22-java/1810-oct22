@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import com.ex.pojos.User;
 import com.ex.service.DummyUserService;
@@ -58,6 +61,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	
 	static DummyUserService userService = new DummyUserService();
+	private static Logger logger = Logger.getLogger(LoginServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -80,16 +84,25 @@ public class LoginServlet extends HttpServlet {
 		String text = "";
 		
 		if(user == null) {
-			text+= "<h1>Invalid Credentials! Please Try again!";
-			//add a button to go back to login screen?
+			req.getRequestDispatcher("error-login.html").forward(req, resp);
 		}
 		else {
 			//successful log in 
-			text +="<h1>Welcome, " + user.getUsername();
-			text += "</h1><br> Your info is " + user.getData();
+			
+			//Add user to session
+			HttpSession session = req.getSession();
+			//will return current session if one exists
+			//creates new session and returns it if none exists
+			session.setAttribute("user", user);
+			logger.trace("ADDING USER TO SESSION: " + session.getId());
+			resp.sendRedirect("home");
+			//render home view
+			//redirect to home servlet
+			
 		}
 		
-		writer.write(text);
+		
+		
 		
 	}
 
