@@ -42,6 +42,12 @@ public class GenreServlet extends HttpServlet{
 	//Add Genre
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Genre g = mapper.readValue(req.getInputStream(), Genre.class);
+		g = gService.addGenre(g.getName());
+		logger.trace("ADDED NEW GENRE " + g);
 	}
+	
+	
 
 }

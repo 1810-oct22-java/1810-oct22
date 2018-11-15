@@ -68,8 +68,7 @@ function getGenres(){
 			console.log(xhr.responseText);
 			let genres = JSON.parse(xhr.responseText);
 			for(let g of genres){
-				var li = $(`<li>${g.name}</li>`);
-				$('#genreList').append(li);
+				appendToGenreList(g);
 			}
 		}
 	}
@@ -77,8 +76,32 @@ function getGenres(){
 	xhr.send();
 }
 
+function appendToGenreList(g){
+	var li = $(`<li>${g.name}</li>`);
+	$('#genreList').append(li);
+}
+
 
 function addGenre(){
+	
+	var genre = $('#newGenre').val();
+	var obj = {
+			name: genre
+	};
+	var toSend = JSON.stringify(obj);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+			console.log(xhr.responseType);
+			appendToGenreList(obj);
+		}
+	}
+	xhr.open("POST", "genres");
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(toSend);
 
 }
 
