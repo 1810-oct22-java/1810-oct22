@@ -8,7 +8,7 @@ window.onload = function(){
 	$('#booksNav').on('click', loadBooksView);
 	$('#genreNav').on('click', loadGenreView);
 	$('#authorNav').on('click', loadAuthorView);
-	
+
 }
 
 function loadHomeView(){
@@ -32,6 +32,7 @@ function loadHomeView(){
 	xhr.open("GET", "home.view", true);
 	xhr.send();	
 }
+
 function loadBooksView(){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
@@ -50,10 +51,58 @@ function loadGenreView(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			//do things w response
 			$('#view').html(xhr.responseText);
+			// manipulate Genre view
+			getGenres();
+			$('#addGenre').on('click', addGenre);
 		}
 	}
 	xhr.open("GET", "genre.view", true);
 	xhr.send();	
+}
+
+function getGenres(){
+	//send request to /genres
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			console.log(xhr.responseText);
+			let genres = JSON.parse(xhr.responseText);
+			for(let g of genres){
+				appendToGenreList(g);
+			}
+		}
+	}
+	xhr.open("GET", "genres");
+	xhr.send();
+}
+
+function appendToGenreList(g){
+	var li = $(`<li>${g.name}</li>`);
+	$('#genreList').append(li);
+}
+
+
+function addGenre(){
+	
+	var genre = $('#newGenre').val();
+	var obj = {
+			name: genre
+	};
+	var toSend = JSON.stringify(obj);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+			console.log(xhr.responseType);
+			appendToGenreList(obj);
+		}
+	}
+	xhr.open("POST", "genres");
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(toSend);
+
 }
 
 function loadAuthorView(){
