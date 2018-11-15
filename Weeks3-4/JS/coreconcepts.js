@@ -114,5 +114,3 @@ var func = function(x){
     return x;
 }
 var add = function(a , b){return a + b};
-
-var addArrow = (a,b)=> {return a + b;}

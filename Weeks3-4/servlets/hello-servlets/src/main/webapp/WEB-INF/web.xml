@@ -4,6 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<display-name>hello-servlets</display-name>
+<<<<<<< HEAD
+
+	<servlet>
+		<servlet-name>H</servlet-name>
+		<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+=======
 	
 	  
   <!-- WEB.XML aka Deployment Descriptor
@@ -32,6 +38,7 @@
 			<param-value>This secret was configured in my web.xml
 			this, friends, is Servlet Config</param-value>
 		</init-param>
+>>>>>>> master
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

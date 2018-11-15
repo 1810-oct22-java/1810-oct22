@@ -20,7 +20,14 @@
 <body>
     <h4>We will use this to test various AJAX functions</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
+>>>>>>> f435b83344ed2c766f88471f95db56ddf89d6da1
 
     <h5>Update Genre</h5>
     <input type="number" id="gUpdateId" class="form-control col-4">
@@ -31,6 +38,7 @@
     <ul id="genreList">
 
     </ul>
+<<<<<<< HEAD
     
 >>>>>>> master
 
@@ -79,6 +87,73 @@
             console.log(toSend);
 
         }
+=======
+    <script>
+
+        getGenresAJAX();
+        $('#newGenre').keydown(function(e){
+            if(e.keyCode == 13){
+                    let id = $('#gUpdateId').val();
+                    let gName = $('#newGenre').val();
+
+                    //separating functionality into different methods
+                    updateGenreAJAX(id, gName);
+                }
+        })
+=======
+>>>>>>> master
+    
+        function updateGenreAJAX(id, gName){
+            $('#errorMessage').html('');
+
+            var genreObj = {
+                genre: gName
+            };
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function(){
+                // define functionality for repsonse
+                if(xhr.readyState == 4){
+                    console.log(xhr.getAllResponseHeaders());
+                    //check response status 
+                    switch(xhr.status){
+                        case(200): console.log('success!'); break;
+                        case(201): console.log('created'); break;
+                        case(404):{
+                            $('#errorMessage').html('STOP RIGHT THERE!');
+                            break;
+                        }
+                        case(500): console.log('server error'); break;
+                    }
+                    getGenresAJAX();
+                }
+            }
+            //xhr.(METHOD, URL, ASYNC, [USR, PWD])
+            xhr.open("PUT", `http://localhost:3000/genres/${id}`);
+            //indicate what the content of the request body will be 
+            //request AND response are key-value pairs. set req headers as follows:
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            let toSend = JSON.stringify(genreObj);
+            
+            xhr.send(toSend);//send our object as a JSON string to server 
+            console.log(toSend);
+        }
+
+function getGenresAJAX(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            var genres = JSON.parse(xhr.responseText);
+            console.log(genres);
+            displayGenres(genres);
+        }
+    }
+    xhr.open("GET", "http://localhost:3000/genres", true);
+    xhr.send();
+}
+
+<<<<<<< HEAD
 =======
     <script>
 
@@ -143,6 +218,7 @@ function getGenresAJAX(){
     xhr.send();
 }
 
+>>>>>>> master
 
 
 
@@ -158,6 +234,12 @@ function displayGenres(genres){
     
 }
     
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> f435b83344ed2c766f88471f95db56ddf89d6da1
 >>>>>>> master
     </script>
 
