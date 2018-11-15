@@ -1,0 +1,141 @@
+<body>
+    <h5>1</h5>
+    <p id = '1'></p>
+    <hr>
+
+    <h5>3</h5>
+    <p id = '3'></p>
+    <hr>
+
+    <h5>4</h5>
+    <p id = '4'></p>
+    <hr>
+
+    <h5>5</h5>
+    <p id = '5'></p>
+    <hr>
+
+    <h5>6</h5>
+    <p id = '6'></p>
+    <br>
+
+    <h5>7</h5>
+    <p id = '7'></p>
+    <br>
+
+    <h5>9</h5>
+    <p id = '9'></p>
+    <br>
+
+    <h5>1</h5>
+    <p id = '1'></p>
+    <br>
+
+    <h5>1</h5>
+    <p id = '1'></p>
+    <br>
+
+    <h5>1</h5>
+    <p id = '1'></p>
+    <br>
+
+
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+</body>
+
+<script>
+
+//1: Fibonacci
+function fib(n){
+
+    var last = 1;
+    var current = 1;
+
+    for(var i = 0; i < n; i++){
+        if(i == 0 || i == 1){
+            current = i;
+            continue;
+        }
+        var temp = last + current;
+        current = last;
+        last = temp;
+    }
+    $('#1').text(current);
+}
+fib(6);
+
+//3 reverse string
+function reverseStr(word){
+
+    var temp = '';
+
+    for(var i = 0; i < word.length; i++){
+        temp += word.charAt(i);
+    }
+
+    $('#3').text(temp);
+}
+reverseStr('test');
+
+//4 factorial
+function factorial(n){
+    var temp = n;
+    for(i = 2; i < n; i++){
+        temp *= i;
+    }
+    $('#4').text(temp);
+}
+factorial(5);
+
+//5 substr
+function substr2(text,n,x){
+    $('#5').text(text.substring(n, n + x));
+}
+substr2("hello world", 3, 4);
+
+//6 isEven
+function isEven(n){
+    while(true){
+        if(n == 0) $('#6').text('true');
+        if(n == 1) $('#6').text('false');
+        if(n < 0) break;
+        n = n - 2;
+    }
+}
+isEven(7);
+
+//7 Palindrome
+function isPalindrome(test){
+    if(test == reverseStr(test)) $('#7').text('true');
+    $('#7').text('false');
+}
+function reverseStr(word){
+    var temp = '';
+
+    for(var i = 0; i < word.length; i++){
+        temp += word.charAt(i);
+    }
+    $('#3').text(temp);
+}
+reverseStr()
+isPalindrome('civic');
+
+//9 traverseObj
+function traverseObj(obj){
+    jQuery.each(obj, append);
+}
+function append(name,obj){
+    $('#9').text($('#9').text() + "\n" + obj[name]);
+}
+traverseObj({
+    'test': 2,
+    'ty': 5
+});
+
+
+
+</script>
