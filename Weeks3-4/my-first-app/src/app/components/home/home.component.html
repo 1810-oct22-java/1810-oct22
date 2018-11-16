@@ -27,5 +27,9 @@ The following example will display both <b>property binding</b>
      (click)="clickButton()">Click Me!</button>
 
 
-
+<h3>Two Way Data Binding</h3>
+<input type="text" class="form-control col-4" [(ngModel)]="color">
+<div [style.background-color]="color">
+  {{color}}
+</div>
  <h3>Directives</h3>

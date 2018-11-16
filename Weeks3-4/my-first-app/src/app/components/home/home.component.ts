@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   text = 'hello world';
   buttonClass = 'btn btn-secondary';
   count = 0;
+  color = 'blue';
 
   constructor() { }
 
