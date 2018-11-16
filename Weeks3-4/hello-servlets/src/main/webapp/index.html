@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML forms and servlets</title>
+</head>
+<body>
+
+	<h1>Exploring forms</h1>
+	<h3>Get request</h3>
+	<i>should never send sensitive information with a get request</i>
+	<form method="GET" action="httpInfo">
+		<input type="text" name="username" placeholder="Username">
+		<input type="password" name="password" placeholder="Password">
+		<input type="submit" value="GET!">
+	</form>
+	<h3>Post request</h3>
+	<form method="POST" action="httpInfo">
+		<input type="text" name="username" placeholder="Username">
+		<input type="password" name="password" placeholder="Password">
+		<input type="submit" value="post">
+	</form>
+</body>
+</html>
