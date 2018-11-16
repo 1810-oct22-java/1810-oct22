@@ -11,7 +11,7 @@ public class User {
 	
 	public User() {}
 
-	public User(String firstName, String lastName, String userName, String password, String email, int roleID) {
+	public User(String userName, String password,String firstName, String lastName, String email, int roleID) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

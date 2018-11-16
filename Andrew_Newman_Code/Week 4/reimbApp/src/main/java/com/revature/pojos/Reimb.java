@@ -1,12 +1,12 @@
 package com.revature.pojos;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reimb {
 	private int rID;
 	private int amount;
-	private Date submitted;
-	private Date resolved;
+	private Timestamp submitted;
+	private Timestamp resolved;
 	private String desc;
 	private int author;
 	private int resolver;
@@ -15,15 +15,12 @@ public class Reimb {
 	
 	public Reimb() {}
 
-	public Reimb(int amount, Date submitted, Date resolved, String desc, int author, int resolver, int statusID,
-			int typeID) {
+	public Reimb(int amount, Timestamp submitted, String desc, int author, int statusID,int typeID) {
 		super();
 		this.amount = amount;
 		this.submitted = submitted;
-		this.resolved = resolved;
 		this.desc = desc;
 		this.author = author;
-		this.resolver = resolver;
 		this.statusID = statusID;
 		this.typeID = typeID;
 	}
@@ -36,20 +33,20 @@ public class Reimb {
 		this.amount = amount;
 	}
 
-	public Date getSubmitted() {
+	public Timestamp getSubmitted() {
 		return submitted;
 	}
 
-	public void setSubmitted(Date submitted) {
-		this.submitted = submitted;
+	public void setSubmitted(Timestamp timestamp) {
+		this.submitted = timestamp;
 	}
 
-	public Date getResolved() {
+	public Timestamp getResolved() {
 		return resolved;
 	}
 
-	public void setResolved(Date resolved) {
-		this.resolved = resolved;
+	public void setResolved(Timestamp timestamp) {
+		this.resolved = timestamp;
 	}
 
 	public String getDesc() {
@@ -92,12 +89,21 @@ public class Reimb {
 		this.typeID = typeID;
 	}
 
+	public int getrID() {
+		return rID;
+	}
+
+	public void setrID(int rID) {
+		this.rID = rID;
+	}
+
 	@Override
 	public String toString() {
 		return "Reimb [rID=" + rID + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
 				+ ", desc=" + desc + ", author=" + author + ", resolver=" + resolver + ", statusID=" + statusID
 				+ ", typeID=" + typeID + "]";
 	}
+
 	
 	
 	

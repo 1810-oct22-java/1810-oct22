@@ -8,15 +8,23 @@ public class UserService {
 	public static UserDAO uDao = new UserDAO();
 	
 	public User getUser(int id) {
-		return null;
+		return uDao.findById(id);
 	}
 	
-	public User getUserbyUsername(String Username) {
-		return null;
+	public  User getUserbyUsername(String username) {
+		return uDao.findByUsername(username); 
 	}
 	
-	public void insertUser(String fn, String ln, String un, String pw, String em) {
-		
+	public User insertUser(String fn, String ln, String un, String pw, String em, int role) {
+		User u = new User(un,pw,fn,ln,em,role);
+		return uDao.save(u);
 	}
 
+	public String getRole(User r) {
+		return uDao.findRole(r.getRoleID());
+	}
+	
+	public User validateCreds(String un, String pw) {
+		return uDao.checkPw(un,pw);
+	}
 }
