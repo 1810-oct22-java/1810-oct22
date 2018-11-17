@@ -1,0 +1,17 @@
+<p>
+  login works!
+
+  Objective: create a login page that takes in a users username 
+  and password and displays it on click on the page
+</p>
+
+<div>
+
+  <input type="text" class="form-control col-4" [(ngModel)]="username">
+  <input type="text" class="form-control col-4" [(ngModel)]="password">
+  <button [ngClass]='buttonClass' (click)="usrPass()">GO</button>
+  <div>
+    <h1>{{output}}</h1>
+  </div>
+
+</div>

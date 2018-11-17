@@ -47,3 +47,65 @@ CREATE TABLE user_roles (
 );
 
 DROP TABLE users;
+
+create sequence reimbursement_seq;
+create sequence users_seq;
+create sequence reimbursement_status_seq;
+create sequence reimbursement_type_seq;
+create sequence user_roles_seq;
+
+CREATE OR REPLACE TRIGGER reimbursement_trig
+BEFORE INSERT ON  reimbursement
+FOR EACH ROW
+BEGIN
+  SELECT reimbursement_seq.nextVAl INTO :new.id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER users_trig 
+BEFORE INSERT ON  users 
+FOR EACH ROW
+BEGIN
+  SELECT users_seq.nextVAl INTO :new.users_id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER reimbursement_status_trig 
+BEFORE INSERT ON  reimbursement_status 
+FOR EACH ROW 
+BEGIN
+  SELECT reimbursement_status_seq.nextVAl INTO :new.status_id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER reimbursement_type_trig
+BEFORE INSERT ON  reimbursement_type
+FOR EACH ROW
+BEGIN
+  SELECT reimbursement_type_seq.nextVAl INTO :new.type_id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER user_roles_trig
+BEFORE INSERT ON  user_roles
+FOR EACH ROW
+BEGIN
+  SELECT user_roles_seq.nextVAl INTO :new.user_role_id FROM dual;
+END;
+/
+  
+create or replace procedure get_all_reimbursements(reimbursement_cursor OUT SYS_REFCURSOR)
+AS
+BEGIN
+OPEN reimbursement_cursor FOR select * from reimbursement;
+  end;
+/
+  
+create or replace procedure get_all_users(users_cursor OUT SYS_REFCURSOR)
+AS
+BEGIN
+OPEN users_cursor FOR select * from users;
+  end;
+/
+  
+COMMIT;
