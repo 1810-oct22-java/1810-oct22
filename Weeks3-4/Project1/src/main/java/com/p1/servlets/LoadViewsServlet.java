@@ -10,25 +10,27 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 public class LoadViewsServlet extends HttpServlet {
-	
-	private static Logger log  = Logger.getLogger(LoadViewsServlet.class);
-	
+
+	private static Logger log = Logger.getLogger(LoadViewsServlet.class);
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String resourcePath = "partials/" + process(req, resp) +".html";
+		String resourcePath = "partials/" + process(req, resp) + ".html";
 		req.getRequestDispatcher(resourcePath).forward(req, resp);
 	}
-	
+
 	static String process(HttpServletRequest req, HttpServletResponse resp) {
 		log.info("LOAD VIEW REQUEST SENT TO: " + req.getRequestURI());
-		switch(req.getRequestURI()) {
+		switch (req.getRequestURI()) {
 		case "/Project1/home.view":
 			return "home";
 		case "/Project1/login.view":
 			return "login";
+		case "/Project1/signUp.view":
+			return "signUp";
+		case "/Project1/loggedIn.view":
+			return "loggedIn";
 		}
-		
 		return null;
 	}
-
 }

@@ -6,6 +6,7 @@ window.onload = function(){
 	loadHomeView();
 	$('#homeNav').on('click', loadHomeView);
 	$('#loginNav').on('click', loadLoginView);
+	$('#signUpNav').on('click', loadSignUpView);
 }
 
 function loadHomeView(){
@@ -24,7 +25,7 @@ function loadHomeView(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			//do things w response
 			$('#view').html(xhr.responseText);
-			console.log('home', $('#view').html(xhr.responseText))
+			$('#gg').on('click', loadLoggedInView);
 		}
 	}
 	xhr.open("GET", "home.view", true);
@@ -35,37 +36,46 @@ function loadLoginView(){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			//do things w response
 			$('#view').html(xhr.responseText);
-			console.log('login')
+			$('#submitLogin').on('click', loadLoggedInView);
 		}
 	}
 	xhr.open("GET", "login.view", true);
 	xhr.send();	
 }
 
-//function loadGenreView(){
-//	var xhr = new XMLHttpRequest();
-//	xhr.onreadystatechange = function(){
-//		if(xhr.readyState == 4 && xhr.status == 200){
-//			//do things w response
-//			$('#view').html(xhr.responseText);
-//			// manipulate Genre view
-//			getGenres();
-//			$('#addGenre').on('click', addGenre);
-//		}
-//	}
-//	xhr.open("GET", "genre.view", true);
-//	xhr.send();	
-//}
-//
-//function getGenres(){
+function loadSignUpView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+			$('#submitLogin').on('click', loadLoggedInView);
+		}
+	}
+	xhr.open("GET", "signUp.view", true);
+	xhr.send();	
+}
+
+function loadLoggedInView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+			console.log('hello stranger');
+		}
+	}
+	xhr.open("GET", "loggedIn.view", true);
+	xhr.send();	
+}
+
+
+//function getUser(){
 //	//send request to /genres
 //	var xhr = new XMLHttpRequest();
 //	xhr.onreadystatechange = function(){
 //		if(xhr.readyState == 4 && xhr.status == 200){
 //			console.log(xhr.responseText);
-//			let genres = JSON.parse(xhr.responseText);
+//			let user = JSON.parse(xhr.responseText);
 //			for(let g of genres){
 //				appendToGenreList(g);
 //			}
