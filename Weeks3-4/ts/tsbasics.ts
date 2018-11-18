@@ -26,6 +26,9 @@ https://blog.mariusschulz.com/2016/11/18/typescript-2-0-the-never-type
 let greeting: string;
 greeting = 'hello';
 
+let x: number = 6;
+//x = 'hi';
+
 let a: number;
 let b: boolean;
 let c: string;
@@ -48,7 +51,7 @@ function add(a: number, b: number):number {
 let test = add(5, 6);
 //let test2 = add('this is', 'a string');
 
-function neverReturns(a: string):never{ //never reaches end of method
+function neverReturns(a: string):never { //never reaches end of method
     while(true){
 
     }
@@ -60,17 +63,18 @@ function anyReturn(a:any):any{
 
 //TS supports Enum data type 
 enum DaysOfWeek{
-    MONDAY = 0,
-    TUESDAY = 1,
-    WEDNESDAY = 2,
-    THURSDAY = 3, 
-    FRIDAY = 4,
-    SATURDAY = 5,
-    SUNDAY = 6
+    MONDAY = 10,
+    TUESDAY = 11,
+    WEDNESDAY = 12,
+    THURSDAY = 13, 
+    FRIDAY =14,
+    SATURDAY = 15,
+    SUNDAY = 16
 };
 
-let today = DaysOfWeek.THURSDAY;
-let tomorrow = DaysOfWeek[4];
+let today = DaysOfWeek.FRIDAY;
+let tomorrow = DaysOfWeek[15];
+
 
 //ARROW NOTATION
 let sayHi = function(welcome: string){
