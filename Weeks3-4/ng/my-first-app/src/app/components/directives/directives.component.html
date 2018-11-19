@@ -13,6 +13,11 @@ that typically renderHTML code or provide additional functionality</h6>
 <hr>
 Demo:
 
-<button (click)="toggleIf()">Test ngIf</button>
+<button class="btn btn-primary" (click)="toggleIf()">Test ngIf</button>
 <div *ngIf="showIf">Using ngIf!</div>
+<hr>
+<ul>
+  <li *ngFor="let n of numArr">{{n}}</li>
+</ul>
+
 
