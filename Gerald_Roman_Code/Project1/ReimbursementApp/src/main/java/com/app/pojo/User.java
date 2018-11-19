@@ -9,6 +9,14 @@ public class User {
 	private String Email;
 	private int roleId;
 	
+	public User() {}
+	public User(String firstname, String lastname, String Username, String Password) {
+		super();
+		this.FirstName = firstname;
+		this.LastName = lastname;
+		this.Username = Username;
+		this.Password = Password;
+	}
 	
 	
 	public int getUserId() {
@@ -53,6 +61,12 @@ public class User {
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
-	
+	@Override
+	public String toString() {
+		return "User [ FirstName" + FirstName
+				+", Lastname "+ LastName
+				+", Username "+Username
+				+", pws "+Password +"]";
+	}
 	
 }
