@@ -14,7 +14,8 @@ public class ReimbursementService {
 //		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //		Reimbursement r = new Reimbursement(32,timestamp,timestamp,"sdf",2,1,1,1);
 //		createReimbursement(r);
-		getRmbAsEmp(2);
+//		System.out.println(getRmbByAuthor(1));
+		System.out.println(getAllRmbs());
 	}
 
 	public static List<Reimbursement> getAllRmbs() {
@@ -27,7 +28,7 @@ public class ReimbursementService {
 		reimDao.create(r);
 	}
 
-	public static List<Reimbursement> getRmbAsEmp(int author) {
+	public static List<Reimbursement> getRmbByAuthor(int author) {
 		List<Reimbursement> r = reimDao.findByAuthor(author);
 		if (r.isEmpty()) {
 			System.out.println("hit"); 

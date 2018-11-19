@@ -6,11 +6,11 @@
 	<display-name>wk5work</display-name>
 
 	<servlet>
-		<servlet-name>Project1</servlet-name>
-		<servlet-class>com.p1.servlets.LoadViewsServlet</servlet-class>
+		<servlet-name>wk5work</servlet-name>
+		<servlet-class>com.x.servlets.ViewsServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Project1</servlet-name>
+		<servlet-name>wk5work</servlet-name>
 		<url-pattern>*.view</url-pattern>
 	</servlet-mapping>
 
