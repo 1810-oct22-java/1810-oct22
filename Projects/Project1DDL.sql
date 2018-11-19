@@ -11,16 +11,16 @@ CREATE TABLE ERS_REIMBURSEMENT(
  REIMB_TYPE_ID NUMBER(10) NOT NULL,
  FOREIGN KEY(REIMB_STATUS_ID) REFERENCES ERS_REIMB_STATUS(REIMB_STATUS_ID),
  FOREIGN KEY(REIMB_TYPE_ID) REFERENCES ERS_REIMB_TYPE(REIMB_TYPE_ID),
- FOREIGN KEY(REIMB_AUTHOR) REFERENCES ERS_USER(ERS_USER_ID),
- FOREIGN KEY(REIMB_RESOLVER) REFERENCES ERS_USER(ERS_USER_ID)
+ FOREIGN KEY(REIMB_AUTHOR) REFERENCES ERS_USER(USER_ID),
+ FOREIGN KEY(REIMB_RESOLVER) REFERENCES ERS_USER(USER_ID)
 );
 
 CREATE TABLE ERS_USER(
- ERS_USER_ID NUMBER(10) PRIMARY KEY,
- ERS_USERNAME VARCHAR2(50) NOT NULL UNIQUE,
- ERS_PASSWORD VARCHAR2(50) NOT NULL,
- ERS_FIRSTNAME VARCHAR2(50) NOT NULL,
- ERS_LASTNAME VARCHAR2(50),
+ USER_ID NUMBER(10) PRIMARY KEY,
+ USERNAME VARCHAR2(50) NOT NULL UNIQUE,
+ PW VARCHAR2(50) NOT NULL,
+ FIRSTNAME VARCHAR2(50) NOT NULL,
+ LASTNAME VARCHAR2(50),
  USER_EMAIL VARCHAR2(50) NOT NULL UNIQUE,
  USER_ROLE_ID NUMBER NOT NULL,
  FOREIGN KEY(USER_ROLE_ID) REFERENCES ERS_USER_ROLES(USER_ROLE_ID)
@@ -40,3 +40,73 @@ CREATE TABLE ERS_USER_ROLES(
  USER_ROLE_ID NUMBER(10) PRIMARY KEY,
  USER_ROLE VARCHAR2(10) NOT NULL
 );
+
+CREATE SEQUENCE ERS_REIMB_SEQ;
+
+CREATE OR REPLACE TRIGGER ERS_REIMB_TRIG --Declare and name trigger
+BEFORE INSERT ON ERS_REIMBURSEMENT --when will trigger execute
+FOR EACH ROW -- necessary to change value in a table
+BEGIN
+    --SQL statement(s) to operate when event happens
+    --incrementing book seq and assigning it to a new book_id (book's pk) value
+    SELECT ERS_REIMB_SEQ.NEXTVAL INTO :NEW.REIMB_ID FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE ERS_USER_SEQ;
+
+CREATE OR REPLACE TRIGGER ERS_USER_TRIG --Declare and name trigger
+BEFORE INSERT ON ERS_USER --when will trigger execute
+FOR EACH ROW -- necessary to change value in a table
+BEGIN
+    --SQL statement(s) to operate when event happens
+    --incrementing book seq and assigning it to a new book_id (book's pk) value
+    SELECT ERS_USER_SEQ.NEXTVAL INTO :NEW.USER_ID FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE ERS_REIMB_TYPE_SEQ;
+
+CREATE OR REPLACE TRIGGER ERS_REIMB_TYPE_TRIG --Declare and name trigger
+BEFORE INSERT ON ERS_REIMB_TYPE --when will trigger execute
+FOR EACH ROW -- necessary to change value in a table
+BEGIN
+    --SQL statement(s) to operate when event happens
+    --incrementing book seq and assigning it to a new book_id (book's pk) value
+    SELECT ERS_REIMB_TYPE_SEQ.NEXTVAL INTO :NEW.REIMB_TYPE_ID FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE ERS_REIMB_STATUS_SEQ;
+
+CREATE OR REPLACE TRIGGER ERS_REIMB_STATUS_TRIG --Declare and name trigger
+BEFORE INSERT ON ERS_REIMB_STATUS --when will trigger execute
+FOR EACH ROW -- necessary to change value in a table
+BEGIN
+    --SQL statement(s) to operate when event happens
+    --incrementing book seq and assigning it to a new book_id (book's pk) value
+    SELECT ERS_REIMB_STATUS_SEQ.NEXTVAL INTO :NEW.REIMB_STATUS_ID FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE ERS_USER_ROLES_SEQ;
+
+CREATE OR REPLACE TRIGGER ERS_USER_ROLES_TRIG --Declare and name trigger
+BEFORE INSERT ON ERS_USER_ROLES --when will trigger execute
+FOR EACH ROW -- necessary to change value in a table
+BEGIN
+    --SQL statement(s) to operate when event happens
+    --incrementing book seq and assigning it to a new book_id (book's pk) value
+    SELECT ERS_USER_ROLES_SEQ.NEXTVAL INTO :NEW.USER_ROLE_ID FROM DUAL;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE GET_ERS_USERS
+(USER_CURSOR OUT SYS_REFCURSOR)
+AS
+BEGIN 
+OPEN USER_CURSOR FOR SELECT * FROM ERS_USER;
+END;
+/
+
+

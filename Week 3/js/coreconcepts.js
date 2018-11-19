@@ -83,8 +83,8 @@ otherwise incompatible data types (such as string and number, or boolean and obj
 type to another to compare actual value as opposed to the datatype
 that the value would be held in
 
-== - allows type coersion
-=== - restricts type coersion
+== - allows type coercion
+=== - restricts type coercion
 */
 
 7 == 7; // TRUE
