@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>HTML Forms and Servlets</title>
+</head>
+<body>
+
+<h1>Exploring Forms</h1>
+
+<h3>GET Request</h3>
+<i>Should never send sensitive information with a GET request</i>
+<!-- 
+HTML FORMS must have an action tag. when used with servlets in the same
+application context, we denote our action as the url-pattern for the 
+servlet, but without the / 
+the method attribute also goes here, but is not required, because without
+it, the method is assumed to be a GET request-->
+<form method="GET" action="httpInfo">
+<input type="text" name="username" placeholder="Username">
+<input type="password" name="password" placeholder="Password">
+<input type="submit" value="GET!">
+</form>
+
+
+<h3>POST Request</h3>
+<form method="POST" action="httpInfo">
+<input type="text" name="username" placeholder="Username">
+<input type="password" name="password" placeholder="Password">
+<input type="submit" value="POST!">
+</form>
+
+</body>
+</html>
