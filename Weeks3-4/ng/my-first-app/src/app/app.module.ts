@@ -7,14 +7,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
-import { DirectivesComponent } from './components/directives/directives.component';
-import { DataBindingComponent } from './components/data-binding/data-binding.component';
+import { DataBindingComponent } from 'src/app/components/data-binding/data-binding.component';
+import { DirectivesComponent } from 'src/app/components/directives/directives.component';
+import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
 import { PipesComponent } from './components/pipes/pipes.component';
-import { HTTPComponent } from './components/http/http.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { HttpComponent } from './components/http/http.component';
 
 @NgModule({
-
   declarations: [
     /* Declarations array - holds classes that are
 related to view. There can be three types of
@@ -23,11 +22,11 @@ classes listed here: components, directives, and pipes
     AppComponent,
     HomeComponent,
     LoginComponent,
-    DirectivesComponent,
     DataBindingComponent,
+    DirectivesComponent,
+    NavbarComponent,
     PipesComponent,
-    HTTPComponent,
-    NavbarComponent
+    HttpComponent
   ],
   /*
   , exports:[]
