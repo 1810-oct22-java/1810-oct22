@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./directives.component.css']
 })
 export class DirectivesComponent implements OnInit {
+  showIf= true;
 
   constructor() { }
 
   ngOnInit() {
+  }
+  toggleIf(){
+    this.showIf = !this.showIf;
   }
 
 }
