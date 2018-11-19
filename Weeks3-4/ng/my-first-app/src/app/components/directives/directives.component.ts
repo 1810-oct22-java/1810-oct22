@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DirectivesComponent implements OnInit {
 
+  showIf = true;
+  numArr = [1, 5, 6, 7, 8, 9];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleIf() {
+    this.showIf = !this.showIf;
   }
 
 }
