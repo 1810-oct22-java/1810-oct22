@@ -31,9 +31,10 @@
 	<input type="number" id="jpID" class="form-control col-4">
 	<h5>Welcome to Jeopardy <span id="output"></span></h5>
 	<button id="go" class="btn btn-primary">Enter!</button>
+	
 	<script>
 		window.onload = function(){
-			$('go').on('click',function(){
+			$('#go').on('click',function(){
 				useJeopardy();
 				doAjaxWithQuery();
 			})
@@ -50,7 +51,7 @@
 				}
 
 			}
-			var id = $('jpID').val();
+			var id = $('#jpID').val();
 			var url = `http://jservice.io/popular/${id}/`;
 			//var url = `http://jservice.io/popular/1168`; 
 
@@ -67,8 +68,8 @@
 				url : `http://jservice.io/popular/${$('#jpID').val()}`,
 				
 				success : function(response, status) {
-					globalJP = JSON.parse(response)
 					console.log(response);
+					
 					console.log(status);
 				},
 				error : function(status, statusText) {
