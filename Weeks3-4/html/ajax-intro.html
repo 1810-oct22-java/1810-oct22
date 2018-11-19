@@ -110,43 +110,17 @@
 
 
     <script>
-
         window.onload = function(){
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f435b83344ed2c766f88471f95db56ddf89d6da1
-            $('#go').on('click',function(){
-                useTheForce();
-                doAjaxWithQuery();
-            });
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> master
->>>>>>> f435b83344ed2c766f88471f95db56ddf89d6da1
             $('#go').on('click', function(){
                 useTheForce();
                 doAjaxWithjQuery();
             });
         
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> f435b83344ed2c766f88471f95db56ddf89d6da1
->>>>>>> master
         }
-
         function useTheForce(){
             //AJAX!
-
             //STEP 1 -  create the XMLHttpRequest
             var xhr = new XMLHttpRequest();
-
             /*STEP 2 - define functionality for response
                 - this does not necessarily have to be written second, but it 
                 is important to note that it will not be carried out synchronously 
@@ -161,41 +135,16 @@
                     $('#output').html(JSON.parse(xhr.responseText).name);
                 }
             }
-
           
-
             //STEP 3 - open request
             var id = $('#swID').val();
             var url = `https://swapi.co/api/people/${id}/`;
             xhr.open('GET', url, true);
-
             //STEP 4 - send request
             //xhr.send(body); where param is request body.. which GET requests do not have
             xhr.send(); 
-
             console.log("SENT REQUEST " + xhr.responseText); // `SENT REQUEST ${xhr.responseText}`
-
         }
-        ///AJAX WITH JQUERY
-        function doAjaxWithQuery(){
-            console.debug('TESTING OUR JQUERY AJAX METHOD')
-            globalSW = null;
-            $.ajax({
-                type:'GET',
-                url: `https://swapi.co/api/people/${$('#swID').val()}`,
-                //what happens upon a successful response from the server
-                success: function(response,status){
-                    globalSW = JSON.parse(response)
-                    console.log(response);
-                    console.log(status);
-                },
-                error: function(status,statusText){
-                    console.log(`ERROR: ${status}: ${statusText}`);
-                }
-            })
-        }
-
-
         /// AJAX WITH jQUERY
         function doAjaxWithjQuery(){
             console.log('TESTING OUR jQUERY AJAX method')
@@ -213,30 +162,6 @@
                 }
             })
         }
-
-
-
-
-        /// AJAX WITH jQUERY
-        function doAjaxWithjQuery(){
-            console.log('TESTING OUR jQUERY AJAX method')
-            globalSW = null;
-            $.ajax({
-                type: 'GET',
-                url: `https://swapi.co/api/people/${$('#swID').val()}`,
-                //what happens upon a successful response from the server:
-                success: function(response, status){
-                    console.log(response);
-                    console.log(status);
-                },
-                error: function(status, statusText){
-                    console.log(`ERROR: ${status}: ${statusText}`);
-                }
-            })
-        }
-
-
-
     </script>
 </body>
 </html>
