@@ -45,12 +45,12 @@ public class UserDao implements DAO<User, Integer> {
 	@Override
 	public User findById(Integer id) {
 		User user = null;
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "SELECT * FROM ERS_USERS WHERE ERS_USERS_ID = ?";
-			PreparedStatement ps = conn.prepareStatement(sql); 
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				user = new User();
 				user.setUserId(rs.getInt(1));
 				user.setUsername(rs.getString(2));
@@ -60,7 +60,7 @@ public class UserDao implements DAO<User, Integer> {
 				user.setEmail(rs.getString(6));
 				user.setRoleId(rs.getInt(7));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,8 +69,31 @@ public class UserDao implements DAO<User, Integer> {
 
 	@Override
 	public User save(User obj) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = null;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "INSERT INTO ERS_USERS (ERS_USERNAME,ERS_PASSWORD,USER_FIRST_NAME,USER_LAST_NAME,USER_EMAIL,USER_ROLE_ID) VALUES(?,?,?,?,?,?)";
+			String[] keyNames = { "ERS_USERS_ID" };
+			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
+			ps.setString(1, obj.getUsername());
+			ps.setString(2, obj.getPassword());
+			ps.setString(3, obj.getFirstName());
+			ps.setString(4, obj.getLastName());
+			ps.setString(5, obj.getEmail());
+			ps.setInt(6, obj.getRoleId());
+
+			int numRows = ps.executeUpdate();
+			if (numRows == 1) {
+				ResultSet pk = ps.getGeneratedKeys();
+				while (pk.next()) {
+					obj.setUserId(pk.getInt(1));
+				}
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 
 	@Override
