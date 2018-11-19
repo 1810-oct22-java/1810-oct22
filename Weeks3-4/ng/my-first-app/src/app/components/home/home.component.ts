@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 05c8627c0abaad60ec41906d1d0288ce6de998aa
 /*
-@Component indicates that the following TS class is a component 
-se
+@Component indicates that the following TS class is a component
 */
 @Component({
   selector: 'app-home',
@@ -11,26 +14,28 @@ se
 })
 export class HomeComponent implements OnInit {
 
+<<<<<<< HEAD
   text = 'hello world';
   buttonClass = 'btn btn-secondary';
   count = 0;
   color = 'blue';
 
+=======
+  // must use DI for router
+>>>>>>> 05c8627c0abaad60ec41906d1d0288ce6de998aa
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  changeColor() {
-    const classes = ['primary', 'secondary', 'success',
-  'danger', 'warning', 'info', 'light', 'dark'];
-  this.buttonClass = `btn btn-${classes[this.count % 8]}`;
+  goToLogin() {
+    this.router.navigate(['login']); // navigate to denoted path
   }
-  clickButton() {
-    this.count++;
-  }
+<<<<<<< HEAD
   goToLogin(){
     this.router.navigate(['login']);
   }
 
+=======
+>>>>>>> 05c8627c0abaad60ec41906d1d0288ce6de998aa
 }
