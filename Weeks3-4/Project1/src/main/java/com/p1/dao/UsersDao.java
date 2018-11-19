@@ -40,9 +40,6 @@ public class UsersDao implements Dao<Users, Integer>{
 		return Users;
 	}
 
-	/*
-	 * PREPARED STATEMENT
-	 */
 	@Override
 	public Users findById(Integer id) {
 		Users temp = null;
@@ -71,10 +68,15 @@ public class UsersDao implements Dao<Users, Integer>{
 	public Users save(Users obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			conn.setAutoCommit(false);
-			String sql = "INSERT INTO Users (NAME) VALUES(?)";
+			String sql = "INSERT INTO Users (username, password, first_name, last_name, email, role_id) VALUES(?,?,?,?,?,?)";
 			String[] keyNames = {"id"};
 			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
-//			ps.setString(1, obj.getName());
+			ps.setString(1, obj.getUsername());
+			ps.setString(2, obj.getPassword());
+			ps.setString(3, obj.getFirst_name());
+			ps.setString(4, obj.getLast_name());
+			ps.setString(5, obj.getEmail());
+			ps.setInt(6, obj.getRole_id());
 			int numRows = ps.executeUpdate();
 			if(numRows > 0) {
 				ResultSet pk = ps.getGeneratedKeys();
@@ -97,5 +99,11 @@ public class UsersDao implements Dao<Users, Integer>{
 	@Override
 	public void delete(Users obj) {
 		
+	}
+
+	@Override
+	public Users create(Users obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

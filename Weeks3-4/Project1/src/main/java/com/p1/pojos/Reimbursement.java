@@ -1,13 +1,14 @@
 package com.p1.pojos;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reimbursement {
 
 	private int id;
 	private double amount;
-	private Date submitted;
-	private Date resolved;
+	private Timestamp submitted;
+	private Timestamp resolved;
 	private String description;
 	private int author;
 	private int resolver;
@@ -16,7 +17,7 @@ public class Reimbursement {
 	
 	public Reimbursement () {}
 
-	public Reimbursement(double amount, Date submitted, Date resolved, String description, int author, int resolver,
+	public Reimbursement(double amount, Timestamp submitted, Timestamp resolved, String description, int author, int resolver,
 			int status_id, int type_id) {
 		super();
 		this.amount = amount;
@@ -45,19 +46,19 @@ public class Reimbursement {
 		this.amount = amount;
 	}
 
-	public Date getSubmitted() {
+	public Timestamp getSubmitted() {
 		return submitted;
 	}
 
-	public void setSubmitted(Date submitted) {
+	public void setSubmitted(Timestamp submitted) {
 		this.submitted = submitted;
 	}
 
-	public Date getResolved() {
+	public Timestamp getResolved() {
 		return resolved;
 	}
 
-	public void setResolved(Date resolved) {
+	public void setResolved(Timestamp resolved) {
 		this.resolved = resolved;
 	}
 

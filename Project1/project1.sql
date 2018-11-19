@@ -4,7 +4,6 @@ CREATE TABLE reimbursement (
     submitted     TIMESTAMP NOT NULL,
     resolved      TIMESTAMP,
     description   VARCHAR2(250),
-    receipt       BLOB,
     author        NUMBER NOT NULL,
     resolver      NUMBER,
     status_id     NUMBER NOT NULL,
@@ -18,6 +17,17 @@ CREATE TABLE reimbursement (
     FOREIGN KEY ( type_id )
         REFERENCES reimbursement_type ( type_id )
 );
+
+insert into reimbursement (amount,submitted,resolved,description,author,resolver,status_id,type_id) values (123,'14-NOV-18 09.49.12.843000000 PM','14-NOV-18 09.49.12.843000000 PM','dewds',1,1,1,1);
+insert into users (users_id,username,password,first_name,last_name,email,role_id) values (1,'bill','pass','s','sd','fe',1);
+insert into reimbursement_status (status_id, status) values (1, 'approved');
+insert into reimbursement_type (type_id, type) values (1, 'Lodging');
+insert into reimbursement_type (type_id, type) values (2, 'Travel');
+insert into reimbursement_type (type_id, type) values (3, 'Food');
+insert into reimbursement_type (type_id, type) values (4, 'Other');
+
+insert into user_roles (user_role_id, user_role) values (1, 'employee');
+
 
 CREATE TABLE users (
     users_id     NUMBER PRIMARY KEY,
@@ -46,7 +56,7 @@ CREATE TABLE user_roles (
     user_role      VARCHAR2(10) NOT NULL
 );
 
-DROP TABLE users;
+DROP TABLE reimbursement_status;
 
 create sequence reimbursement_seq;
 create sequence users_seq;
@@ -106,6 +116,20 @@ AS
 BEGIN
 OPEN users_cursor FOR select * from users;
   end;
+/
+
+CREATE OR REPLACE PROCEDURE get_reimbursements_by_author
+(R_CURSOR OUT SYS_REFCURSOR, author IN NUMBER, users_id IN NUMBER)
+AS
+BEGIN
+OPEN R_CURSOR FOR SELECT u.users_id, r.amount, r.submitted, r.resolved, r.description, r.author, r.resolver, r.status_id, r.type_id, rs.status, rt.type
+  from users u
+  join reimbursement r on u.users_id = r.author
+  join reimbursement_status rs on r.status_id = rs.status_id
+  join reimbursement_type rt on r.type_id = rt.type_id
+  WHERE r.author = users_id
+  ORDER BY users_id;
+END;
 /
   
 COMMIT;
