@@ -1,3 +1,7 @@
+/*******************************************************************************
+   Create database
+********************************************************************************/
+
 CREATE TABLE ERS_REIMBURSEMENT_STATUS(
 REIMB_STATUS_ID NUMBER NOT NULL,
 REIMB_STATUS VARCHAR2(10),
@@ -42,10 +46,16 @@ FOREIGN KEY (REIMB_STATUS_ID) REFERENCES ERS_REIMBURSEMENT_STATUS(REIMB_STATUS_I
 FOREIGN KEY (REIMB_TYPE_ID) REFERENCES ERS_REIMBURSEMENT_TYPE(REIMB_TYPE_ID)
 );
 
-CREATE SEQUENCE USERID_SEQ;
 
+/*******************************************************************************
+   Create Sequence
+********************************************************************************/
+CREATE SEQUENCE USERID_SEQ;
 CREATE SEQUENCE REIMBURSEMENT_SEQ;
 
+/*******************************************************************************
+   Create Triggers
+********************************************************************************/
 CREATE OR REPLACE TRIGGER ADD_REIMBURSEMENT
 BEFORE INSERT ON ERS_REIMBURSEMENT
 FOR EACH ROW
@@ -62,6 +72,9 @@ SELECT USERID_SEQ.NEXTVAL INTO :NEW.ERS_USER_ROLE_ID FROM DUAL;
 END;
 /
 
+/*******************************************************************************
+   Create Procedure
+********************************************************************************/
 CREATE OR REPLACE PROCEDURE GET_ALL_STATUS 
 (STATUS_CURSOR OUT SYS_REFCURSOR)
 AS
@@ -70,8 +83,26 @@ OPEN STATUS_CURSOR FOR SELECT * FROM ERS_REIMBURSEMENT_STATUS;
 END;
 /
 
+/*******************************************************************************
+   Create Populate ERS_REIMBURSEMENT_TYPE
+********************************************************************************/
+
+INSERT INTO ERS_REIMBURSEMENT_TYPE (REIMB_TYPE_ID, REIMB_TYPE) VALUES (1,'LODGING');
+INSERT INTO ERS_REIMBURSEMENT_TYPE (REIMB_TYPE_ID, REIMB_TYPE) VALUES (2,'TRAVEL"');
+INSERT INTO ERS_REIMBURSEMENT_TYPE (REIMB_TYPE_ID, REIMB_TYPE) VALUES (3,'FOOD');
+INSERT INTO ERS_REIMBURSEMENT_TYPE (REIMB_TYPE_ID, REIMB_TYPE) VALUES (4,'OTHER');
+COMMIT;
 
 
+/*******************************************************************************
+   Testing
+********************************************************************************/
+
+SELECT * FROM ERS_REIMBURSEMENT_TYPE;
+
+/*******************************************************************************
+   Drop Tables
+********************************************************************************/
 DROP TABLE  ERS_REIMBURSEMENT_STATUS;
 DROP TABLE ERS_REIMBURSEMENT_TYPE;
 DROP TABLE ERS_USER_ROLES;
