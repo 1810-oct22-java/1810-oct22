@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 /*
 @Component indicates that the following TS class is a component 
 se
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   count = 0;
   color = 'blue';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -28,6 +28,9 @@ export class HomeComponent implements OnInit {
   }
   clickButton() {
     this.count++;
+  }
+  goToLogin(){
+    this.router.navigate(['login']);
   }
 
 }

@@ -7,6 +7,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
+import { DirectivesComponent } from './components/directives/directives.component';
+import { DataBindingComponent } from './components/data-binding/data-binding.component';
+import { PipesComponent } from './components/pipes/pipes.component';
+import { HTTPComponent } from './components/http/http.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
 
@@ -17,7 +22,12 @@ classes listed here: components, directives, and pipes
 */
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DirectivesComponent,
+    DataBindingComponent,
+    PipesComponent,
+    HTTPComponent,
+    NavbarComponent
   ],
   /*
   , exports:[]
