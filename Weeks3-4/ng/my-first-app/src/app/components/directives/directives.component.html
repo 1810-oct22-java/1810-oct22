@@ -11,13 +11,19 @@ that typically renderHTML code or provide additional functionality</h6>
 </ul>
 
 <hr>
-Demo:
-
+<h5>Demo</h5>
+<b>ngIf</b> <br>
 <button class="btn btn-primary" (click)="toggleIf()">Test ngIf</button>
 <div *ngIf="showIf">Using ngIf!</div>
 <hr>
+<b>ngFor</b>
 <ul>
   <li *ngFor="let n of numArr">{{n}}</li>
+</ul>
+<b>ngSwitch</b>
+<ul *ngFor="let e of employees" [ngSwitch]="e.role">
+  <li *ngSwitchCase="'Trainer'" class="text-primary">{{e.name}}</li>
+  <li *ngSwitchCase="'Associate'" class="text-success">{{e.name}}, <i>{{e.role}}</i></li>
 </ul>
 
 
