@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PipesComponent implements OnInit {
 
-  constructor() { }
+  text = 'sample text';
+  currentTime: Date;
+  constructor() { 
+    setInterval( ()=> {
+      this.currentTime = new Date();
+    },1000);
+
+  }
 
   ngOnInit() {
   }
