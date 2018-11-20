@@ -1,0 +1,13 @@
+Demo:
+
+<button (click)='toggleIf()'>Test ngIf</button>
+<div>Using ngIf</div>
+
+<div [ngSwitch]="switch_expression">
+  <div *ngSwitchCase="case1">1</div>
+  <div *ngSwitchCase="case2">2</div>
+  <div *ngSwitchCase="case3">3</div>
+  <div *ngSwitchDefault>4</div>
+</div>
+
+<button (click)='switchText()'>{{num}}</button>

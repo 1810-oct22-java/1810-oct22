@@ -28,7 +28,6 @@ insert into reimbursement_type (type_id, type) values (4, 'Other');
 
 insert into user_roles (user_role_id, user_role) values (1, 'employee');
 
-
 CREATE TABLE users (
     users_id     NUMBER PRIMARY KEY,
     username     VARCHAR2(50) UNIQUE NOT NULL,

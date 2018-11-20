@@ -64,37 +64,6 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 		}
 		return Reimbursements;
 	}
-	
-	
-	
-//	public List<Reimbursement> findByAuthor(int author, int users_id) {
-//		List<Reimbursement> rmb = new ArrayList<Reimbursement>();
-//		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-//			String sql = "{call get_reimbursements_by_author(?,?,?,?,?,?,?,?,?,?,?)}";
-//			CallableStatement cs = conn.prepareCall(sql); 
-//			cs.registerOutParameter(1, OracleTypes.CURSOR);
-//			cs.setInt(2, author);
-//			cs.setInt(3, users_id);
-//			cs.execute();
-//			ResultSet rs = (ResultSet) cs.getObject(1);
-//			while(rs.next()) {
-//				Reimbursement r = new Reimbursement();
-//				r.setId(rs.getInt(1));
-//				r.setAmount(rs.getDouble(2));
-//				r.setSubmitted(rs.getDate(3));
-//				r.setResolved(rs.getDate(4));
-//				r.setDescription(rs.getString(5));
-//				r.setAuthor(rs.getInt(6));
-//				r.setResolver(rs.getInt(7));
-//				r.setStatus_id(rs.getInt(8));
-//				r.setType_id(rs.getInt(9));
-//				rmb.add(r);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return rmb;
-//	}
 
 	@Override
 	public Reimbursement save(Reimbursement obj) {
@@ -154,6 +123,32 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 			e.printStackTrace();
 		}
 		return obj;
+	}
+
+	public List<Reimbursement> findById(int id) {
+		List<Reimbursement> r = new ArrayList<Reimbursement>();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String sql = "select * from reimbursement where id = ? ";
+			PreparedStatement ps = conn.prepareStatement(sql); 
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Reimbursement g = new Reimbursement();
+				g.setId(rs.getInt(1));
+				g.setAmount(rs.getDouble(2));
+				g.setSubmitted(rs.getTimestamp(3));
+				g.setResolved(rs.getTimestamp(4));
+				g.setDescription(rs.getString(5));
+				g.setAuthor(rs.getInt(6));
+				g.setResolver(rs.getInt(7));
+				g.setStatus_id(rs.getInt(8));
+				g.setType_id(rs.getInt(9));
+				r.add(g);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return r;
 	}
 
 	@Override

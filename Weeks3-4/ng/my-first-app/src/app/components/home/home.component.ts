@@ -7,25 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  text = 'Radda Radda';
-  buttonClass = 'btn btn-primary';
-  count = 0;
-  color = 'blue';
-
   constructor() { }
 
   ngOnInit() {
 
-  }
-
-  clickButton() {
-    this.count++;
-  }
-
-  changeColor() {
-    const classes = ['primary', 'secondary', 'success',
-      'danger', 'warning', 'info'];
-    this.buttonClass = `btn btn-${classes[this.count % 6]}`;
   }
 
 }
