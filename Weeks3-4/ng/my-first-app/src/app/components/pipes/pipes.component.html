@@ -1,0 +1,10 @@
+Pipes are essentially filters that can be applied to some entity in an 
+angular template
+<br>
+Exploring cases with pipes:
+<input type="text" [(ngModel)]="text"  >
+{{ text | uppercase}}
+<br>
+Times:  <br>
+Current Time is {{ currentTime }}
+Formatted Time {{ currentTime | date:'medium' | uppercase }}
