@@ -16,11 +16,8 @@ public class HelloServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		// USE SERVLETS TO MANIPULATE FORM DATA
 		String name = req.getParameter("username");
-		// req.getParameter(x); where x is input field's name OR
-		// parameter appended to URL
+		
 		String password = req.getParameter("password");
 		String testingWrongParam = req.getParameter("doesntExist");
 
