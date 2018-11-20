@@ -27,8 +27,10 @@ public class LoadViewsServlet extends HttpServlet {
 		switch(req.getRequestURI()) {
 		case "/SampleApp/home.view" :
 			return "home";
-		case "/SampleApp/character.view" :
+		case "/SampleApp/characters.view" :
 			return "characters";
+		case "/SampleApp/final.view" :
+			return "final";
 		}
 		return null;
 	}

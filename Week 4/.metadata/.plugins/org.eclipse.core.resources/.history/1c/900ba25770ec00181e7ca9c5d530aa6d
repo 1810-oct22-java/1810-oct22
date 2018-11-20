@@ -1,0 +1,12 @@
+<div class = "jumbotron">
+<form>
+
+<h6>You chose: <span id = "output" ></span></h6>
+
+</div>
+  <div class = "form-group">
+  	<h6>Remember, Han Shot First</h6>
+  </div>
+  
+  </form>
+ </div>

@@ -1,0 +1,9 @@
+package com.revature.util;
+
+public class ConnectionFactory {
+	/*
+	 * Conections are the vital
+	 */
+	
+
+}

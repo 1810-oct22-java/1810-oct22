@@ -1,0 +1,16 @@
+package com.revature.service;
+
+import java.util.ArrayList;
+
+import com.revature.pojos.User;
+
+public class DummyUserService {
+
+	/*
+	 * Dummy service layer with an in memory store of users
+	 */
+	
+	static ArrayList<User> users = new ArrayList<User>();
+	
+	
+}

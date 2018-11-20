@@ -1,0 +1,7 @@
+INDEX VERSION 1.131+C:\Users\dukef\Documents\my_git_repos\1810-oct22\Week 4\.metadata\.plugins\org.eclipse.jdt.core
+3317258943.index
+1536978223.index
+712673515.index
+2821161346.index
+3652625435.index
+3803789452.index

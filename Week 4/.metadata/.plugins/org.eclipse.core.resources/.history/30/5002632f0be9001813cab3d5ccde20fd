@@ -1,0 +1,19 @@
+package com.revature.service;
+
+import java.util.List;
+
+import com.revature.dao.ReimbursementStatusDao;
+import com.revature.dao.UserDao;
+import com.revature.pojos.ReimbursementStatus;
+
+public class UserService {
+	
+	static UserDao uDao = new UserDao();
+	static ReimbursementStatusDao rDao = new ReimbursementStatusDao();
+	
+	public static void main(String[] args) {
+		ReimbursementStatus reimbs = rDao.findByID(1);
+		System.out.println(reimbs.getStatus());
+	}
+
+}

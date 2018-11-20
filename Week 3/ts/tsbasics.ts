@@ -19,7 +19,7 @@ https://blog.mariusschulz.com/2016/11/18/typescript-2-0-the-never-type
 let greeting: string;
 greeting = 'hello';
 
-let x: number 6;
+let x: number;
 //x = 'hi'; can't -> x is a number
 
 

@@ -1,0 +1,53 @@
+package com.revature.servlets;
+
+import java.io.IOException;
+
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+import org.apache.log4j.Logger;
+
+
+//Generic servlet
+public class HelloServlets extends GenericServlet{
+	
+	private static Logger log = Logger.getLogger(HelloServlets.class);
+	
+	static int counter = 0;
+
+	/*
+	 * LIFECYCLE OF A SERVLER! init() service() destroy()
+	 * 
+	 * init is called by the container when the servlet is initialized.
+	 * Here you can configure things like paramters, loggers, etc. 
+	 * Basically anything
+	 * 
+	 */
+	
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		log.trace("Initializing Hello Servlet");
+	}
+	
+	@Override
+	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		log.trace("Servicing Hello Servlet, Count: " + counter++);
+		
+	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		log.trace("Destroying Hello Servlet");
+
+	}
+
+	
+	
+}

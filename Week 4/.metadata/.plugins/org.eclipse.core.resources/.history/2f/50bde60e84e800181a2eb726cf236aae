@@ -1,0 +1,118 @@
+package com.revature.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.pojos.User;
+import com.revature.util.ConnectionFactory;
+
+public class ReimbursementDao {
+	
+	@Override
+	public List<User> findAll() {
+		List<User> users = new ArrayList<User>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String query = "SELECT * FROM ERS_USER ORDER BY USER_ID"; //no semicolon
+			
+			//STATEMENT INTERFACE - implementation exposed via connection
+			Statement statement = conn.createStatement();
+			
+			//ResultSet Interface - represents the result set of a DB Query
+			ResultSet rs = statement.executeQuery(query);
+			
+			while (rs.next()) {
+				User temp = new User();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getDate(3));
+				temp.setResolved(rs.getDate(4));
+				temp.setDescription(rs.getString(5));
+				temp.setAuthor(rs.getInt(6));
+				temp.setResolver(rs.getInt(7));
+				temp.setStatus(rs.getInt(8));
+				temp.setType(rs.getInt(9));
+				users.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
+
+	
+	/*
+	 * Prepared Statement
+	 */
+	public User findByID(Integer id) {
+		User u = null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "SELECT * FROM ERS_USER WHERE USER_ID = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				u = new User();
+				u.setId(rs.getInt(1));
+				u.setAmount(rs.getDouble(2));
+				u.setSubmitted(rs.getDate(3));
+				u.setResolved(rs.getDate(4));
+				u.setDescription(rs.getString(5));
+				u.setAuthor(rs.getInt(6));
+				u.setResolver(rs.getInt(7));
+				u.setStatus(rs.getInt(8));
+				u.setType(rs.getInt(9));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return u;
+	}
+
+	public User insert(User obj) {
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "INSERT INTO ERS_USER(AMOUNT,SUBMITTED,RESOLVED,DESCRIPTION,AUTHOR,RESOLVER"
+					+ ",STATUS,TYPE) VALUES(?,?,?,?,?,?,?,?)";
+			String[] keyNames = {"USER_ID"};
+			
+			PreparedStatement ps = conn.prepareStatement(sql,keyNames);
+			ps.setDouble(1, obj.getAmount());
+			ps.setDate(2, obj.getSubmitted());
+			ps.setDate(3, obj.getResolved());
+			ps.setString(4, obj.getDescription());
+			ps.setInt(5, obj.getAuthor());
+			ps.setInt(6, obj.getResolver());
+			ps.setInt(7, obj.getStatus());
+			ps.setInt(8, obj.getType());
+			
+			int numRows = ps.executeUpdate();
+			if(numRows > 0) {
+				ResultSet pk = ps.getGeneratedKeys();
+				while(pk.next()) {
+					obj.setId(pk.getInt(1));
+				}
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
+	}
+
+	public User update(User obj) {
+		
+		return null;
+	}
+
+}

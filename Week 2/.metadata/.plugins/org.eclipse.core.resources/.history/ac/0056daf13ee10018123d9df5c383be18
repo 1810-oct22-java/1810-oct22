@@ -1,0 +1,24 @@
+package com.revature.main;
+
+import java.util.List;
+
+import com.revature.dao.*;
+import com.revature.pojos.*;
+import com.revature.service.*;
+
+public class BankApp {
+
+	Dao<User,Integer> uDao = new UserDao();
+	List<User> users = uDao.findAll();
+	
+	public static void main(String[] args) {
+		
+		System.out.println("##############################");
+		System.out.println("------------------------------");
+		System.out.println("     Welcome to BankApp\n");
+		System.out.println("   Are you a new user? Y/N");
+		ServiceFunctions.newUser();
+		
+	}
+
+}

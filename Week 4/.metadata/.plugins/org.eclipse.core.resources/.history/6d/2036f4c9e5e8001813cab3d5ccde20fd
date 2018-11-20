@@ -1,0 +1,33 @@
+package com.revature.dao;
+
+import java.util.List;
+
+public class UserRolesDao implements DAO<UserRoles,Integer>{
+
+	@Override
+	public List<UserRoles> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserRoles findByID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserRoles insert(UserRoles obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserRoles update(UserRoles obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

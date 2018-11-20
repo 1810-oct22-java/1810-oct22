@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.revature.pojos.ReimbursementStatus"/>
+<fullyQualifiedTypeName name="com.revature.pojos.UserRoles"/>
+<fullyQualifiedTypeName name="com.revature.dao.UserDao"/>
+<fullyQualifiedTypeName name="com.revature.pojos.User"/>
+<fullyQualifiedTypeName name="com.revature.dao.ReimbursementDao"/>
+<fullyQualifiedTypeName name="com.revature.pojos.Reimbursement"/>
+<fullyQualifiedTypeName name="com.revature.dao.ReimbursementTypeDao"/>
+<fullyQualifiedTypeName name="com.revature.pojos.ReimbursementType"/>
+<fullyQualifiedTypeName name="com.revature.dao.UserRolesDao"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+</qualifiedTypeNameHistroy>

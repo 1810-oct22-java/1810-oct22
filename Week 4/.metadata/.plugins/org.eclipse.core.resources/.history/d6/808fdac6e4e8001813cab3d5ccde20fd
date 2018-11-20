@@ -1,0 +1,33 @@
+package com.revature.dao;
+
+import java.util.List;
+
+import com.revature.pojos.ReimbursementStatus;
+
+public class ReimbursementStatusDao implements DAO<ReimbursementStatus,Integer>{
+
+	@Override
+	public List<ReimbursementStatus> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReimbursementStatus findByID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReimbursementStatus insert(ReimbursementStatus obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReimbursementStatus update(ReimbursementStatus obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

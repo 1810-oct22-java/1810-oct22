@@ -1,0 +1,30 @@
+package com.revature.main;
+
+import java.util.List;
+
+import com.revature.dao.*;
+import com.revature.pojos.*;
+
+public class BankApp {
+
+	public static void main(String[] args) {
+		Dao<User,Integer> uDao = new UserDao();
+		List<User> users = uDao.findAll();
+		for (User u : users) {
+			System.out.println(u);
+		}
+		
+		Dao<Account,Integer> aDao = new AccountDao();
+		List<Account> accounts = aDao.findAll();
+		for (Account a : accounts) {
+			System.out.println(a);
+		}
+		
+		Dao<AccountType,Integer> atDao = new AccountTypeDao();
+		List<AccountType> ats = atDao.findAll();
+		for (AccountType at : ats) {
+			System.out.println(at);
+		}
+	}
+
+}

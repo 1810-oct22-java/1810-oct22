@@ -1,0 +1,42 @@
+package com.revature.main;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.revature.dao.*;
+import com.revature.pojos.*;
+
+public class BankApp {
+
+	Dao<User,Integer> uDao = new UserDao();
+	List<User> users = uDao.findAll();
+	
+	public static void main(String[] args) {
+		
+		//SCANNER
+		Scanner sc = new Scanner(System.in);
+		String in;
+		
+		System.out.println("##############################");
+		System.out.println("------------------------------");
+		System.out.println("     Welcome to BankApp\n");
+		System.out.println("   Are you a new user? Y/N");
+		in = sc.nextLine();
+		
+		if (in.toLowerCase().equals("y") || in.toLowerCase().equals("yes")) {
+			System.out.println("y");
+			//register new user
+		}
+		else if (in.toLowerCase().equals("n") || in.toLowerCase().equals("no")) {
+			System.out.println("n");
+			//go to check username, password
+			//run main function
+		}
+		else {
+			System.out.println("Command not recognized. Please enter Y or N");
+		}
+		
+		
+	}
+
+}

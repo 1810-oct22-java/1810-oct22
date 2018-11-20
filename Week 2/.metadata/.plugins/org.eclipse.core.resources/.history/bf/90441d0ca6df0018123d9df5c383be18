@@ -1,0 +1,100 @@
+package com.revature.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.pojos.Account;
+import com.revature.util.ConnectionFactory;
+
+public class AccountDao implements Dao<Account,Integer>{
+
+	@Override
+	public List<Account> findAll() {
+		List<Account> Accounts = new ArrayList<Account>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String query = "SELECT * FROM BANK_ACCOUNT"; //no semicolon
+			
+			//STATEMENT INTERFACE - implementation exposed via connection
+			Statement statement = conn.createStatement();
+			
+			//ResultSet Interface - represents the result set of a DB Query
+			ResultSet rs = statement.executeQuery(query);
+			
+			/*
+			 * Moves the cursor forward one row from its current position.A ResultSet cursor is initially 
+			 * positioned before the first row; the first call to the method next makes the first row the 
+			 * current row; the second call makes the second row the current row, and so on. 
+			 * When a call to the next method returns false,the cursor is positioned after the last row. 
+			 * Any invocation of a ResultSet method which requires a current row will result in a SQLException 
+			 * being thrown.If the result set type is TYPE_FORWARD_ONLY, it is vendor specified whether their 
+			 * JDBC driver implementation will return false or throw an SQLException on a subsequent call to next. 
+			 * If an input stream is open for the current row, a call to the method next will implicitly close it. 
+			 * A ResultSet object'swarning chain is cleared when a new row is read.
+
+			 */
+			while (rs.next()) {
+				Genre temp = new Genre();
+				temp.setId(rs.getInt(1));
+				temp.setName(rs.getString(2));
+				genres.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return genres;
+		return null;
+	}
+
+	@Override
+	public Account findByID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Account save(Account obj) {
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "INSERT INTO BN_GENRE(NAME) VALUES(?)";
+			String[] keyNames = {"Genre_Id"};
+			
+			PreparedStatement ps = conn.prepareStatement(sql,keyNames);
+			ps.setString(1, obj.getName());
+			
+			int numRows = ps.executeUpdate();
+			if(numRows == 1) {
+				ResultSet pk = ps.getGeneratedKeys();
+				while(pk.next()) {
+					obj.setId(pk.getInt(1));
+				}
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
+		return null;
+	}
+
+	@Override
+	public Account update(Account obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Account obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

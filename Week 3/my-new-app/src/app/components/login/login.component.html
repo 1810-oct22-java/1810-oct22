@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <input type="text" [(ngModel)]="username" placeholder="Username..">
+  <input type="password" [(ngModel)]="password" placeholder="Password..">
+  <button class="btn btn-submit" (click)="login()">Log In!</button>
+
+  <br><hr><br>
+  
+ {{output}} 
+</div>  
+
+<a href="/home">Go Home!</a>
+<button class = "btn btn-primatry" (click)="goToLogin()">
+  Go Back Home with TypeScript
+</button>

@@ -1,0 +1,25 @@
+<h3>Understanding Directives</h3>
+
+<h6>Angular <b>Directives</b> are special pre-built instructions
+that typically renderHTML code or provide additional functionality</h6>
+<hr>
+<p>There are three types of directives:</p>
+<ul>
+  <li><b>Custom Directives using the decorator @Directive.</b></li>
+  <li><b>Structural Directives</b></li>
+  <li><b>Attribute Directives</b></li>
+</ul>
+
+<hr>
+Demo:
+
+<b>ngIf</b>
+<button (click)="toggleIf()">Test ngIf</button>
+<div *ngIf="showIf">Using ngIf!</div>
+<hr>
+<b>ngFor</b>
+<ul>
+  <li *ngFor="let num of numArr">{{num}}</li>
+</ul>
+<b>ngSwitch</b>
+

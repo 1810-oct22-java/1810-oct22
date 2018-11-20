@@ -1,2 +1,0 @@
-Welcome to File IO!!!!!!We are now appending text to our fileWe are now appending text to our file again
-We are now appending text to our file again
