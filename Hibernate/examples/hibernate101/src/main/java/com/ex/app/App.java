@@ -3,7 +3,7 @@ package com.ex.app;
 import com.ex.dao.UserDao;
 import com.ex.models.User;
 
-public class Main {
+public class App {
 
 	public static void main(String[] args) {
 		UserDao dao = new UserDao();

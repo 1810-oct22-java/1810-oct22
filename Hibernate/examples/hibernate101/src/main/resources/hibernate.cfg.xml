@@ -14,7 +14,7 @@
 		<property name="hibernate.connection.password">p4ssw0rd</property>
 		
 		<!-- Create/update/etc schema -->
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
 		
 		<!-- show HQL commands as they're carried out in the console -->
 		<property name="show_sql">true</property>
