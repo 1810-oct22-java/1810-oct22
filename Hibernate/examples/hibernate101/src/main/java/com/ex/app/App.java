@@ -1,5 +1,7 @@
 package com.ex.app;
 
+import java.util.List;
+
 import com.ex.dao.UserDao;
 import com.ex.models.User;
 
@@ -27,9 +29,14 @@ public class App {
 //		System.out.println("Retrieving user of id 7 with LOAD");
 //		User u50load = dao.loadById(7);
 		
-	User u = dao.findByUsername("testuser");
+	User u = dao.findByUsername("ter");
 	System.out.println(u);
 	
+	System.out.println("FINDING ALL");
+	List<User> users = dao.findAll();
+	for(User user : users) {
+		System.out.println(user);
+	}
 	
 	}
 
