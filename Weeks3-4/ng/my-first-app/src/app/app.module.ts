@@ -12,6 +12,7 @@ import { DirectivesComponent } from 'src/app/components/directives/directives.co
 import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
 import { PipesComponent } from './components/pipes/pipes.component';
 import { HttpComponent } from './components/http/http.component';
+import { SquarerootPipe } from './pipes/squareroot.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ classes listed here: components, directives, and pipes
     DirectivesComponent,
     NavbarComponent,
     PipesComponent,
-    HttpComponent
+    HttpComponent,
+    SquarerootPipe
   ],
   /*
   , exports:[]
