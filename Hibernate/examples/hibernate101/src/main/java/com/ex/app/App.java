@@ -5,6 +5,8 @@ import com.ex.models.User;
 
 public class App {
 
+	static Userdao 
+
 	public static void main(String[] args) {
 	UserDao dao = new UserDao();
 //		SAVING USERS
