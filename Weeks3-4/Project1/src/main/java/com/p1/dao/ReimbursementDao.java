@@ -113,8 +113,8 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 			ps.setInt(7, obj.getStatus_id());
 			ps.setInt(8, obj.getType_id());
 			int numRows = ps.executeUpdate();
-			if (numRows > 0) {				// making sure the sql statement returned something
-				ResultSet pk = ps.getGeneratedKeys();	// primary keys
+			if (numRows > 0) {				
+				ResultSet pk = ps.getGeneratedKeys();
 				while (pk.next()) {
 					obj.setId(pk.getInt(1));
 				}

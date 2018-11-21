@@ -15,8 +15,8 @@ public class ReimbursementService {
 //		Reimbursement r = new Reimbursement(32,timestamp,timestamp,"sdf",2,1,1,1);
 //		createReimbursement(r);
 //		System.out.println(getRmbByAuthor(2));
-//		System.out.println(getAllRmbs());
-		System.out.println(getRmbById(1));
+		System.out.println(getAllRmbs());
+//		System.out.println(getRmbById(1));
 	}
 
 	public static List<Reimbursement> getAllRmbs() {
