@@ -28,6 +28,12 @@ public class User {
 		this.email = email;
 	}
 	
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", role=" + role + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + "]";
+	}
+	
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
@@ -40,6 +46,7 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}

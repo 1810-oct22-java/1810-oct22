@@ -49,22 +49,19 @@ export class LoginComponent implements OnInit {
   //Will send request to server and verify 
   attemptLogin(): void {
 
+    var router = this.router;
+
     $.ajax({
         url: this.envVars.getApiUrl() + "login",
         data: {
           "username" : this.username,
           "password" : this.password
         },
-        cache: false,
-        processData: false,
-        contentType: false,
         type: 'POST',
-        success: function (dataofconfirm) {
-            
-
-
-        },
-        error: function () {
+        success: function (serverResponce: String) {
+          
+          console.log(serverResponce);
+          //router.navigate([])
 
         }
     });

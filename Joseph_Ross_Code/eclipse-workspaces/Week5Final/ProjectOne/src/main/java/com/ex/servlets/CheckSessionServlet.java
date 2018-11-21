@@ -25,6 +25,8 @@ public class CheckSessionServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		logger.trace(req.getRemoteAddr());
+		
 		//Create the session object to be sent to client
 		SessionStatus status = new SessionStatus();
 		
@@ -53,7 +55,7 @@ public class CheckSessionServlet extends HttpServlet {
 		
 		//If the session doesn't exist
 		} else {
-			
+		
 			status.setSessionExists(false);
 		}
 		
