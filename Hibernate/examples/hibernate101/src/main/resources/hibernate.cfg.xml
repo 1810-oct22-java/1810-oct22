@@ -18,6 +18,9 @@
 		
 		<!-- show HQL commands as they're carried out in the console -->
 		<property name="show_sql">true</property>
+		
+		<!-- classes to be configured via annotations -->
+		<mapping class="com.ex.models.User"/>
 
 	</session-factory>
 </hibernate-configuration>
