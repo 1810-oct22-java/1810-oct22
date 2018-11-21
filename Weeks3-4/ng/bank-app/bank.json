@@ -1,0 +1,35 @@
+{
+    "users":[
+        {
+            "id": 1,
+            "username": "admin",
+            "password": "admin",
+            "firstname": "Administrator",
+            "lastname": "User"
+        },
+        {
+            "id": 2,
+            "username": "test",
+            "password": "user",
+            "firstname": "Dummy",
+            "lastname": "User"
+        }
+    ],
+    "accounts":[
+
+    ],
+    "accountType":[
+        {
+            "id": 1, 
+            "type": "Checking"
+        }, 
+        {
+            "id": 2,
+            "type": "Savings"
+        },
+        {
+            "id": 3,
+            "type": "Credit"
+        }
+    ]
+}
