@@ -56,6 +56,7 @@ function login() {
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			$('#view').html(xhr.responseText);
+			loadLoggedInView();
 		}
 	}
 	xhr.open("POST", "login", true)
