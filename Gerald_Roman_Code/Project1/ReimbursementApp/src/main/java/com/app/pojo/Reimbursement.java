@@ -3,6 +3,7 @@ package com.app.pojo;
 import java.sql.Date;
 
 public class Reimbursement {
+	
 	private int Id;
 	private int amount;
 	private Date submitted;
@@ -68,5 +69,10 @@ public class Reimbursement {
 		this.typeId = typeId;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Reimbursement [Id=" + Id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
+				+ ", description=" + description + ", author=" + author + ", resolver=" + resolver + ", statusId="
+				+ statusId + ", typeId=" + typeId + "]";
+	}
 }

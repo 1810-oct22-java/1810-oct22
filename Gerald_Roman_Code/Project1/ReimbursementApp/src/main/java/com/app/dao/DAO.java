@@ -3,6 +3,8 @@ package com.app.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.app.pojo.User;
+
 public interface DAO<T, I extends Serializable> {
 
 	List<T> findAll();

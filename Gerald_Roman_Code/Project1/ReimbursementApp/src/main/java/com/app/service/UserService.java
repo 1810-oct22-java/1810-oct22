@@ -8,6 +8,7 @@ import com.app.pojo.User;
 public class UserService {
 	static UserDao userDao = new UserDao();
 	static ReimbursementDao ReimbursementDao = new ReimbursementDao();
+		
 	public static User newUserAccount(String Firstname, String Lastname, String Username, String Password) {
 		User u = new User(Firstname,Lastname,Username,Password);
 		userDao.save(u);

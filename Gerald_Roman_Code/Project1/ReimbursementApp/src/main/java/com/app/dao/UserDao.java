@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.app.pojo.Reimbursement;
 import com.app.pojo.User;
 import com.app.util.ConnectionFactory;
 
@@ -19,10 +20,8 @@ public class UserDao implements DAO<User, Integer> {
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "SELECT * FROM ERS_USERS";
-
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-
 			while (rs.next()) {
 				User temp = new User();
 				temp.setUserId(rs.getInt(1));
@@ -65,6 +64,27 @@ public class UserDao implements DAO<User, Integer> {
 			e.printStackTrace();
 		}
 		return user;
+	}
+
+	//@Override
+	//public User findByUserName(User obj) {
+	public User findByUserName(String Username) {
+		User user = null;
+		
+		ReimbursementDao reimbDao = new ReimbursementDao();
+		List<Reimbursement> reimbursement = reimbDao.findAll();
+		try {
+			for (Reimbursement r : reimbursement) {
+				if (r.getAuthor() == (user.getUserId()) && user.getUsername() == (usernameInput))
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+		//find by user nam
+		// then checks password
+		//if valid user take him to the right page
 	}
 
 	@Override
