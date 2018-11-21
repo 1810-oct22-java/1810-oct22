@@ -38,6 +38,13 @@ public class UserDao {
 		return u;
 	}
 	
+	//PERSIST
+	
+	//UPDATE
+	
+	//MERGE
+	
+	
 	/*
 	 * Session.get()
 	 * - returns persisted object with specified identifier
