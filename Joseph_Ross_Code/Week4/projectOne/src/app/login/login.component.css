@@ -1,0 +1,19 @@
+.login-jumbotron {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.login-header {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.login-submit-container {
+    width: 100%;
+    text-align: center;
+}
+
+.login-submit-button {
+    width: 100%;
+}
