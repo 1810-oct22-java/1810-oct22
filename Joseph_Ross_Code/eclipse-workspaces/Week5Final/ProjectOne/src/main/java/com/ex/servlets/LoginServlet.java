@@ -67,9 +67,12 @@ public class LoginServlet extends HttpServlet{
 			
 			try {
 				//If the credentials are correct and no error is caught store user object in session
-				session.setAttribute("user", UserDao.loginAttempt(username, password));
+				user = UserDao.loginAttempt(username, password);
+				session.setAttribute("user", user);
 				resp.setStatus(HttpServletResponse.SC_OK);
-				writer.write(mapper.writeValueAsString(status));
+				
+				if(user.getRole() == 1) writer.write(mapper.writeValueAsString("employee"));
+				if(user.getRole() == 2) writer.write(mapper.writeValueAsString("manager"));
 				
 			//Something horrible must have happened
 			} catch (SQLException e) {

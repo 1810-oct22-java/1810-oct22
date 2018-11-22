@@ -1,0 +1,22 @@
+#employee_component {
+    background-color: blue;
+}
+.employee-jumbotron {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.employee-header {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.employee-submit-container {
+    width: 100%;
+    text-align: center;
+}
+
+.employee-submit-button {
+    width: 100%;
+}

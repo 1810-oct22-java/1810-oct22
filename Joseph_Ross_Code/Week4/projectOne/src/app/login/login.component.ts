@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, RouteReuseStrategy } from "@angular/router";
 import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 
@@ -12,6 +12,8 @@ import { GlobalsService } from '../globals.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
 export class LoginComponent implements OnInit {
 
   public username: String;
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
                 public envVars: GlobalsService,
                 public router: Router,
                 public cookies: CookieService
-              ){}
+              ){
+              }
 
   ngOnInit() {
     //Redirect session if user is already logged in
@@ -49,8 +52,8 @@ export class LoginComponent implements OnInit {
   //Will send request to server and verify 
   attemptLogin(): void {
 
-    var router = this.router;
-
+    var self = this;
+    
     $.ajax({
         url: this.envVars.getApiUrl() + "login",
         data: {
@@ -58,14 +61,19 @@ export class LoginComponent implements OnInit {
           "password" : this.password
         },
         type: 'POST',
-        success: function (serverResponce: String) {
-          
-          console.log(serverResponce);
-          //router.navigate([])
-
+        success: function (responce: String) {
+         self.router.navigate([self.formateServerResponceString(responce)]);
         }
     });
     
+  }
+
+  /*
+    Remove the quotation marks from
+    the string
+  */
+  formateServerResponceString(str: String): String {
+    return str.substr(1, str.length - 2);
   }
 
 }

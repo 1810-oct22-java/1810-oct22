@@ -7,11 +7,13 @@ import {CookieService} from 'ngx-cookie-service'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AppRouterModule } from './app-router.module';
+import { EmployeeComponent } from './employee/employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
