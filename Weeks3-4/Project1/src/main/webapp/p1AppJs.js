@@ -21,18 +21,18 @@ function loadHomeView(){
 	xhr.send();	
 }
 
-//function loadUsers(){
-//	var xhr = new XMLHttpRequest();
-//	xhr.onreadystatechange = function(){
-//		if(xhr.readyState == 4 && xhr.status == 200){
-//			console.log('1', xhr.responseText);
-//			usersJSON = JSON.parse(xhr.responseText);
-//			console.log('2', reimbursements)
-//		}
-//	}
-//	xhr.open("GET", "home");
-//	xhr.send();
-//}
+// function loadUsers(){
+// var xhr = new XMLHttpRequest();
+// xhr.onreadystatechange = function(){
+// if(xhr.readyState == 4 && xhr.status == 200){
+// console.log('1', xhr.responseText);
+// usersJSON = JSON.parse(xhr.responseText);
+// console.log('2', reimbursements)
+// }
+// }
+// xhr.open("GET", "home");
+// xhr.send();
+// }
 
 function loadLoginView(){
 	var xhr = new XMLHttpRequest();
@@ -62,7 +62,7 @@ function login() {
 	xhr.open("POST", "login", true)
 	xhr.setRequestHeader("Content-type", "application/json");
 	const go = JSON.stringify(user);
-	console.log(go);
+	console.log('info', go);
 	xhr.send(go);
 }
 
@@ -97,16 +97,20 @@ function loadReimbursements(){
 			console.log('1', xhr.responseText);
 			let reimbursements = JSON.parse(xhr.responseText);
 			console.log('2', reimbursements)
-			for(let r of reimbursements){
-				reimbursementList(r);
+			for(let r of reimbursements)
+				if (r.author == 1) {
+					reimbursementListE(r)
+				} else if (r.author == 2) {
+					reimbursementListM(r)
+				}
 			}
 		}
-	}
 	xhr.open("GET", "loggedIn");
 	xhr.send();
 }
 
-function reimbursementList(r){
+function reimbursementListM(r){
+	console.log('in man', r)
 	var data = $(`
 		<tr>
 			<th scope="row">${r.id}</th>
@@ -121,9 +125,34 @@ function reimbursementList(r){
 			<td>
 				<button class="oi oi-check"></button>
 				<button class="oi oi-check"></button>
+				<i class="fa fa-check" aria-hidden="true"></i>
 			</td>
 		</tr>
 	`)
 	$('#reimbursementsList').append(data);
 }
 
+function reimbursementListE(r){
+	console.log('in emp', r)
+	if (r.author == 1) {
+		var data = $(`
+				<tr>
+				<th scope="row">${r.id}</th>
+				<td>${r.amount}</td>
+				<td>${r.submitted}</td>
+				<td>${r.resolved}</td>
+				<td>${r.description}</td>
+				<td>${r.author}</td>
+				<td>${r.resolver}</td>
+				<td>${r.status_id}</td>
+				<td>${r.type_id}</td>
+				<td>
+				<button class="oi oi-check"></button>
+				<button class="oi oi-check"></button>
+				<i class="fa fa-check" aria-hidden="true"></i>
+				</td>
+				</tr>
+		`)	
+	}
+	$('#reimbursementsList').append(data);
+}

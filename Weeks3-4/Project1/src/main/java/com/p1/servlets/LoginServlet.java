@@ -36,12 +36,17 @@ public class LoginServlet extends HttpServlet{
 		u = uService.checkUser(u.getUsername(), u.getPassword());
 		HttpSession session = req.getSession();
 		session.setAttribute("user", u);
+		
 		if (u.getRole_id() == 1) {
 			resp.sendRedirect("employee");
 			logger.trace(u.getRole_id());
+			logger.trace(u.getUsers_id());
+
 		} else if (u.getRole_id() == 2){
 			resp.sendRedirect("loggedIn");
 			logger.trace(u.getRole_id());
+			logger.trace(u.getUsers_id());
+
 		}
 	}
 
