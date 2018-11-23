@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,50 +43,30 @@ public class LoginServlet extends HttpServlet{
 		//Create the mapper for converting response object to JSON
 		ObjectMapper mapper = new ObjectMapper();
 		
-		//Get the session
-		HttpSession session = req.getSession();
-		
-		//Save the user object (this can be null)
-		User user = (User) session.getAttribute("user");
-		
-		/*
-		This could only happen if the client was tampered with
-		Because the client checks if a session exists as the
-		page is loading is redirects the user if a session exists.
-		*/
-		if(user != null) {
 			
-			//Invalidate the session to protect 
-			session.invalidate();
-			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+		username = (String) req.getParameter("username");
+		password = (String) req.getParameter("password");
 			
-		//Else if the client wasn't tampered with...
-		} else {
+		try {
+			//If the credentials are correct and no error is caught store user object in session
+			User user = UserDao.loginAttempt(username, password);
+
+			resp.setStatus(HttpServletResponse.SC_OK);
 			
-			username = (String) req.getParameter("username");
-			password = (String) req.getParameter("password");
+			if(user.getRole() == 1) writer.write(mapper.writeValueAsString("employee"));
+			if(user.getRole() == 2) writer.write(mapper.writeValueAsString("manager"));
 			
-			try {
-				//If the credentials are correct and no error is caught store user object in session
-				user = UserDao.loginAttempt(username, password);
-				session.setAttribute("user", user);
-				resp.setStatus(HttpServletResponse.SC_OK);
-				
-				if(user.getRole() == 1) writer.write(mapper.writeValueAsString("employee"));
-				if(user.getRole() == 2) writer.write(mapper.writeValueAsString("manager"));
-				
-			//Something horrible must have happened
-			} catch (SQLException e) {
-				//Invalidate session to force user to restart application
-				//session.invalidate();
-				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				
-			//Wrong username and password
-			} catch (InvalidUsernameAndPasswordException e) {
-				resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username and password combination!");
-			}
+		//Something horrible must have happened
+		} catch (SQLException e) {
+			//Invalidate session to force user to restart application
+			//session.invalidate();
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
+		//Wrong username and password
+		} catch (InvalidUsernameAndPasswordException e) {
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username and password combination!");
 		}
+			
 		
 	}
 	

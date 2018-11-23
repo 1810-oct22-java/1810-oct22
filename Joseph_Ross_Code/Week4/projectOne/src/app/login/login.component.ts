@@ -45,12 +45,15 @@ export class LoginComponent implements OnInit {
           router.navigate([sessionStatus['redirectUrl']]);
       }
     }
-    xhr.open("GET", baseURL + "checkSession" , true);
+    xhr.open("GET", baseURL + "checkSessionLogin" , true);
     xhr.send();
   }
 
   //Will send request to server and verify 
   attemptLogin(): void {
+
+    this.envVars.username = this.username;
+    this.router.navigate(['employee']);
 
     var self = this;
     
@@ -60,8 +63,12 @@ export class LoginComponent implements OnInit {
           "username" : this.username,
           "password" : this.password
         },
+        xhrFields: {
+          withCredentials: false
+        },
         type: 'POST',
         success: function (responce: String) {
+
          self.router.navigate([self.formateServerResponceString(responce)]);
         }
     });

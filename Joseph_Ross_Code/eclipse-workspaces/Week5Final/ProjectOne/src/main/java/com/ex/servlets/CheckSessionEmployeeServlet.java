@@ -13,14 +13,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.ex.pojos.SessionStatus;
+import com.ex.pojos.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.ex.pojos.User;
-
-@WebServlet("/checkSessionLogin")
-public class CheckSessionServlet extends HttpServlet {
+@WebServlet("/checkSessionEmployee")
+public class CheckSessionEmployeeServlet extends HttpServlet {
 	
-	private static Logger logger = Logger.getLogger(GenreServlet.class);
+private static Logger logger = Logger.getLogger(GenreServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,23 +42,27 @@ public class CheckSessionServlet extends HttpServlet {
 		//Save the user object (this can be null)
 		User user = (User) session.getAttribute("user");
 		
-		//If session already exists
-		if(user != null) {
+		//If session doesn't exists
+		if(user == null) {
 			
-			//Session exists
-			status.setSessionExists(true);
-			
-			//Set the redirect URL depending on the type of user
-			if(user.getRole() == 1) status.setForwardUrl("employee");
-			if(user.getRole() == 2) status.setForwardUrl("manager");
+			status.setSessionExists(false);
+			status.setForwardUrl("login");
+			//Convert sessionStatus object to JSON and send it
+			writer.write(mapper.writeValueAsString(status));
 		
 		//If the session doesn't exist
+		} else if(user.getRole() != 1) {
+			
+			session.invalidate();
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			
 		} else {
 		
-			status.setSessionExists(false);
+			status.setSessionExists(true);
+			//Convert sessionStatus object to JSON and send it
+			writer.write(mapper.writeValueAsString(status));
 		}
 		
-		//Convert sessionStatus object to JSON and send it
-		writer.write(mapper.writeValueAsString(status));
 	}
+
 }

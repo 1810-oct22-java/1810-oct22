@@ -2,6 +2,8 @@ package com.ex.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.ex.dao.UserDao;
+import com.ex.pojos.ReimbursementEntry;
 import com.ex.pojos.SessionStatus;
+import com.ex.pojos.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.ex.pojos.User;
-
-@WebServlet("/checkSessionLogin")
-public class CheckSessionServlet extends HttpServlet {
+@WebServlet("/getUserReimbursements")
+public class getUserReimbursementsServlet extends HttpServlet{
 	
 	private static Logger logger = Logger.getLogger(GenreServlet.class);
 	
@@ -26,9 +29,6 @@ public class CheckSessionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		logger.trace(req.getRemoteAddr());
-		
-		//Create the session object to be sent to client
-		SessionStatus status = new SessionStatus();
 		
 		//Create the writer for sending response
 		PrintWriter writer = resp.getWriter();
@@ -40,26 +40,37 @@ public class CheckSessionServlet extends HttpServlet {
 		//Get the session
 		HttpSession session = req.getSession();
 		
-		//Save the user object (this can be null)
+		//Save the user object (this might be null)
 		User user = (User) session.getAttribute("user");
 		
-		//If session already exists
-		if(user != null) {
+		//If session doesn't exists
+		if(user == null) {
 			
-			//Session exists
-			status.setSessionExists(true);
-			
-			//Set the redirect URL depending on the type of user
-			if(user.getRole() == 1) status.setForwardUrl("employee");
-			if(user.getRole() == 2) status.setForwardUrl("manager");
+			//The client timed out or client cache was cleared
+			session.invalidate();
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 		
-		//If the session doesn't exist
+		//If the client was tampered with
+		} else if(user.getRole() != 1) {
+			
+			session.invalidate();
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			
 		} else {
 		
-			status.setSessionExists(false);
+			ArrayList<ReimbursementEntry> records;
+			try {
+				records = UserDao.getAllSubmittedReimburements(user);
+				//Convert sessionStatus object to JSON and send it
+				writer.write(mapper.writeValueAsString(records));
+				
+			} catch (SQLException e) {
+				
+				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				
+			}
 		}
 		
-		//Convert sessionStatus object to JSON and send it
-		writer.write(mapper.writeValueAsString(status));
 	}
+	
 }
