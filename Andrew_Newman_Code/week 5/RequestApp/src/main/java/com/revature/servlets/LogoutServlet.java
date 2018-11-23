@@ -1,0 +1,42 @@
+package com.revature.servlets;
+
+import java.io.IOException;
+import java.util.Enumeration;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
+
+	private static Logger logger = Logger.getLogger(LogoutServlet.class);
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		if (session != null) {
+		String toTrace = "Logging out session with attributes: /n";
+		Enumeration<String> atts = session.getAttributeNames();
+		while (atts.hasMoreElements()) {
+			toTrace += atts.nextElement() + "\n";
+		}
+		logger.trace(toTrace);
+		
+			session.invalidate();
+			System.out.println(session == null);
+			logger.trace("INVALIDATING SESSION " + session.getId());
+			/*
+			 * //the following will throw an exception, as the session has been invalidated
+			 * toTrace = ""; Enumeration<String> atts2 = session.getAttributeNames();
+			 * while(atts2.hasMoreElements()) { toTrace += atts2.nextElement() + "\n"; }
+			 * logger.trace(toTrace);
+			 */
+		}
+	}
+}

@@ -10,12 +10,15 @@ public class ReimbService {
 	
 	public static ReimbDAO rDao = new ReimbDAO();
 	
+	public static void main(String[] args) {
+		System.out.println(getAllReimb());
+	}
 	
 	public Reimb getReimb(int id) {
 		return rDao.findById(id);
 	}
 	
-	public List<Reimb> getAllReimb() {
+	static public List<Reimb> getAllReimb() {
 		return rDao.findAll(); 
 	}
 	

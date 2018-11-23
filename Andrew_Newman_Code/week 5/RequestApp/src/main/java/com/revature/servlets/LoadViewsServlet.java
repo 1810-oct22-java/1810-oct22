@@ -16,16 +16,18 @@ public class LoadViewsServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession(false);
-		if (session != null) {
-			log.info("ROLE: " + session.getAttribute("roleID"));
-		}
 		String resourcePath = "partials/" + process(req, resp) + ".html";
 		req.getRequestDispatcher(resourcePath).forward(req, resp);
 	}
 
 	static String process(HttpServletRequest req, HttpServletResponse resp) {
 		log.info("LOAD VIEW REQUEST SENT TO: " + req.getRequestURI());
+		HttpSession session = req.getSession(false);
+		int role = 0;
+		if (session != null) {
+			role = (int) session.getAttribute("roleID");
+			log.info("ROLE: " + role);
+		}
 		switch (req.getRequestURI()) {
 		case "/RequestApp/home.view":
 			return "home";

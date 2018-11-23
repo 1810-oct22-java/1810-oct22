@@ -27,10 +27,10 @@ public class ReimbDAO implements DAO<Reimb,Integer> {
 				r.setSubmitted(rs.getTimestamp(3));
 				r.setResolved(rs.getTimestamp(4));
 				r.setDesc(rs.getString(5));
-				r.setAuthor(rs.getInt(6));
-				r.setResolver(rs.getInt(7));
-				r.setStatusID(rs.getInt(8));
-				r.setTypeID(rs.getInt(9));
+				r.setAuthor(rs.getInt(7));
+				r.setResolver(rs.getInt(8));
+				r.setStatusID(rs.getInt(9));
+				r.setTypeID(rs.getInt(10));
 				reimbs.add(r);
 			}
 		} catch (SQLException e) {
@@ -138,10 +138,10 @@ public class ReimbDAO implements DAO<Reimb,Integer> {
 				r.setSubmitted(rs.getTimestamp(3));
 				r.setResolved(rs.getTimestamp(4));
 				r.setDesc(rs.getString(5));
-				r.setAuthor(rs.getInt(6));
-				r.setResolver(rs.getInt(7));
-				r.setStatusID(rs.getInt(8));
-				r.setTypeID(rs.getInt(9));
+				r.setAuthor(rs.getInt(7));
+				r.setResolver(rs.getInt(8));
+				r.setStatusID(rs.getInt(9));
+				r.setTypeID(rs.getInt(10));
 				reimbs.add(r);
 			}
 		} catch (SQLException e) {
@@ -165,10 +165,10 @@ public class ReimbDAO implements DAO<Reimb,Integer> {
 				r.setSubmitted(rs.getTimestamp(3));
 				r.setResolved(rs.getTimestamp(4));
 				r.setDesc(rs.getString(5));
-				r.setAuthor(rs.getInt(6));
-				r.setResolver(rs.getInt(7));
-				r.setStatusID(rs.getInt(8));
-				r.setTypeID(rs.getInt(9));
+				r.setAuthor(rs.getInt(7));
+				r.setResolver(rs.getInt(8));
+				r.setStatusID(rs.getInt(9));
+				r.setTypeID(rs.getInt(10));
 				reimbs.add(r);
 			}
 		} catch (SQLException e) {

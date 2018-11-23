@@ -4,6 +4,7 @@
 window.onload = function(){
 	loadHomeView();
 	$('#homeNav').on('click', loadHomeView);
+	$('#logoutNav').on('click', Logout);
 }
 
 function loadHomeView(){
@@ -19,6 +20,16 @@ function loadHomeView(){
 	xhr.send();	
 }
 
+function Logout(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			loadHomeView();
+		}
+	}
+	xhr.open("GET", "logout", true);
+	xhr.send();	
+}
 
 function loadRegView(){
 	var XHR = new XMLHttpRequest();
@@ -98,6 +109,27 @@ function getAllUserRequests() {
     XHR.send();
 }
 
+/*function getAllRequests() {
+	var XHR = new XMLHttpRequest();
+
+    XHR.onreadystatechange = function(){
+        console.log(XHR.readyState + "loadALL")
+        if(XHR.readyState == 4 && XHR.status == 200){
+            let requests = JSON.parse(XHR.responseText);
+            for(let r of requests){
+            	console.log(r);
+            	var li = $(`<li>${r.rID}  ${r.desc} ${r.author}  ${r.amount}</li>`);
+            	$('#AllRequestList').append(li);
+            }
+            $('#PendingButton').on('click',loadPendingView);
+            $('#ApprovedButton').on('click',loadApprovedView);
+            $('#DeniedButton').on('click',loadDeniedView);
+        }
+    }
+    XHR.open('GET', "requests" ,true)
+    XHR.send();
+}*/
+
 function getAllRequests() {
 	var XHR = new XMLHttpRequest();
 
@@ -106,8 +138,15 @@ function getAllRequests() {
         if(XHR.readyState == 4 && XHR.status == 200){
             let requests = JSON.parse(XHR.responseText);
             for(let r of requests){
-            	var li = $(`<li>${r.rID}</li>`);
-            	$('#AllRequestList').append(li);
+            	console.log(r);
+            	var row = $(`<tr>
+            	
+                        <th scope="row">${r.rID}</th>
+                        <td >${r.amount}</td>
+            			<td>${r.desc}</td>
+                        <td>${r.author}</td>
+                        </tr>`);
+            	$('#AllRequestList').append(row);
             }
             $('#PendingButton').on('click',loadPendingView);
             $('#ApprovedButton').on('click',loadApprovedView);
@@ -182,10 +221,21 @@ function loadAllPendingRequests() {
         if(XHR.readyState == 4 && XHR.status == 200){
             let requests = JSON.parse(XHR.responseText);
             for(let r of requests){
-            	var li = $(`<li>${r.rID} <button type="button" class="btn btn-default btn-sm" id="AppButton">Approve</button> 
-            	<button type="button" class="btn btn-default btn-sm" id="DenButton">Deny</button></li>`);
-            	$('#AllPendingRequests').append(li);
+            	var row = $(`<tr>
+                        <th scope="row">${r.rID}</th>
+                        <td >${r.amount}</td>
+            			<td>${r.desc}</td>
+                        <td>${r.author}</td>
+                        <td><button type="button" class="appclass btn btn-default btn-sm" value ="${r.rID}" id="AppButton">Approve</button></td>
+                        <td><button type="button" class="denclass btn btn-default btn-sm" value ="${r.rID}" id="DenButton">Denied</button></td>
+                        </tr>`);
+            	
+            	$('#AllPendingRequests').append(row);
+            	//$('#AppButton').on('click',ApproveReq);
+                //$('#DenButton').on('click',DenyReq);
             }
+            $('.appclass').on('click',ApproveReq);
+            $('.denclass').on('click',DenyReq);
             $('#ApprovedButton').on('click',loadApprovedView);
             $('#DeniedButton').on('click',loadDeniedView);
         }
@@ -220,8 +270,13 @@ function loadAllApprovedRequests() {
         if(XHR.readyState == 4 && XHR.status == 200){
             let requests = JSON.parse(XHR.responseText);
             for(let r of requests){
-            	var li = $(`<li>${r.rID}</li>`);
-            	$('#AllApprovedRequests').append(li);
+            	var row = $(`<tr>
+                        <th scope="row">${r.rID}</th>
+                        <td >${r.amount}</td>
+            			<td>${r.desc}</td>
+                        <td>${r.author}</td>
+                        </tr>`);
+            	$('#AllApprovedRequests').append(row);
             }
             $('#PendingButton').on('click',loadPendingView);
             $('#DeniedButton').on('click',loadDeniedView);
@@ -257,8 +312,13 @@ function loadAllDeniedRequests() {
         if(XHR.readyState == 4 && XHR.status == 200){
             let requests = JSON.parse(XHR.responseText);
             for(let r of requests){
-            	var li = $(`<li>${r.rID}</li>`);
-            	$('#AllDeniedRequests').append(li);
+            	var row = $(`<tr>
+                        <th scope="row">${r.rID}</th>
+                        <td >${r.amount}</td>
+            			<td>${r.desc}</td>
+                        <td>${r.author}</td>
+                        </tr>`);
+            	$('#AllDeniedRequests').append(row);
             }
             $('#PendingButton').on('click',loadPendingView);
             $('#ApprovedButton').on('click',loadApprovedView);
@@ -267,4 +327,42 @@ function loadAllDeniedRequests() {
    
     XHR.open('GET', "denied" ,true)
     XHR.send();
+}
+
+function ApproveReq() {
+	var XHR = new XMLHttpRequest();
+	let reqObj = { rID: $(this).val()} 
+	console.log(reqObj);
+	
+    XHR.onreadystatechange = function(){
+        console.log(XHR.readyState)
+        if(XHR.readyState == 4 && XHR.status == 200){
+        	$('#view').html(XHR.responseText);
+        	loadAllApprovedRequests()
+        }
+    }
+    
+    XHR.open('POST', "requestApprove" ,true)
+    XHR.setRequestHeader("Content-type","application/json")
+    XHR.send(JSON.stringify(reqObj));
+	
+}
+
+function DenyReq() {
+	var XHR = new XMLHttpRequest();
+	let reqObj = { rID: $(this).val()} 
+	console.log(reqObj);
+	
+    XHR.onreadystatechange = function(){
+        console.log(XHR.readyState)
+        if(XHR.readyState == 4 && XHR.status == 200){
+        	$('#view').html(XHR.responseText);
+        	loadAllDeniedRequests();
+        }
+    }
+    
+    XHR.open('POST', "requestDenied" ,true)
+    XHR.setRequestHeader("Content-type","application/json")
+    XHR.send(JSON.stringify(reqObj));
+	
 }

@@ -15,13 +15,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.pojos.Reimb;
 import com.revature.service.ReimbService;
+import com.revature.service.UserService;
 
-@WebServlet({"/requests","/pending","/approved","/denied"})
+@WebServlet({"/requests","/pending","/approved","/denied","/requestApprove","/requestDenied"})
 public class RequestServlet extends HttpServlet {
 
 	private static Logger log = Logger.getLogger(LoginServlet.class);
@@ -37,6 +37,7 @@ public class RequestServlet extends HttpServlet {
 		int id = (int) session.getAttribute("userID");
 		int role = (int) session.getAttribute("roleID");
 		List<Reimb> requests = new ArrayList<Reimb>();
+		
 		switch(req.getRequestURI()) {
 		case "/RequestApp/requests":
 			if(role == 1) {
@@ -67,8 +68,7 @@ public class RequestServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String resourcePath = "partials/" + postProcess(req, resp) + ".html";
-		//req.getRequestDispatcher(resourcePath).forward(req, resp);
-		resp.sendRedirect("partials/reqCreationSuccess.html");
+		req.getRequestDispatcher(resourcePath).forward(req, resp);
 	}
 	
 	private String postProcess(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
@@ -76,12 +76,21 @@ public class RequestServlet extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		int id = (int) session.getAttribute("userID");
 		int role = (int) session.getAttribute("roleID");
+		Reimb potential = mapper.readValue(req.getInputStream(), Reimb.class);
 		
-		Reimb potential = mapper.readValue(req.getInputStream(), Reimb.class); 
-		potential.setAuthor(id);
-		rService.insertReimb(potential.getAmount(), potential.getDesc(), potential.getAuthor(), potential.getTypeID());
-		return "reqCreationSuccess";
+		switch(req.getRequestURI()) {
+		case "/RequestApp/requestApprove":
+			rService.upDateReimb(potential.getrID(), id, 2);
+			return "ApprovedRequests";
+		case "/RequestApp/requestDenied":
+			rService.upDateReimb(potential.getrID(), id, 3);
+			return "DeniedRequests";
+		case "/RequestApp/requests":
+			potential.setAuthor(id);
+			rService.insertReimb(potential.getAmount(), potential.getDesc(), potential.getAuthor(), potential.getTypeID());
+			return "reqCreationSuccess";
+		}
+		return null;
 	}
-	
 	
 }
