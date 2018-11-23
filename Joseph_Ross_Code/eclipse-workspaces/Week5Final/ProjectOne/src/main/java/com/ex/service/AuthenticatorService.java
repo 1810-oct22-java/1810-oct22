@@ -1,5 +1,7 @@
 package com.ex.service;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -16,7 +18,7 @@ public class AuthenticatorService {
 	
 	private static Logger logger = Logger.getLogger(AuthenticatorService.class);
 	
-	public static User checkCreds(HttpServletRequest req) throws InvalidUsernameAndPasswordException, InvalidCharactersException, EmptyInputStringException {
+	public static User checkCreds(HttpServletRequest req) throws InvalidUsernameAndPasswordException, InvalidCharactersException, EmptyInputStringException, SQLException {
 		
 		String username = (String) req.getParameter("username");
 		String password = (String) req.getParameter("password");
@@ -29,10 +31,12 @@ public class AuthenticatorService {
 		if(username.length() > 50 || password.length() > 50)
 			throw new InvalidUsernameAndPasswordException();
 		
+		User user = UserDao.loginAttempt(username, password);
 		
+		//Because this will be sent to the client the userid is removed
+		user.setUserId(0);
 		
-		
-		return null;
+		return user;
 	}
 
 }

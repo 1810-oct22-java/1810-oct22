@@ -17,9 +17,12 @@ import org.apache.log4j.Logger;
 
 import com.ex.pojos.SessionStatus;
 import com.ex.pojos.User;
+import com.ex.service.AuthenticatorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.ex.dao.UserDao;
+import com.ex.exception.EmptyInputStringException;
+import com.ex.exception.InvalidCharactersException;
 import com.ex.exception.InvalidUsernameAndPasswordException;
 
 @WebServlet("/login")
@@ -30,41 +33,37 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String username = "";
-		String password = "";
-		
-		//Create the session object to be sent to client
-		SessionStatus status = new SessionStatus();
-		
-		//Create the writer for sending response
-		PrintWriter writer = resp.getWriter();
-		//resp.setContentType("application/json");
-		
-		//Create the mapper for converting response object to JSON
-		ObjectMapper mapper = new ObjectMapper();
-		
-			
-		username = (String) req.getParameter("username");
-		password = (String) req.getParameter("password");
-			
 		try {
-			//If the credentials are correct and no error is caught store user object in session
-			User user = UserDao.loginAttempt(username, password);
-
-			resp.setStatus(HttpServletResponse.SC_OK);
+			User user = (User) AuthenticatorService.checkCreds(req);
 			
-			if(user.getRole() == 1) writer.write(mapper.writeValueAsString("employee"));
-			if(user.getRole() == 2) writer.write(mapper.writeValueAsString("manager"));
+			//Create the writer for sending response
+			PrintWriter writer = resp.getWriter();
+			resp.setContentType("application/json");
 			
-		//Something horrible must have happened
-		} catch (SQLException e) {
-			//Invalidate session to force user to restart application
-			//session.invalidate();
-			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			//Create the mapper for converting response object to JSON
+			ObjectMapper mapper = new ObjectMapper();
 			
-		//Wrong username and password
+			//Convert sessionStatus object to JSON and send it
+			writer.write(mapper.writeValueAsString(user));
+			
 		} catch (InvalidUsernameAndPasswordException e) {
-			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username and password combination!");
+			
+			//401 means bad login info
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Credentials");
+			
+		} catch (InvalidCharactersException e) {
+			
+			//Client has been hacked!
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Client has been tampered with!");
+			
+		} catch (EmptyInputStringException e) {
+			
+			//Client has been hacked!
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Client has been tampered with!");
+		
+		} catch (SQLException e) {
+			
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unknown error occurred");
 		}
 			
 		

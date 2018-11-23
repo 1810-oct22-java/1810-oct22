@@ -28,33 +28,29 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     //Redirect session if user is already logged in
-    this.checkSession(this.envVars.getApiUrl(), this.router);
+    this.checkSession();
   }
 
   //Used to check if the user has already logged in
   //If so redirect them to the correct page
-  checkSession(baseURL: String, router: Router): void {
+  checkSession(): void {
+    if(this.envVars.isLoggedIn)
+      this.navigateUser();
+  }
 
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-      if(xhr.readyState == 4 && xhr.status == 200){
-        
-        //If session exists navigate them to the correct page
-        var sessionStatus =  JSON.parse(xhr.responseText);
-        if(sessionStatus['sessionExists'] == true)
-          router.navigate([sessionStatus['redirectUrl']]);
-      }
-    }
-    xhr.open("GET", baseURL + "checkSessionLogin" , true);
-    xhr.send();
+  //Sends users to a page depending on the role of the user
+  navigateUser(): void {
+    if(this.envVars.getUserRole() == 1)
+      this.router.navigate(['employee']);
+
+    if(this.envVars.getUserRole() == 2)
+      this.router.navigate(['manager']);
   }
 
   //Will send request to server and verify 
   attemptLogin(): void {
 
-    this.envVars.username = this.username;
-    this.router.navigate(['employee']);
-
+    //Used to refrence object scope inside ajax functions
     var self = this;
     
     $.ajax({
@@ -63,24 +59,19 @@ export class LoginComponent implements OnInit {
           "username" : this.username,
           "password" : this.password
         },
-        xhrFields: {
-          withCredentials: false
-        },
         type: 'POST',
-        success: function (responce: String) {
+        success: function (response: String) {
 
-         self.router.navigate([self.formateServerResponceString(responce)]);
+          //These vars will be used to trace the virtual session
+          self.envVars.setUsername(self.username);
+          self.envVars.setPassword(self.password);
+          self.envVars.setFirstName(response['firstName']);
+          self.envVars.setLastName(response['lastName']);
+          self.envVars.setUserRole(response['role']);
+
+          //Send the user to correct page
+          self.navigateUser();
         }
     });
-    
   }
-
-  /*
-    Remove the quotation marks from
-    the string
-  */
-  formateServerResponceString(str: String): String {
-    return str.substr(1, str.length - 2);
-  }
-
 }

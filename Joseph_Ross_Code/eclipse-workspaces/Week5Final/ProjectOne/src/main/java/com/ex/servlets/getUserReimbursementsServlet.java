@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,62 +16,73 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.ex.dao.UserDao;
+import com.ex.exception.EmptyInputStringException;
+import com.ex.exception.InvalidCharactersException;
+import com.ex.exception.InvalidUsernameAndPasswordException;
 import com.ex.pojos.ReimbursementEntry;
+import com.ex.pojos.ReimbursementList;
 import com.ex.pojos.SessionStatus;
 import com.ex.pojos.User;
+import com.ex.service.AuthenticatorService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
-@WebServlet("/getUserReimbursements")
+@WebServlet("/getEmployeeReimbursementRecords")
 public class getUserReimbursementsServlet extends HttpServlet{
 	
 	private static Logger logger = Logger.getLogger(GenreServlet.class);
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		logger.trace(req.getRemoteAddr());
+		logger.trace("working");
 		
-		//Create the writer for sending response
-		PrintWriter writer = resp.getWriter();
-		resp.setContentType("application/json");
-		
-		//Create the mapper for converting response object to JSON
-		ObjectMapper mapper = new ObjectMapper();
-		
-		//Get the session
-		HttpSession session = req.getSession();
-		
-		//Save the user object (this might be null)
-		User user = (User) session.getAttribute("user");
-		
-		//If session doesn't exists
-		if(user == null) {
+		try {
+			User user = (User) AuthenticatorService.checkCreds(req);
 			
-			//The client timed out or client cache was cleared
-			session.invalidate();
-			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		
-		//If the client was tampered with
-		} else if(user.getRole() != 1) {
+			//Create the writer for sending response
+			PrintWriter writer = resp.getWriter();
+			resp.setContentType("application/json");
 			
-			session.invalidate();
-			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			//Create the mapper for converting response object to JSON
+			ObjectMapper mapper = new ObjectMapper();
 			
-		} else {
-		
-			ArrayList<ReimbursementEntry> records;
-			try {
-				records = UserDao.getAllSubmittedReimburements(user);
-				//Convert sessionStatus object to JSON and send it
-				writer.write(mapper.writeValueAsString(records));
-				
-			} catch (SQLException e) {
-				
-				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			Gson gson = new Gson();
+			
+			ArrayList<ReimbursementEntry> records = UserDao.getAllSubmittedReimburements(user);
+			
+			for(int i = 0; i < records.size(); i++) {
 				
 			}
+			
+			logger.trace(mapper.writeValueAsString(list));
+			
+			writer.write("[");
+			writer.write(mapper.writeValueAsString(user));
+			writer.write(",");
+			writer.write(mapper.writeValueAsString(user));
+			writer.write("]");
+			
+		} catch (InvalidUsernameAndPasswordException e) {
+			
+			//401 means bad login info
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Credentials");
+			
+		} catch (InvalidCharactersException e) {
+			
+			//Client has been hacked!
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Client has been tampered with!");
+			
+		} catch (EmptyInputStringException e) {
+			
+			//Client has been hacked!
+			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Client has been tampered with!");
+		
+		} catch (SQLException e) {
+			
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unknown error occurred");
 		}
 		
-	}
-	
+	}	
 }
