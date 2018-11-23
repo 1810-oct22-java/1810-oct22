@@ -105,7 +105,7 @@ function loadReimbursements(){
 				}
 			}
 		}
-	xhr.open("GET", "loggedIn");
+	xhr.open("GET", "employee");
 	xhr.send();
 }
 

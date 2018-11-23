@@ -2,11 +2,10 @@ package com.p1.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,18 +27,33 @@ public class EmployeeServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Reimbursement> r = rService.getAllRmbs();
+		List<Reimbursement> rs = rService.getAllRmbs();
+//		List<Reimbursement> empRs = new ArrayList<Reimbursement>();
+		System.out.println(rs);
 		HttpSession session = req.getSession();
-		Object sesh = session.getAttribute("user");
-		logger.trace(sesh);
-		for (Object x : sesh) {
-			if () {
-				
+		String[] s = session.getAttribute("user").toString().split(", ");
+		logger.trace("s: " + s);
+		String userId = null;
+		for (String x : s) {
+			if (x.contains("users_id")) {
+				userId = x.substring(16);
+				logger.trace("userId " + userId);
 			}
-			logger.trace(x.getAuthor());
 		}
+		for (int i = 0; i < rs.size(); i++) {
+			logger.trace("author=" + userId);
+			logger.trace("success? : " + rs.get(i).toString().contains("author=" + userId));
+			logger.trace(rs.size());
+			if (!rs.get(i).toString().contains("author=" + userId)) {
+				logger.trace("adding for: " + userId);
+				rs.remove(rs.get(i));
+				logger.trace("rs status: " + rs);
+			}
+			logger.trace(rs.size());
+		}
+		logger.trace("rs: " + rs.size());
 		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(r);
+		String json = mapper.writeValueAsString(rs);
 		logger.trace("FINDING EMP R. JSON: " + json);
 		PrintWriter writer = resp.getWriter();		
 		resp.setContentType("application/json");
