@@ -14,20 +14,18 @@ public class UsersService {
 
 	static UsersDao uDao = new UsersDao();
 
-	public static void main(String[] args) {
-		System.out.println(getAllUsers());
-	}
+//	public static void main(String[] args) {
+//		System.out.println(getAllUsers());
+//	}
 
-	public static List<Users> getAllUsers() {
+	public List<Users> getAllUsers() {
 		List<Users> u = uDao.findAll();
 		if (u.size() == 0)
 			return null;
 		return u;
 	}
 	
-	public static Users checkUser(String user, String pass) {
-		log.trace(user);
-		log.trace(pass);
+	public Users checkUser(String user, String pass) {
 		List<Users> u = uDao.findAll();
 		boolean bool = false;
 		for(Users usr : u) {

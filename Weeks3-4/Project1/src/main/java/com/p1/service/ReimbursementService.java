@@ -10,26 +10,26 @@ public class ReimbursementService {
 
 	static ReimbursementDao reimDao = new ReimbursementDao();
 	
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//		Reimbursement r = new Reimbursement(32,timestamp,timestamp,"sdf",2,1,1,1);
+//		Reimbursement r = new Reimbursement(32,timestamp,null,"sdf",2,1,1,1);
 //		createReimbursement(r);
 //		System.out.println(getRmbByAuthor(2));
-		System.out.println(getAllRmbs());
+//		System.out.println(getAllRmbs());
 //		System.out.println(getRmbById(1));
-	}
+//	}
 
-	public static List<Reimbursement> getAllRmbs() {
+	public List<Reimbursement> getAllRmbs() {
 		List<Reimbursement> r = reimDao.findAll();
 		if (r.size() == 0) return null;
 		return r;
 	}
 	
-	public static void createReimbursement(Reimbursement r) {
-		reimDao.create(r);
+	public Reimbursement createReimbursement(double amount, Timestamp submitted, Timestamp resolved, String description, int author, int resolver, int status_id, int type_id) {
+		return reimDao.create(new Reimbursement(amount, submitted, resolved, description, author, resolver, status_id, type_id));
 	}
 
-	public static List<Reimbursement> getRmbByAuthor(int author) {
+	public List<Reimbursement> getRmbByAuthor(int author) {
 		List<Reimbursement> r = reimDao.findByAuthor(author);
 		if (r.isEmpty()) {
 			return null;
@@ -37,7 +37,7 @@ public class ReimbursementService {
 		return r;
 	}
 
-	public static List<Reimbursement> getRmbById(int id) {
+	public List<Reimbursement> getRmbById(int id) {
 		List<Reimbursement> r = reimDao.findById(id);
 		if (r.isEmpty()) {
 			return null;

@@ -83,6 +83,7 @@ function loadLoggedInView(){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			$('#view').html(xhr.responseText);
+			$('#createReimBtn').on('click', createReim);
 			loadReimbursements();
 		}
 	}
@@ -97,20 +98,17 @@ function loadReimbursements(){
 			console.log('1', xhr.responseText);
 			let reimbursements = JSON.parse(xhr.responseText);
 			console.log('2', reimbursements)
-			for(let r of reimbursements)
-				if (r.author == 1) {
-					reimbursementListE(r)
-				} else if (r.author == 2) {
-					reimbursementListM(r)
-				}
+			for(let r of reimbursements) {
+				reimbursementList(r)
 			}
 		}
+	}
 	xhr.open("GET", "employee");
 	xhr.send();
 }
 
-function reimbursementListM(r){
-	console.log('in man', r)
+function reimbursementList(r){
+	console.log('generate rbm list')
 	var data = $(`
 		<tr>
 			<th scope="row">${r.id}</th>
@@ -123,36 +121,37 @@ function reimbursementListM(r){
 			<td>${r.status_id}</td>
 			<td>${r.type_id}</td>
 			<td>
-				<button class="oi oi-check"></button>
-				<button class="oi oi-check"></button>
-				<i class="fa fa-check" aria-hidden="true"></i>
+				<button class="fa fa-check"></button>
+				<button class="fa fa-times"></button>
 			</td>
 		</tr>
+		
 	`)
 	$('#reimbursementsList').append(data);
 }
 
-function reimbursementListE(r){
-	console.log('in emp', r)
-	if (r.author == 1) {
-		var data = $(`
-				<tr>
-				<th scope="row">${r.id}</th>
-				<td>${r.amount}</td>
-				<td>${r.submitted}</td>
-				<td>${r.resolved}</td>
-				<td>${r.description}</td>
-				<td>${r.author}</td>
-				<td>${r.resolver}</td>
-				<td>${r.status_id}</td>
-				<td>${r.type_id}</td>
-				<td>
-				<button class="oi oi-check"></button>
-				<button class="oi oi-check"></button>
-				<i class="fa fa-check" aria-hidden="true"></i>
-				</td>
-				</tr>
-		`)	
-	}
-	$('#reimbursementsList').append(data);
+function createReim () {		
+		var Reim = $('#newReim').val();
+		var obj = {
+				amount: $('#amount').val(),
+				submitted: $('#submitted').val(),
+				resolved: '-',
+				description: $('#description').val(),
+				author: $('#author').val(),
+				resolver: $('#resolver').val(),
+				status_id: $('#statusId').val(),
+				type_id: $('#typeId').val()
+		};
+		var toSend = JSON.stringify(obj);
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				console.log(xhr.status);
+				console.log(xhr.responseText);
+				reimbursementList(obj);
+			}
+		}
+		xhr.open("POST", "reimbursement");
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(toSend);
 }

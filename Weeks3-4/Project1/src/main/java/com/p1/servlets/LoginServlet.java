@@ -30,24 +30,19 @@ public class LoginServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		logger.trace("in login Servlet");
 		ObjectMapper mapper = new ObjectMapper();
-		logger.trace(req.getInputStream());
 		Users u = mapper.readValue(req.getInputStream(), Users.class);
 		u = uService.checkUser(u.getUsername(), u.getPassword());
 		HttpSession session = req.getSession();
 		session.setAttribute("user", u);
-		
+		logger.trace("u: " + u);
 		if (u.getRole_id() == 1) {
-			resp.sendRedirect("employee");
-			logger.trace(u.getRole_id());
-			logger.trace(u.getUsers_id());
-
+			logger.trace(u.getRole_id() + "redirect to emp");
+			resp.sendRedirect("partials/employee.html");
 		} else if (u.getRole_id() == 2){
-			resp.sendRedirect("loggedIn");
-			logger.trace(u.getRole_id());
-			logger.trace(u.getUsers_id());
-
+			logger.trace(u.getRole_id() + "redirect to loggedin");
+			resp.sendRedirect("partials/loggedIn.html");
 		}
 	}
-
 }

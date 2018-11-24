@@ -17,7 +17,7 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 	public List<Reimbursement> findAll() {
 		List<Reimbursement> Reimbursements = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String query = "select * from reimbursement order by id" ;
+			String query = "select * from reimbursement order by submitted" ;
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {

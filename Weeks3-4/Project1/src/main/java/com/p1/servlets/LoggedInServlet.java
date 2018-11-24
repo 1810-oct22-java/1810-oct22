@@ -25,8 +25,8 @@ public class LoggedInServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		logger.trace("in loggedIn servlet");
 		List<Reimbursement> r = rService.getAllRmbs();
-		logger.trace(r);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(r);
 		logger.trace("FINDING ALL R. JSON: " + json);
