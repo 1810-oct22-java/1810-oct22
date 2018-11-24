@@ -8,59 +8,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.ex.pojos.ReimbursementEntry;
 import com.ex.pojos.User;
 import com.ex.util.ConnectionFactory;
 
 import com.ex.exception.InvalidUsernameAndPasswordException;
+import com.ex.exception.UserNotAuthorizedForThisRequestException;
 
 public class UserDao {
 	
-	public static void main(String[] args) {
-		
-		/*
-		
-		User temp = new User();
-		temp.setUserId(1);
-		
-		try {
-			ArrayList<ReimbursementEntry> test = getAllSubmittedReimburements(temp);
-			
-			for(int i = 0; i < test.size(); i++) {
-				System.out.println(test.get(i));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		/*
-		
-			
-			ReimbursementEntry re = new ReimbursementEntry();
-			
-			re.setAmount(80.50);
-			re.setDesc("Dao test");
-			re.setReimbTypeId(2);
-			
-			User user = new User();
-			user.setUserId(3);
-			
-			try {
-				SubmitReimburement(user,re);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		*/
-		
-		try {
-			loginAttempt("manager", "12345");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+	private static Logger logger = Logger.getLogger(UserDao.class);
 	
 	public static User loginAttempt(String username, String password) throws SQLException, InvalidUsernameAndPasswordException {
 		
@@ -103,9 +62,43 @@ public class UserDao {
 			
 			ResultSet rs = stm.executeQuery(query);
 			
+			logger.trace("Recived Results");
+			
 			while(rs.next()) {
 				ReimbursementEntry temp = new ReimbursementEntry();
-				temp.setReimbId(rs.getInt(1));
+				//temp.setReimbId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setTimeSubmitted(rs.getString(3));
+				temp.setTimeResolved(rs.getString(4));
+				temp.setDesc(rs.getString(5));
+				temp.setUserId(rs.getInt(7));
+				temp.setResolverId(rs.getInt(8));
+				temp.setStatusId(rs.getInt(9));
+				temp.setReimbTypeId(rs.getInt(10));
+				reimbRecords.add(temp);
+			}
+		}
+		return reimbRecords;
+	}
+	
+	public static ArrayList<ReimbursementEntry> getAllReimburements(User user) throws SQLException, UserNotAuthorizedForThisRequestException{
+		
+		//Check to see if this user is a manager before sending them all the sensitive informations
+		if(user.getRole() != 2) throw new UserNotAuthorizedForThisRequestException();
+		
+		ArrayList<ReimbursementEntry> reimbRecords = new ArrayList<ReimbursementEntry>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			String query = "SELECT * FROM ERS_REIMBURSEMENT";
+			
+			Statement stm = conn.createStatement();
+			
+			ResultSet rs = stm.executeQuery(query);
+			
+			while(rs.next()) {
+				ReimbursementEntry temp = new ReimbursementEntry();
+				//temp.setReimbId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
 				temp.setTimeSubmitted(rs.getString(3));
 				temp.setTimeResolved(rs.getString(4));
@@ -137,30 +130,19 @@ public class UserDao {
 		}
 		
 	}
-
+	
+	public static void SubmitReimburementDecision(User user, int reimburementId, int statusId) throws SQLException, UserNotAuthorizedForThisRequestException {
+		
+		if(user.getRole() != 2) throw new UserNotAuthorizedForThisRequestException();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			
+			String query = "{ call SET_MANAGER_REIMB_DECISION(?,?,?) }";
+			CallableStatement cs = conn.prepareCall(query);
+			cs.setInt(1,reimburementId);
+			cs.setInt(2, user.getUserId());
+			cs.setInt(3, statusId);
+			cs.execute();
+		}
+	}
 }
-
-
-/*
- * Login page:
- * 	* ValidateCredentials
- * 		- Gets username and password and cookie
- * 		- If username and password are correct start the session
- * 		- If username and password are not correct tell the client
- * 
- * Employee page:
- * 	* Get all reimbursement records for that user
- *  * Submit new reimbursement request
- *  	- If there is an error tell the client
- *  	- If not add the record and tell the client
- *
- * Manager page:
- * 	* View all requests
- * 	* Submit decision for a specific request
- *
- * 
- * 
- * 
- * 
- * 
- * */

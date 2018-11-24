@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AppRouterModule } from './app-router.module';
 import { EmployeeComponent } from './employee/employee.component';
+import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,

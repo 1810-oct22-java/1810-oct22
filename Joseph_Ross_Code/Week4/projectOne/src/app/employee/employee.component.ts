@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouteReuseStrategy } from "@angular/router";
-import {CookieService} from 'ngx-cookie-service';
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -16,30 +15,33 @@ export class EmployeeComponent implements OnInit {
 
   constructor(
     public envVars: GlobalsService,
-    public router: Router,
-    public cookies: CookieService
+    public router: Router
   ){}
 
   ngOnInit() {
-    //Redirect session if user is already logged in
-    this.checkSession();
-
-    //Loads all reimbursments
-    this.loadSubmittedReimbursements();
+    //Redirect session if user is not logged in
+    if(!this.checkSession()){
+      this.router.navigate(['login']);
+    } else {
+      //Loads all reimbursments
+      this.loadSubmittedReimbursements();
+    }
   }
 
   //Used to check if the user has already logged in
   //If not redirect them to the login page
-  checkSession(): void {
+  checkSession(): Boolean {
 
     if(!this.envVars.isLoggedIn())
-      this.router.navigate(['login']);
+      return false;
+
+    return true;
   }
 
   loadSubmittedReimbursements(): void {
 
     //Used to refrence object scope inside ajax functions
-    var self = this;
+    //var self = this;
     
     $.ajax({
         url: this.envVars.getApiUrl() + "getEmployeeReimbursementRecords",
@@ -53,6 +55,33 @@ export class EmployeeComponent implements OnInit {
           console.log(response);
         }
     });
+  }
+
+  submitReimbursement(): void {
+
+    $.ajax({
+      url: this.envVars.getApiUrl() + "submitReimbursementRequest",
+      data: {
+        "username" : this.envVars.getUsername(),
+        "password" : this.envVars.getPassword(),
+        "amount" : this.dollarAmount,
+        "descr" : this.description,
+        "type" : this.typeToIndex()
+      },
+      type: 'POST',
+      success: function (response: String) {
+
+        console.log(response);
+      }
+    });
+
+  }
+
+  typeToIndex(): String {
+    if(this.type == "lodging") return '1';
+    if(this.type == "travel") return '2';
+    if(this.type == "food") return '3';
+    if(this.type == "other") return '4';
   }
 
 }

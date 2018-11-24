@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.ex.exception.EmptyInputStringException;
 import com.ex.exception.InvalidCharactersException;
+import com.ex.exception.InvalidStringInputException;
 import com.ex.exception.InvalidUsernameAndPasswordException;
 import com.ex.pojos.User;
 
@@ -18,7 +19,7 @@ public class AuthenticatorService {
 	
 	private static Logger logger = Logger.getLogger(AuthenticatorService.class);
 	
-	public static User checkCreds(HttpServletRequest req) throws InvalidUsernameAndPasswordException, InvalidCharactersException, EmptyInputStringException, SQLException {
+	public static User checkCreds(HttpServletRequest req) throws InvalidUsernameAndPasswordException, InvalidCharactersException, EmptyInputStringException, SQLException, InvalidStringInputException {
 		
 		String username = (String) req.getParameter("username");
 		String password = (String) req.getParameter("password");
@@ -32,9 +33,6 @@ public class AuthenticatorService {
 			throw new InvalidUsernameAndPasswordException();
 		
 		User user = UserDao.loginAttempt(username, password);
-		
-		//Because this will be sent to the client the userid is removed
-		user.setUserId(0);
 		
 		return user;
 	}
