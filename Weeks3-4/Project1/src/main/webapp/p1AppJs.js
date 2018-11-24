@@ -83,8 +83,20 @@ function loadLoggedInView(){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			$('#view').html(xhr.responseText);
-			$('#createReimBtn').on('click', createReim);
-			loadReimbursements();
+			$('#createRb').on('click', createReim);
+			loadReimbursements()
+		}
+	}
+	xhr.open("GET", "loggedIn.view", true);
+	xhr.send();	
+}
+
+function loadCreateReimPage () {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+			$('#createReimBtn').on('click', loadCreateReimPage);
 		}
 	}
 	xhr.open("GET", "loggedIn.view", true);
@@ -131,27 +143,21 @@ function reimbursementList(r){
 }
 
 function createReim () {		
-		var Reim = $('#newReim').val();
-		var obj = {
-				amount: $('#amount').val(),
-				submitted: $('#submitted').val(),
-				resolved: '-',
-				description: $('#description').val(),
-				author: $('#author').val(),
-				resolver: $('#resolver').val(),
-				status_id: $('#statusId').val(),
-				type_id: $('#typeId').val()
-		};
-		var toSend = JSON.stringify(obj);
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4){
-				console.log(xhr.status);
-				console.log(xhr.responseText);
-				reimbursementList(obj);
-			}
+	var obj = {
+		amount: $('#amount').val(),
+		description: $('#description').val(),
+		type_id: $('#type').val()
+	}
+	var toSend = JSON.stringify(obj);
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+			reimbursementList(obj);
 		}
-		xhr.open("POST", "reimbursement");
-		xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.send(toSend);
+	}
+	xhr.open("POST", "reimbursement");
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(toSend);
 }

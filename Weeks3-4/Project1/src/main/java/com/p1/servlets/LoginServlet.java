@@ -38,10 +38,8 @@ public class LoginServlet extends HttpServlet{
 		session.setAttribute("user", u);
 		logger.trace("u: " + u);
 		if (u.getRole_id() == 1) {
-			logger.trace(u.getRole_id() + "redirect to emp");
 			resp.sendRedirect("partials/employee.html");
 		} else if (u.getRole_id() == 2){
-			logger.trace(u.getRole_id() + "redirect to loggedin");
 			resp.sendRedirect("partials/loggedIn.html");
 		}
 	}

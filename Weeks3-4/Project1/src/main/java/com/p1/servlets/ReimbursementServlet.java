@@ -24,8 +24,8 @@ public class ReimbursementServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
-		r = rService.createReimbursement(r.getAuthor(), r.getSubmitted(), r.getResolved(), r.getDescription(), r.getAuthor(), r.getResolver(), r.getStatus_id(), r.getType_id());
+		Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);		
+		r = rService.createReimbursement(r.getAmount(), r.getDescription(), r.getAuthor(), r.getType_id());
 		logger.trace("ADDED NEW R " + r);
 	}
 		

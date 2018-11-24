@@ -25,8 +25,10 @@ public class ReimbursementService {
 		return r;
 	}
 	
-	public Reimbursement createReimbursement(double amount, Timestamp submitted, Timestamp resolved, String description, int author, int resolver, int status_id, int type_id) {
-		return reimDao.create(new Reimbursement(amount, submitted, resolved, description, author, resolver, status_id, type_id));
+	public Reimbursement createReimbursement(double amount, String description, int author, int type_id) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		Reimbursement r = new Reimbursement();
+		return reimDao.create(r);
 	}
 
 	public List<Reimbursement> getRmbByAuthor(int author) {
