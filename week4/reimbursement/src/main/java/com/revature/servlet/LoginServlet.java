@@ -24,6 +24,8 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		User u = mapper.readValue(req.getInputStream(), User.class);
+		logger.trace("USER: " + u.getUsername() + " PASSWORD: " + u.getPassword());
+		
 		
 		//consult user service to obtain User with this info
 		User user = userService.login(u.getUsername(), u.getPassword()); 
@@ -44,7 +46,11 @@ public class LoginServlet extends HttpServlet{
 			//creates new session and returns it if none exists
 			session.setAttribute("user", user);
 			logger.trace("ADDING USER TO SESSION: " + session.getId());
-			resp.sendRedirect("home");
+			if(user.getRoleID()==1) {
+				req.getRequestDispatcher("partials/reimbursement.html").forward(req,resp);
+			} else {
+				req.getRequestDispatcher("partials/employee.html").forward(req,resp);
+			}
 			//render home view
 			//redirect to home servlet
 			

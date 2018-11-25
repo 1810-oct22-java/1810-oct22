@@ -36,7 +36,7 @@ public class UserDAO implements DAO<User,Integer>{
 				temp.setFirstName(rs.getString(4));
 				temp.setLastName(rs.getString(5));
 				temp.setEmail(rs.getString(6));
-				temp.setRoleID(rs.getString(7));
+				temp.setRoleID(rs.getInt(7));
 				users.add(temp);
 			}
 
@@ -63,7 +63,7 @@ public class UserDAO implements DAO<User,Integer>{
 				u.setFirstName(rs.getString(4));
 				u.setLastName(rs.getString(5));
 				u.setEmail(rs.getString(6));
-				u.setRoleID(rs.getString(7));
+				u.setRoleID(rs.getInt(7));
 				
 			}
 

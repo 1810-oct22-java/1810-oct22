@@ -8,12 +8,12 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String roleID;
+	private int roleID;
 	
 	public User() {}
 
 	public User(int userID, String username, String password, String firstName, String lastName, String email,
-			String roleID) {
+			int roleID) {
 		super();
 		this.userID = userID;
 		this.username = username;
@@ -74,11 +74,11 @@ public class User {
 		this.email = email;
 	}
 
-	public String getRoleID() {
+	public int getRoleID() {
 		return roleID;
 	}
 
-	public void setRoleID(String roleID) {
+	public void setRoleID(int roleID) {
 		this.roleID = roleID;
 	}
 

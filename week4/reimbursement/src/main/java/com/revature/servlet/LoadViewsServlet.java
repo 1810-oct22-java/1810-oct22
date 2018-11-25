@@ -30,8 +30,8 @@ public class LoadViewsServlet extends HttpServlet {
 		switch(req.getRequestURI()) {
 		case "/reimbursement/reimbursement.view":
 			return "reimbursement";
-		case "/bookstore-full-stack/book.view":
-			return "books";
+		case "/reimbursement/home.view":
+			return "home";
 		case "/bookstore-full-stack/genre.view":
 			return "genres";
 		case "/bookstore-full-stack/author.view":

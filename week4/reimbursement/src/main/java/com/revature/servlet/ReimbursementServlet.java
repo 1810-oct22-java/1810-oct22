@@ -2,6 +2,8 @@ package com.revature.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,11 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.pojo.Reimbursement;
+import com.revature.pojo.StatusChange;
+import com.revature.pojo.User;
 import com.revature.service.ReimbursementService;
 import com.revature.service.StatusService;
 import com.revature.service.TypeService;
@@ -34,7 +39,15 @@ public class ReimbursementServlet extends HttpServlet {
 		 * convert the ids into their respective names
 		 * add a button to change a reimbursement 
 		 */
-		List<Reimbursement> reimbursements = rService.getAll();
+		List<Reimbursement> reimbursements;
+		HttpSession session = req.getSession();
+		User user = (User) session.getAttribute("user");
+		log.trace("USER ROLE " + user.getRoleID());
+		if(user.getRoleID()==0) {
+			reimbursements = rService.getAll(user.getUserID());
+		} else {
+			reimbursements = rService.getAll();
+		}
 		// convert to JSON
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(reimbursements);
@@ -48,6 +61,26 @@ public class ReimbursementServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		log.trace("ADDING REQUEST");
+		ObjectMapper mapper = new ObjectMapper();
+		Reimbursement reimbursement = mapper.readValue(req.getInputStream(), Reimbursement.class);
+		HttpSession session = req.getSession();
+		User user = (User) session.getAttribute("user");
+		reimbursement.setReimbAuthor(user.getUserID());
+		reimbursement.setReimbResolver(1);
+		
+		java.sql.Date date = new Date(Calendar.getInstance().getTime().getTime());
+		reimbursement.setReimbSubmitted(date);
+		log.trace(reimbursement.toString());
+		rService.insertReimbursement(reimbursement);
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		log.trace("UPDATING STATUS");
+		ObjectMapper mapper = new ObjectMapper();
+		StatusChange sc = mapper.readValue(req.getInputStream(), StatusChange.class);
+		log.trace("SENDING ID: " + sc.getId() + " AND STATUS " + sc.getStatus()); 
+		rService.changeStatus(sc.getId(), sc.getStatus());
 	}
 }
