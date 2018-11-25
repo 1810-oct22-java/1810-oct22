@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome To your reimbursement home page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="s5" id="homeNav">Submit a Reimbursement Request</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+     <!-- <a class="nav-item nav-link" href="s5" id="reimbursementNav">Submit a reimbursement request</a> -->
+      <a class="nav-item nav-link" href="s6" id="viewNav">View pending reimbursement requests</a>
+     <!--  <a class="nav-item nav-link" id="genreNav">Genres</a> -->
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron" id="idk">
+   <form method="post" action ="s5">
+   <table>  
+   <tr><td><input type="hidden" name="username"/> </td></tr>  
+<tr><td>Amount:</td><td><input type="text" name="amount"/></td></tr>  
+<tr><td>Description:</td><td><textarea name="description"></textarea><!-- <input type="password" name="password"/> --></td></tr>  
+<tr><td>Receipt:</td><td><input type="file" name="receipt"/></td></tr>  
+<tr><td>Type:</td><td>  
+<select name="type" style="width:150px">  
+<option value=1>lodging</option>  
+<option value=2>travel</option>  
+<option value=3>food</option>  
+<option value=4>other</option>  
+</select>  
+</td></tr>
+
+<tr><td colspan="2"><input type="submit" value="Submit Request"/></td></tr>  
+</table>  
+   </form>
+
+
+</div>
+<!--  replace the inner HTML of this div with various "partial" HTML pages
+in order to produce a single page application -->
+<div class="jumbotron" id="view">
+
+
+</div>
+
+
+
+
+<script src = "emp.js" type="text/javascript"></script>
+</body>
+</html>

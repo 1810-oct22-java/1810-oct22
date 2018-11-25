@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+    <display-name>Project_1_William_Robinson</display-name>
+
+    <!-- WEB.XML aka Deployment Descriptor is a file with which we configure 
+        our web apps. here, we indicate which url-patterns (endpoints) will map requests 
+        to respective servlets and configure other details like parameters and when 
+        to initialize servlets -->
+        
+                            <servlet>
+        <servlet-name>hellos</servlet-name>
+        <servlet-class>EXAMPLE.servlets.HelloServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>hellos</servlet-name>
+        <url-pattern>/hs</url-pattern>
+    </servlet-mapping>
+        
+                    <servlet>
+        <servlet-name>helloh</servlet-name>
+        <servlet-class>EXAMPLE.servlets.HelloHttpServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>helloh</servlet-name>
+        <url-pattern>/hh</url-pattern>
+    </servlet-mapping>
+        
+            <servlet>
+        <servlet-name>suser</servlet-name>
+        <servlet-class>EXAMPLE.servlets.UserServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>suser</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+        
+    <servlet>
+        <servlet-name>slogin</servlet-name>
+        <servlet-class>EXAMPLE.servlets.LoginServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>slogin</servlet-name>
+        <url-pattern>/sl</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>servlets</servlet-name>
+        <servlet-class>EXAMPLE.Project_1_William_Robinson.servlets</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>servlets</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
+
+
+<!--  <!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+
+
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>HS</servlet-name>
+    <servlet-class>com.ex.servlets.servlets</servlet-class>
+    <load-on-start-up>1</load-on-start-up>
+  </servlet>
+
+<servlet-mapping>
+<servlet-name>HS</servlet-name>
+<url-pattern>/test</url-pattern>
+</servlet-mapping>
+ 
+</web-app>-->
+ 
+  
