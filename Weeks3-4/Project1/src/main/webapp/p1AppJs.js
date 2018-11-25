@@ -83,11 +83,11 @@ function loadLoggedInView(){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			$('#view').html(xhr.responseText);
-			$('#createRb').on('click', createReim);
-			loadReimbursements()
+			$('#createReimBtn').on('click', loadCreateReimPage);
+//			loadReimbursements()
 		}
 	}
-	xhr.open("GET", "loggedIn.view", true);
+	xhr.open("GET", "test.view", true);
 	xhr.send();	
 }
 
@@ -96,51 +96,51 @@ function loadCreateReimPage () {
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			$('#view').html(xhr.responseText);
-			$('#createReimBtn').on('click', loadCreateReimPage);
+			console.log("first")
 		}
 	}
 	xhr.open("GET", "loggedIn.view", true);
 	xhr.send();	
 }
 
-function loadReimbursements(){
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			console.log('1', xhr.responseText);
-			let reimbursements = JSON.parse(xhr.responseText);
-			console.log('2', reimbursements)
-			for(let r of reimbursements) {
-				reimbursementList(r)
-			}
-		}
-	}
-	xhr.open("GET", "employee");
-	xhr.send();
-}
-
-function reimbursementList(r){
-	console.log('generate rbm list')
-	var data = $(`
-		<tr>
-			<th scope="row">${r.id}</th>
-			<td>${r.amount}</td>
-			<td>${r.submitted}</td>
-			<td>${r.resolved}</td>
-			<td>${r.description}</td>
-			<td>${r.author}</td>
-			<td>${r.resolver}</td>
-			<td>${r.status_id}</td>
-			<td>${r.type_id}</td>
-			<td>
-				<button class="fa fa-check"></button>
-				<button class="fa fa-times"></button>
-			</td>
-		</tr>
-		
-	`)
-	$('#reimbursementsList').append(data);
-}
+//function loadReimbursements(){
+//	var xhr = new XMLHttpRequest();
+//	xhr.onreadystatechange = function(){
+//		if(xhr.readyState == 4 && xhr.status == 200){
+//			console.log('1', xhr.responseText);
+//			let reimbursements = JSON.parse(xhr.responseText);
+//			console.log('2', reimbursements)
+//			for(let r of reimbursements) {
+//				reimbursementList(r)
+//			}
+//		}
+//	}
+//	xhr.open("GET", "employee");
+//	xhr.send();
+//}
+//
+//function reimbursementList(r){
+//	console.log('generate rbm list')
+//	var data = $(`
+//		<tr>
+//			<th scope="row">${r.id}</th>
+//			<td>${r.amount}</td>
+//			<td>${r.submitted}</td>
+//			<td>${r.resolved}</td>
+//			<td>${r.description}</td>
+//			<td>${r.author}</td>
+//			<td>${r.resolver}</td>
+//			<td>${r.status_id}</td>
+//			<td>${r.type_id}</td>
+//			<td>
+//				<button class="fa fa-check"></button>
+//				<button class="fa fa-times"></button>
+//			</td>
+//		</tr>
+//		
+//	`)
+//	$('#reimbursementsList').append(data);
+//}
 
 function createReim () {		
 	var obj = {
@@ -160,4 +160,17 @@ function createReim () {
 	xhr.open("POST", "reimbursement");
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(toSend);
+}
+
+function loadCreateReimPage () {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			console.log("blip")
+			$('#view').html(xhr.responseText);
+			$('#createRb').on('click', createReim);
+		}
+	}
+	xhr.open("GET", "createReim.view");
+	xhr.send();
 }

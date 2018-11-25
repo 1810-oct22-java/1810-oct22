@@ -32,6 +32,12 @@ public class LoadViewsServlet extends HttpServlet {
 			return "loggedIn";
 		case "/Project1/employee.view":
 			return "employee";
+		case "/Project1/createReim.view":
+			return "createReim";
+		case "/Project1/emp.view":
+			return "emp";
+		case "/Project1/man.view":
+			return "man";
 		}
 		return null;
 	}

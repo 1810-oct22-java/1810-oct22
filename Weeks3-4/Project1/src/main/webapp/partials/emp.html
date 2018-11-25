@@ -1,0 +1,70 @@
+
+<div>
+
+	<script>
+		$(() => {
+			loadReimbursements()
+		})
+		
+		function loadReimbursements () {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					console.log('1', xhr.responseText);
+					let reimbursements = JSON.parse(xhr.responseText);
+					console.log('2', reimbursements)
+					for(let r of reimbursements) {
+						reimbursementList(r)
+					}
+				}
+			}
+			xhr.open("GET", "employee");
+			xhr.send();
+		}
+		
+		function reimbursementList (r) {
+			console.log('generate rbm list')
+			var data = $(`
+				<tr>
+					<th scope="row">${r.id}</th>
+					<td>${r.amount}</td>
+					<td>${r.submitted}</td>
+					<td>${r.resolved}</td>
+					<td>${r.description}</td>
+					<td>${r.author}</td>
+					<td>${r.resolver}</td>
+					<td>${r.status_id}</td>
+					<td>${r.type_id}</td>
+					<td>
+						<button class="fa fa-check"></button>
+						<button class="fa fa-times"></button>
+					</td>
+				</tr>
+			`)
+			$('#reimbursementsList').append(data);
+		}
+	</script>
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Amount</th>
+				<th scope="col">Submitted</th>
+				<th scope="col">Resolved</th>
+				<th scope="col">Description</th>
+				<th scope="col">Author</th>
+				<th scope="col">Resolver</th>
+				<th scope="col">Status</th>
+				<th scope="col">Type</th>
+				<th scope="col">Approve/Deny</th>
+			</tr>
+		</thead>
+		<tbody id='reimbursementsList'>
+
+		</tbody>
+	</table>
+
+
+</div>
