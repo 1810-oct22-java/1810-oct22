@@ -39,6 +39,7 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   rerender(): void {
+    
 
     var self = this;
 
@@ -48,11 +49,13 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+    
   }
 
   ngOnInit() {
+
      //Redirect session if user is not logged in
-     if(!this.checkSession()){
+     if(!this.envVars.isLoggedIn()){
       this.router.navigate(['login']);
       
     } else {
@@ -60,7 +63,7 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
       var self = this;
 
       //Loads all reimbursments
-      this.loadAllReimbursements();
+      //this.loadAllReimbursements();
 
       $(document).ready(function() {
         var table = $('#reimb-table').DataTable();
@@ -88,16 +91,15 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
     } );
     }
   }
-  
 
-  //Used to check if the user has already logged in
-  //If not redirect them to the login page
-  checkSession(): Boolean {
+  logout(): void {
+    this.envVars.setUsername("");
+    this.envVars.setPassword("");
+    this.envVars.setFirstName("");
+    this.envVars.setLastName("");
+    this.envVars.setUserRole("");
 
-    if(!this.envVars.isLoggedIn())
-      return false;
-
-    return true;
+    this.router.navigate(['login']);
   }
 
   loadAllReimbursements(): void {
@@ -166,7 +168,7 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       type: 'POST',
       success: function (response: String) {
-        self.rerender();
+        //self.rerender();
 
         $('#approve-btn').prop( "disabled", true );
         $('#deny-btn').prop( "disabled", true );

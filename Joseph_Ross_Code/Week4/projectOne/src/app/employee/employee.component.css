@@ -1,10 +1,8 @@
-#employee-component {
-    background-color: blue;
-}
 .employee-jumbotron {
     width: 800px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 35px;
 }
 .employee-header {
     margin-left: auto;
@@ -19,4 +17,18 @@
 
 .employee-submit-button {
     width: 100%;
+}
+
+#reimb-table-container {
+    min-width: 500px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 30px;
+    background-color: #e1f5fe;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
