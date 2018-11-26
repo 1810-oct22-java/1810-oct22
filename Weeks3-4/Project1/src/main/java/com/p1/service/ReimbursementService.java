@@ -10,14 +10,14 @@ public class ReimbursementService {
 
 	static ReimbursementDao reimDao = new ReimbursementDao();
 	
-//	public static void main(String[] args) {
-//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//		Reimbursement r = new Reimbursement(32,timestamp,null,"sdf",2,1,1,1);
-//		createReimbursement(r);
+	public static void main(String[] args) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		Reimbursement r = new Reimbursement(38, timestamp,timestamp,"sdf",2,1,1,1);
+		createReimbursement(r);
 //		System.out.println(getRmbByAuthor(2));
 //		System.out.println(getAllRmbs());
 //		System.out.println(getRmbById(1));
-//	}
+	}
 
 	public List<Reimbursement> getAllRmbs() {
 		List<Reimbursement> r = reimDao.findAll();
@@ -25,9 +25,7 @@ public class ReimbursementService {
 		return r;
 	}
 	
-	public Reimbursement createReimbursement(double amount, String description, int author, int type_id) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		Reimbursement r = new Reimbursement();
+	public static Reimbursement createReimbursement(Reimbursement r) {
 		return reimDao.create(r);
 	}
 

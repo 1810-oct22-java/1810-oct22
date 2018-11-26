@@ -101,22 +101,23 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 	@Override
 	public Reimbursement create(Reimbursement obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "INSERT INTO reimbursement (amount,submitted,description,author,status_id,type_id) VALUES(?,?,?,?,?,?)";
+			String sql = "INSERT INTO reimbursement (amount,submitted,resolved,description,author,resolver,status_id,type_id) VALUES(?,?,?,?,?,?,?,?)";
 			String[] keyNames = {"id"};
 			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
 			ps.setDouble(1, obj.getAmount());
 			ps.setTimestamp(2, obj.getSubmitted());
-			ps.setString(3, obj.getDescription());
-			ps.setInt(4,  obj.getAuthor());
-			ps.setInt(5, obj.getStatus_id());
-			ps.setInt(6, obj.getType_id());
+			ps.setTimestamp(3, obj.getResolved());
+			ps.setString(4, obj.getDescription());
+			ps.setInt(5,  obj.getAuthor());
+			ps.setInt(6, obj.getResolver());
+			ps.setInt(7, obj.getStatus_id());
+			ps.setInt(8, obj.getType_id());
 			int numRows = ps.executeUpdate();
 			if (numRows > 0) {				
 				ResultSet pk = ps.getGeneratedKeys();
 				while (pk.next()) {
 					obj.setId(pk.getInt(1));
 				}
-				conn.commit();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

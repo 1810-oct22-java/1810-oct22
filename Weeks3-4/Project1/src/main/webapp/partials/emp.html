@@ -1,10 +1,38 @@
 
 <div>
 
+	<h1>Create Reimbursement Request</h1>
+	<input type="number" id="amount" placeholder="Amount"> 
+	<input type="text" id="description" placeholder="Description">
+	<input type="text" id="type" placeholder="Type">
+	<button id="createReimBtn">Create Reimbursement</button>
+
 	<script>
 		$(() => {
 			loadReimbursements()
+			$('#createReimBtn').on('click', createReim);
 		})
+		
+ 		function createReim () {
+			console.log('created')
+			var time = new Date().getTime()
+			var obj = {
+				amount: $('#amount').val(),
+				submitted: time,
+				description: $('#description').val(),
+				type_id: $('#type').val()
+			}
+			var toSend = JSON.stringify(obj);
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+//					reimbursementList();
+				}
+			}
+			xhr.open("POST", "reimbursement");
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(toSend);
+		}
 		
 		function loadReimbursements () {
 			var xhr = new XMLHttpRequest();

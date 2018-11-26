@@ -84,7 +84,6 @@ function loadLoggedInView(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			$('#view').html(xhr.responseText);
 			$('#createReimBtn').on('click', loadCreateReimPage);
-//			loadReimbursements()
 		}
 	}
 	xhr.open("GET", "test.view", true);
