@@ -1,0 +1,16 @@
+<div class = "jumbotron">
+<form>
+  <h3>
+  Welcome to the Login Page!
+  </h3>
+  <div class="form-group">
+    <input type = "text" id="username" placeholder = "Username">
+  </div>
+  <div class="form-group">
+  	<input type = "text" id="password" placeholder = "Password">
+  </div>
+  <div class = "form-group">
+  	<button id ="loginButton" class = "btn btn-primary">Login</button>
+  </div>
+</form>
+</div>

@@ -1,9 +1,0 @@
-package com.revature.servlets;
-
-import javax.servlet.GenericServlet;
-
-public class HelloServlets extends GenericServlet{
-
-	
-	
-}

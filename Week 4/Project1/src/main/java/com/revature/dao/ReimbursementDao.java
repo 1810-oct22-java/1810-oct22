@@ -52,32 +52,101 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	 * Prepared Statement
 	 */
 	public Reimbursement findByID(Integer id) {
-		Reimbursement r = null;
+		
+		return null;
+	}
+
+	public List<Reimbursement> findAllByID(Integer id) {
+		List <Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_ID = ?";
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				r = new Reimbursement();
-				r.setId(rs.getInt(1));
-				r.setAmount(rs.getDouble(2));
-				r.setSubmitted(rs.getDate(3));
-				r.setResolved(rs.getDate(4));
-				r.setDescription(rs.getString(5));
-				r.setAuthor(rs.getInt(6));
-				r.setResolver(rs.getInt(7));
-				r.setStatus(rs.getInt(8));
-				r.setType(rs.getInt(9));
+				Reimbursement temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getDate(3));
+				temp.setResolved(rs.getDate(4));
+				temp.setDescription(rs.getString(5));
+				temp.setAuthor(rs.getInt(6));
+				temp.setResolver(rs.getInt(7));
+				temp.setStatus(rs.getInt(8));
+				temp.setType(rs.getInt(9));
+				reimbs.add(temp);
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return r;
+		return reimbs;
+		
+		
 	}
-
+	
+	public List<Reimbursement> findPendingReimbs() {
+		List <Reimbursement> reimbs = new ArrayList<Reimbursement>();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID = 1";
+			Statement s = conn.createStatement();
+			
+			ResultSet rs = s.executeQuery(sql);
+			
+			while (rs.next()) {
+				Reimbursement temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getDate(3));
+				temp.setResolved(rs.getDate(4));
+				temp.setDescription(rs.getString(5));
+				temp.setAuthor(rs.getInt(6));
+				temp.setResolver(rs.getInt(7));
+				temp.setStatus(rs.getInt(8));
+				temp.setType(rs.getInt(9));
+				reimbs.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reimbs;
+		
+		
+	}
+	
+	public List<Reimbursement> findPastReimbs() {
+		List <Reimbursement> reimbs = new ArrayList<Reimbursement>();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID != 1";
+			Statement s = conn.createStatement();
+			
+			ResultSet rs = s.executeQuery(sql);
+			while (rs.next()) {
+				Reimbursement temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getDate(3));
+				temp.setResolved(rs.getDate(4));
+				temp.setDescription(rs.getString(5));
+				temp.setAuthor(rs.getInt(6));
+				temp.setResolver(rs.getInt(7));
+				temp.setStatus(rs.getInt(8));
+				temp.setType(rs.getInt(9));
+				reimbs.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reimbs;
+		
+		
+	}
+	
 	public Reimbursement insert(Reimbursement obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);

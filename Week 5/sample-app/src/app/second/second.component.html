@@ -1,0 +1,15 @@
+<p>
+  <input type="text" id="projectName" [(ngModel)]="editedProjectName">
+  <button (click) = "updateProject()">Update</button>
+  <button (click) = "resetProjectName()">Reset</button>
+</p>
+
+<div *ngIf="errorMsg">
+  <h6>
+    Error Message:
+  </h6>
+  <p>{{errorMsg}}</p>
+</div>
+<h3>Star Wars Hero:</h3>
+<h4>{{starWarsHeros[0].name}}</h4>
+

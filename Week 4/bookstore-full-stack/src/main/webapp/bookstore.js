@@ -73,7 +73,7 @@ function getGenres() {
 			console.log(xhr.responseText);
 			let genres = JSON.parse(xhr.responseText);
 			for (let g of genres) {
-				var li = $(`<li>${g.name}<li>`);
+				var li = $(`<li>${g.name}<\li>`);
 				$('#genreList').append(li);
 			}
 		}

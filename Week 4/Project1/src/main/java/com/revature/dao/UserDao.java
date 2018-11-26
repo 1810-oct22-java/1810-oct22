@@ -64,10 +64,10 @@ public class UserDao implements DAO<User, Integer> {
 				u = new User();
 				u.setId(rs.getInt(1));
 				u.setUsername(rs.getString(2));
-				u.setFirstName(rs.getString(3));
-				u.setLastName(rs.getString(4));
-				u.setEmail(rs.getString(5));
-				u.setPassword(rs.getString(6));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
 				u.setRoleID(rs.getInt(7));
 			}
 
@@ -90,10 +90,10 @@ public class UserDao implements DAO<User, Integer> {
 				u = new User();
 				u.setId(rs.getInt(1));
 				u.setUsername(Username);
-				u.setFirstName(rs.getString(3));
-				u.setLastName(rs.getString(4));
-				u.setEmail(rs.getString(5));
-				u.setPassword(rs.getString(6));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
 				u.setRoleID(rs.getInt(7));
 			}
 

@@ -1,0 +1,234 @@
+/**
+ * 
+ */
+
+window.onload = function() {
+	loadLoginView();
+}
+
+function loadLoginView() {
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			//do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#LogIn').on('click',loadManView);
+		}
+	}
+	xhr.open("GET", "login.view", true);
+	xhr.send();
+	
+}
+
+
+/*
+ * #############################################
+ * MANAGER VIEWS
+ * #############################################
+ */
+function loadManView() {
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			//do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#pendingNav').on('click',loadPendingView);
+			$('#pastNav').on('click',loadPastView)
+			$('#logoutNav').on('click',loadLoginView);
+		}
+	}
+	xhr.open("GET", "manager.view", true);
+	xhr.send();
+}
+
+function loadPendingView() {
+	var xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			// do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#homeNav').on('click',loadManView);
+			$('#oldNav').on('click',loadOldView);
+			$('#logOut').on('click',loadLoginView);
+			loadPendingReimbs();
+		}
+	}
+	xhr.open("GET", "pending.view", true);
+	xhr.send();
+		
+}
+
+function loadPendingReimbs(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.responseText);
+			let reimbs = JSON.parse(xhr.responseText);
+			for (let r of reimbs) {
+				var th = $(`<tr>
+					<td>${r.time}</td>
+					<td>${r.description}</td>
+					<td>${r.amount}</td>
+					<td>${r.status}
+					</tr>`);
+				$('#pendReimbList tr:last').after(th);
+			}
+		}
+	}
+	xhr.open("GET","pending");
+	xhr.send();
+}
+
+function loadOldView() {
+	var xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			// do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#homeNav').on('click',loadManView);
+			$('#pendingNav').on('click',loadPendingView);
+			$('#logOut').on('click',loadLoginView);
+			loadOldReimbs();
+		}
+	}
+	xhr.open("GET", "old.view", true);
+	xhr.send();
+		
+}
+
+function loadOldReimbs(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.responseText);
+			let reimbs = JSON.parse(xhr.responseText);
+			for (let r of reimbs) {
+				if (r.status=="2") {
+					var status = "Approved";
+				} 
+				else {
+					var status = "Denied";
+				}
+				var th = $(`<tr>
+					<td>${r.time}</td>
+					<td>${r.description}</td>
+					<td>${r.amount}</td>
+					<td>${status}
+					</tr>`);
+				$('#oldReimbList tr:last').after(th);
+			}
+		}
+	}
+	xhr.open("GET","old");
+	xhr.send();
+}
+
+/*
+ * ###########################################
+ * EMPLOYEE VIEWS
+ * ###########################################
+ */
+function loadEmpView() {
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			//do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#fileReimbNav').on('click',loadFileReimbView);
+			$('#viewPastNav').on('click',loadPastView);
+			$('#logOut').on('click',loadLoginView);
+		}
+	}
+	xhr.open("GET", "employee.view", true);
+	xhr.send();
+}
+
+function loadFileReimbView() {
+	var xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			// do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#homeNav').on('click',loadEmpView);
+			$('#viewPastNav').on('click',loadPastView);
+			$('#logOut').on('click',loadLoginView);
+		}
+	}
+	xhr.open("GET", "reimb.view", true);
+	xhr.send();
+		
+}
+
+function loadPastView() {
+	var xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			// do things w/ response
+			$('#view').html(xhr.responseText);
+			$('#homeNav').on('click',loadEmpView);
+			$('#fileReimbNav').on('click',loadFileReimbView);
+			$('#logOut').on('click',loadLoginView);
+			loadReimbs();
+		}
+	}
+	xhr.open("GET", "past.view", true);
+	xhr.send();
+		
+}
+
+function addReimb() {
+	
+	var date = $('#Date').val();
+	var amount = $('#Amount').val();
+	var type = $('#reimbType').val();
+	var description = $('#Desc').val();
+	var obj = {
+			
+			Submitted: date,
+			Amount: amount,
+			Type: type,
+			Description: description
+	};
+	var toSend = JSON.stringify(obj);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+			console.log(xhr.responseType);
+		}
+	}
+	xhr.open("POST","past");
+	xhr.send(toSend);
+	
+}
+
+function loadReimbs(){
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.responseText);
+			let reimbs = JSON.parse(xhr.responseText);
+			for (let r of reimbs) {
+				var th = $(`<tr>
+					<td>${r.time}</td>
+					<td>${r.description}</td>
+					<td>${r.amount}</td>
+					<td>${r.status}
+					</tr>`);
+				$('#reimbList tr:last').after(th);
+			}
+		}
+	}
+	xhr.open("GET","past");
+	xhr.send();
+}

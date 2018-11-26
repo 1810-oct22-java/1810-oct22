@@ -1,0 +1,21 @@
+package com.revature.service;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.revature.dao.ReimbursementDao;
+import com.revature.pojos.Reimbursement;
+
+public class ReimbursementService {
+	
+	static Logger log = Logger.getLogger(ReimbursementService.class);
+	static ReimbursementDao rDao = new ReimbursementDao();
+	
+	public static List<Reimbursement> getAll() {
+		
+		
+		return null;
+	}
+
+}

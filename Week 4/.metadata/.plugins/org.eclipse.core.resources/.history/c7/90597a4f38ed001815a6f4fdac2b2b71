@@ -1,0 +1,33 @@
+package com.revature.service;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.revature.dao.ReimbursementDao;
+import com.revature.pojos.Reimbursement;
+import com.revature.pojos.User;
+
+public class ReimbursementService {
+	
+	static Logger log = Logger.getLogger(ReimbursementService.class);
+	static ReimbursementDao rDao = new ReimbursementDao();
+	
+	public static List<Reimbursement> getUserReimbs(User u) {
+		List<Reimbursement> allReimbs = rDao.findAll();
+		List<Reimbursement> userReimbs;
+		for (Reimbursement r : allReimbs) {
+			if (r.getAuthor()==u.getId()) {
+				userReimbs.add(r);
+			}
+		}
+		
+		return null;
+	}
+	
+	public static void addReimbursement(Reimbursement r) {
+		rDao.insert(r);
+		log.trace("Added Reimbursement");
+	}
+
+}

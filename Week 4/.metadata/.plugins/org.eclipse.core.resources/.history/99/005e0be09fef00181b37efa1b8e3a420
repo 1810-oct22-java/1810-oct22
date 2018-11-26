@@ -1,0 +1,30 @@
+<div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" id="homeNav" href="#">Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" id="reimbNav">Review Pending Requests</a>
+      <a class="nav-item nav-link" id="pastNav">View Past Requests</a>
+      <a class="nav-item nav-link" id="logoutNav">Log Out</a>
+    </div>
+  </div>
+</nav>
+</div>
+<div>
+<h3 class="text-center">Past Reimbursement Requests</h3>
+<hr>
+<table id="oldReimbList" class = "table">
+	<thead class="thead-light">
+	<tr>
+		<th scope="col">Time Submitted</th>
+		<th scope="col">Description</th>
+		<th scope="col">Amount</th>
+		<th scope="col">Status</th>
+	</tr>
+	</thead>
+</table>
+<h6 class="text-center">Key: Status (2) = Approved, (3) = Denied</h6>
+</div>
