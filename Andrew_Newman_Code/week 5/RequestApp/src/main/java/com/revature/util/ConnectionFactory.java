@@ -24,7 +24,7 @@ public class ConnectionFactory {
 	public Connection getConnection() {
 		Connection conn =null;
 		Properties prop = new Properties();
-		String path = "C:/Users/Andrew Newman/Week4/reimbApp/src/main/resources/database.properties";
+		String path = "C:/Users/Andrew Newman/Week4/RequestApp/src/main/resources/database.properties";
 		
 		
 			try {

@@ -99,8 +99,13 @@ function getAllUserRequests() {
         if(XHR.readyState == 4 && XHR.status == 200){
             let requests = JSON.parse(XHR.responseText);
             for(let r of requests){
-            	var li = $(`<li>${r.rID}</li>`);
-            	$('#userRequestList').append(li);
+            	var row = $(`<tr>
+                        <th scope="row">${r.rID}</th>
+                        <td >${r.amount}</td>
+            			<td>${r.desc}</td>
+                        <td>${r.typeID}</td>
+                        </tr>`);
+            	$('#userRequestList').append(row);
             }
             $('#ARButton').on('click', addRequestView);
         }
@@ -138,13 +143,13 @@ function getAllRequests() {
         if(XHR.readyState == 4 && XHR.status == 200){
             let requests = JSON.parse(XHR.responseText);
             for(let r of requests){
-            	console.log(r);
             	var row = $(`<tr>
-            	
                         <th scope="row">${r.rID}</th>
                         <td >${r.amount}</td>
             			<td>${r.desc}</td>
                         <td>${r.author}</td>
+                        <td>${r.typeID}</td>
+                        <td>${r.statusID}</td>
                         </tr>`);
             	$('#AllRequestList').append(row);
             }
@@ -177,7 +182,8 @@ function addRequest(){
 	var XHR = new XMLHttpRequest();
 	let reqObj = { amount : $("input[name=amount]").val(),
 			 				 desc : $("input[name=desc]").val(),
-			 				typeID : $("input[name=Typeid]").val()};
+			 				typeID : $("#types").val()};
+	console.log($("#types").val())
 	
     XHR.onreadystatechange = function(){
         console.log(XHR.readyState)
@@ -226,6 +232,7 @@ function loadAllPendingRequests() {
                         <td >${r.amount}</td>
             			<td>${r.desc}</td>
                         <td>${r.author}</td>
+                        <td>${r.typeID}</td>
                         <td><button type="button" class="appclass btn btn-default btn-sm" value ="${r.rID}" id="AppButton">Approve</button></td>
                         <td><button type="button" class="denclass btn btn-default btn-sm" value ="${r.rID}" id="DenButton">Denied</button></td>
                         </tr>`);
@@ -275,6 +282,7 @@ function loadAllApprovedRequests() {
                         <td >${r.amount}</td>
             			<td>${r.desc}</td>
                         <td>${r.author}</td>
+                        <td>${r.typeID}</td>
                         </tr>`);
             	$('#AllApprovedRequests').append(row);
             }
@@ -317,6 +325,7 @@ function loadAllDeniedRequests() {
                         <td >${r.amount}</td>
             			<td>${r.desc}</td>
                         <td>${r.author}</td>
+                        <td>${r.typeID}</td>
                         </tr>`);
             	$('#AllDeniedRequests').append(row);
             }
@@ -365,4 +374,23 @@ function DenyReq() {
     XHR.setRequestHeader("Content-type","application/json")
     XHR.send(JSON.stringify(reqObj));
 	
+}
+
+function getNameFromId(id) {
+	let uObj = { userId: id}
+	
+	var XHR = new XMLHttpRequest();
+
+    XHR.onreadystatechange = function(){
+        console.log(XHR.readyState)
+        if(XHR.readyState == 4 && XHR.status == 200){
+        	let user = JSON.parse(XHR.responseText);
+        	let name = user.firstName + " " + user.lastName;
+        	return name  
+        }
+    }
+    
+    XHR.open('POST', "info" ,true)
+    XHR.setRequestHeader("Content-type","application/json")
+    XHR.send(JSON.stringify(uObj));
 }

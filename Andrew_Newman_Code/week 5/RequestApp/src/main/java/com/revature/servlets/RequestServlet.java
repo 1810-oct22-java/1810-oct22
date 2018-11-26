@@ -18,14 +18,16 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.pojos.Reimb;
+import com.revature.pojos.User;
 import com.revature.service.ReimbService;
 import com.revature.service.UserService;
 
-@WebServlet({"/requests","/pending","/approved","/denied","/requestApprove","/requestDenied"})
+@WebServlet({"/requests","/pending","/approved","/denied","/requestApprove","/requestDenied","/info"})
 public class RequestServlet extends HttpServlet {
 
 	private static Logger log = Logger.getLogger(LoginServlet.class);
 	static ReimbService rService = new ReimbService();
+	static UserService uService = new UserService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,13 +69,38 @@ public class RequestServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String resourcePath = "partials/" + postProcess(req, resp) + ".html";
-		req.getRequestDispatcher(resourcePath).forward(req, resp);
+		if(req.getRequestURI().equals("/RequestApp/info")) {
+			HttpSession session = req.getSession();
+			ObjectMapper mapper = new ObjectMapper();
+		
+			User u = mapper.readValue(req.getInputStream(), User.class);
+			User fullUser = uService.getUser(u.getUserId());
+
+			String json = mapper.writeValueAsString(fullUser);
+			PrintWriter writer = resp.getWriter();
+			resp.setContentType("application./json");
+			writer.write(json);
+			
+		}else {
+			String resourcePath = "partials/" + postProcess(req, resp) + ".html";
+			req.getRequestDispatcher(resourcePath).forward(req, resp);
+		}
 	}
 	
 	private String postProcess(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = req.getSession();
 		ObjectMapper mapper = new ObjectMapper();
+		
+		if(req.getRequestURI().equals("/RequestApp/info")) {
+			User u = mapper.readValue(req.getInputStream(), User.class);
+			User fullUser = uService.getUser(u.getUserId());
+
+			String json = mapper.writeValueAsString(fullUser);
+			PrintWriter writer = resp.getWriter();
+			resp.setContentType("application./json");
+			writer.write(json);
+			return null;
+		}
 		int id = (int) session.getAttribute("userID");
 		int role = (int) session.getAttribute("roleID");
 		Reimb potential = mapper.readValue(req.getInputStream(), Reimb.class);
