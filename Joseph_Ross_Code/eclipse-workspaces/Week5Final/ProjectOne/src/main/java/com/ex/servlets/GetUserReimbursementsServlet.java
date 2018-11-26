@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -21,13 +19,9 @@ import com.ex.exception.InvalidCharactersException;
 import com.ex.exception.InvalidStringInputException;
 import com.ex.exception.InvalidUsernameAndPasswordException;
 import com.ex.pojos.ReimbursementEntry;
-import com.ex.pojos.ReimbursementList;
-import com.ex.pojos.SessionStatus;
 import com.ex.pojos.User;
 import com.ex.service.AuthenticatorService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 @WebServlet("/getEmployeeReimbursementRecords")
 public class GetUserReimbursementsServlet extends HttpServlet{
@@ -41,7 +35,7 @@ public class GetUserReimbursementsServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		logger.trace("working");
+		logger.trace("A user sent a request for all reimbursement records");
 		
 		try {
 			User user = AuthenticatorService.checkCreds(req);
@@ -66,25 +60,35 @@ public class GetUserReimbursementsServlet extends HttpServlet{
 			
 		} catch (InvalidUsernameAndPasswordException e) {
 			
+			logger.trace("Invalid user login attempt after initial login. This is suspicious");
+			
 			//401 means bad login info
 			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Credentials");
 			
 		} catch (InvalidCharactersException e) {
+			
+			logger.trace("Invalid user login attempt after initial login. This is suspicious");
 			
 			//Client has been hacked!
 			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Client has been tampered with!");
 			
 		} catch (EmptyInputStringException e) {
 			
+			logger.trace("Invalid user login attempt after initial login. This is suspicious");
+			
 			//Client has been hacked!
 			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Client has been tampered with!");
 		
 		} catch (SQLException e) {
 			
+			logger.trace("An unknown sql error has occured");
+			
 			//Unknown Database Error
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
 		} catch (InvalidStringInputException e) {
+			
+			logger.trace("Invalid user login attempt after initial login. This is suspicious");
 			
 			//Client has been hacked!
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unknown error occurred");

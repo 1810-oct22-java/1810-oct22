@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import {CookieService} from 'ngx-cookie-service'
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,9 +20,10 @@ import { ManagerComponent } from './manager/manager.component';
   imports: [
     BrowserModule,
     AppRouterModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule
   ],
-  providers: [CookieService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

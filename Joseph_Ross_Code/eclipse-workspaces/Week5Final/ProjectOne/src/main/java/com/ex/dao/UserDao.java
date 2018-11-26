@@ -98,7 +98,7 @@ public class UserDao {
 			
 			while(rs.next()) {
 				ReimbursementEntry temp = new ReimbursementEntry();
-				//temp.setReimbId(rs.getInt(1));
+				temp.setReimbId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
 				temp.setTimeSubmitted(rs.getString(3));
 				temp.setTimeResolved(rs.getString(4));

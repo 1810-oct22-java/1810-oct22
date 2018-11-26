@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class GlobalsService {
 
   private apiName: String = "http://localhost:8080/bookstore-full-stack/";
-  private username: String;
-  private password: String;
+  private username: String = "manager";
+  private password: String = "12345";
   private firstname: String;
   private lastname: String;
   private userrole: Number;

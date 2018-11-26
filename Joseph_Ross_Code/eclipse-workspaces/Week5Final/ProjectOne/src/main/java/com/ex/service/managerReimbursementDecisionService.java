@@ -23,8 +23,8 @@ public class managerReimbursementDecisionService {
 		//Get and check decision id
 		int decisionIndex = 0;
 		if(decision == null) throw new EmptyInputStringException();
-		if(decision.equals("approved")) decisionIndex = 2;
-		else if(decision.equals("denied")) decisionIndex = 3;
+		if(decision.equals("2")) decisionIndex = 2;
+		else if(decision.equals("3")) decisionIndex = 3;
 		//Else client has been tampered with
 		else throw new InvalidDecisionException();
 		

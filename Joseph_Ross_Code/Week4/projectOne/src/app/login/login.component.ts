@@ -3,8 +3,6 @@ import { Router, RouteReuseStrategy } from "@angular/router";
 import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 
-import {CookieService} from 'ngx-cookie-service'
-
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -21,8 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
                 public envVars: GlobalsService,
-                public router: Router,
-                public cookies: CookieService
+                public router: Router
               ){
               }
 

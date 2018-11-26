@@ -4,8 +4,6 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
 import com.ex.exception.EmptyInputStringException;
 import com.ex.exception.InvalidCharactersException;
 import com.ex.exception.InvalidStringInputException;
@@ -16,8 +14,6 @@ import com.ex.dao.UserDao;
 import com.ex.service.ValidatorService;
 
 public class AuthenticatorService {
-	
-	private static Logger logger = Logger.getLogger(AuthenticatorService.class);
 	
 	public static User checkCreds(HttpServletRequest req) throws InvalidUsernameAndPasswordException, InvalidCharactersException, EmptyInputStringException, SQLException, InvalidStringInputException {
 		
