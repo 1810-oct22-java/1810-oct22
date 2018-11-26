@@ -42,20 +42,15 @@ public class EmployeeServlet extends HttpServlet {
 			} 
 		}
 		if (roleId.equals("1") || roleId.equals("1]")) {
-			System.out.println(rs);
 			for (int i = 0; i < rs.size(); i++) {
 				if (!rs.get(i).toString().contains("author=" + userId)) {
 					rs.remove(rs.get(i));
-					logger.trace("removed");
 					i--;
 				}
 			}
 		}
-		logger.trace("rs size:  " + rs.size());
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(rs);
-		logger.trace(json);
-		logger.trace(rs);
 		PrintWriter writer = resp.getWriter();
 		resp.setContentType("application/json");
 		writer.write(json);

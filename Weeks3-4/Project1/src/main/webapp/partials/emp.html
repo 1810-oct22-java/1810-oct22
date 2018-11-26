@@ -13,6 +13,8 @@
 			$('#createReimBtn').on('click', createReim);
 		})
 		
+		
+		
  		function createReim () {
 			console.log('created')
 			var time = new Date().getTime()
@@ -26,10 +28,10 @@
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
-//					reimbursementList();
+					reimbursementList();
 				}
 			}
-			xhr.open("POST", "reimbursement");
+			xhr.open("POST", "reimbursement", true);
 			xhr.setRequestHeader("Content-Type", "application/json");
 			xhr.send(toSend);
 		}
