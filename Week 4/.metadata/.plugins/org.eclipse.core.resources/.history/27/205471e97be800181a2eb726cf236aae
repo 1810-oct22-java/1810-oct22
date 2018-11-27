@@ -1,9 +1,0 @@
-package com.revature.dao;
-
-import java.io.Serializable;
-
-public interface DAO <T,I extends Serializable> {
-	
-	
-	
-}

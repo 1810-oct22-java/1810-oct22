@@ -2,6 +2,7 @@ package com.revature.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.pojos.Reimbursement;
 import com.revature.pojos.User;
 import com.revature.service.UserService;
 
@@ -20,14 +23,12 @@ public class LoginServlet extends HttpServlet {
 
 	static UserService uService = new UserService();
 
-	private static Logger logger = Logger.getLogger(LoginServlet.class);
+	private static Logger log = Logger.getLogger(LoginServlet.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// functionality to go back to login.html
 		// REQUEST DISPATCHER
-		logger.debug("Got HERE");
-		// consult user servers to obtain user with this info
 
 		req.getRequestDispatcher("login.html").forward(req, resp);
 	}
@@ -35,21 +36,25 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// login functionality here:
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
+		String username = null;
+		String password = null;
 		
-		logger.debug("Got HERE");
+		ObjectMapper usrmap = new ObjectMapper();
+		User usr = usrmap.readValue(req.getInputStream(), User.class);
+		
+		User u = uService.validateUser(username, password);
+		
+		//convert to JSON
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(u);
+		log.trace("RETURNING USER. JSON: " + json);
+		
+		//send response
+		PrintWriter writer = resp.getWriter();
+		resp.setContentType("/application/json");
+		writer.write(json);
 
-		logger.debug(username);
-
-		// consult user servers to obtain user with this info
-		User user = uService.validateUser(username, password);
-
-		// PrintWriter writer = resp.getWriter();
-		// resp.setContentType("text/html");
-		// String text = "";
-
-		if (user == null) {
+		if (u == null) {
 			req.getRequestDispatcher("partials/error-login.html").forward(req, resp);
 		} else {
 			// successful login
@@ -58,16 +63,11 @@ public class LoginServlet extends HttpServlet {
 
 			// will return current session if one exists
 			// creates new session and returns it if none exists
-			logger.trace("ADDING USER TO SESSION: " + session.getId());
+			log.trace("ADDING USER TO SESSION: " + session.getId());
 
-			session.setAttribute("user", user);
-			session.setAttribute("role", user.getRoleID());
-			logger.trace(session.getAttribute("role"));
-			if (user.getRoleID() == 1) {
-				resp.sendRedirect("employee.view");
-			} else {
-				resp.sendRedirect("manager.view");
-			}
+			session.setAttribute("user", u);
+			
+			log.trace(session.getAttribute("role"));
 
 		}
 

@@ -96,12 +96,13 @@ public class UserDao implements DAO<User, Integer> {
 				u.setEmail(rs.getString(6));
 				u.setRoleID(rs.getInt(7));
 			}
+			return u;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return u;
+		return null;
 	}
 
 	// INSERTS A USER INTO DATABASE

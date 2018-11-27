@@ -1,8 +1,0 @@
-package com.revature.servlets;
-
-@WebServlet("/genres")
-public class GenreServlet extends HttpServlet{
-
-	
-	
-}

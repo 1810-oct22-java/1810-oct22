@@ -1,13 +1,13 @@
 package com.revature.pojos;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reimbursement {
 
 	private int id;
 	private double amount;
-	private Date submitted;
-	private Date resolved;
+	private Timestamp submitted;
+	private Timestamp resolved;
 	private String description;
 	private int Author;
 	private int resolver;
@@ -27,16 +27,16 @@ public class Reimbursement {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public Date getSubmitted() {
+	public Timestamp getSubmitted() {
 		return submitted;
 	}
-	public void setSubmitted(Date submitted) {
+	public void setSubmitted(Timestamp submitted) {
 		this.submitted = submitted;
 	}
-	public Date getResolved() {
+	public Timestamp getResolved() {
 		return resolved;
 	}
-	public void setResolved(Date resolved) {
+	public void setResolved(Timestamp resolved) {
 		this.resolved = resolved;
 	}
 	public String getDescription() {
@@ -54,7 +54,7 @@ public class Reimbursement {
 	public int getResolver() {
 		return resolver;
 	}
-	public void setResolver(int resolver) {
+	public void setResolver(Integer resolver) {
 		this.resolver = resolver;
 	}
 	public int getStatus() {
@@ -71,7 +71,7 @@ public class Reimbursement {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
+		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
 				+ ", description=" + description + ", Author=" + Author + ", resolver=" + resolver + ", status="
 				+ status + ", type=" + type + "]";
 	}

@@ -1,6 +1,8 @@
 package com.revature.service;
 
 import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,7 +26,18 @@ public class ReimbursementService {
 		return reimbs;
 	}
 	
-	public static void addReimbursement(Reimbursement r) {
+	public static void addReimbursement(double Amount, int type, String description) {
+		log.trace(Amount + " " + type + " " + description);
+		Reimbursement r = new Reimbursement();
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		r.setSubmitted(ts);
+		r.setAmount(Amount);
+		r.setType(type);
+		r.setDescription(description);
+		//set
+		r.setAuthor(1);
+		r.setStatus(1);
+		System.out.println(r);
 		rDao.insert(r);
 		log.trace("Added Reimbursement");
 	}
@@ -37,6 +50,15 @@ public class ReimbursementService {
 	public static List<Reimbursement> getPendingReimbs() {
 		List<Reimbursement> reimbs = rDao.findPendingReimbs();
 		return reimbs;
+	}
+	
+	public static Reimbursement findById(int id) {
+		Reimbursement r = rDao.findByID(id);
+		log.trace(id);
+		return r;
+	}
+	public static void updateReimb(Reimbursement r) {
+		rDao.update(r);
 	}
 	
 }

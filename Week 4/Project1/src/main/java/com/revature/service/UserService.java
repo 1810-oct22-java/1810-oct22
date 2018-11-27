@@ -27,5 +27,10 @@ public class UserService {
 		User u = uDao.findByID(id);
 		return u;
 	}
+	
+	public static User findByUsername(String username) {
+		User u = uDao.findByUsername(username);
+		return u;
+	}
 
 }

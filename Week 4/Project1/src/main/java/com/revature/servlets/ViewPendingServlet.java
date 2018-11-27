@@ -18,7 +18,7 @@ import com.revature.pojos.User;
 import com.revature.service.ReimbursementService;
 import com.revature.service.UserService;
 
-@WebServlet("/pending")
+@WebServlet({"/pending","/approveReimb","/denyReimb"})
 public class ViewPendingServlet extends HttpServlet{
 
 	static ReimbursementService rService = new ReimbursementService();
@@ -39,6 +39,20 @@ public class ViewPendingServlet extends HttpServlet{
 		resp.setContentType("/application/json");
 		writer.write(json);
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
+		Reimbursement reimb = rService.findById(r.getId());
+		if (r.getStatus()==2) {
+			reimb.setStatus(2);
+		}
+		else {
+			reimb.setStatus(3);
+		}
+		rService.updateReimb(reimb);
 	}
 	
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.pojos.Reimbursement;
+import com.revature.pojos.User;
 import com.revature.util.ConnectionFactory;
 
 public class ReimbursementDao implements DAO<Reimbursement,Integer>{
@@ -18,7 +19,7 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String query = "SELECT * FROM ERS_REIMBURSEMENT ORDER BY REIMB_ID"; //no semicolon
+			String query = "SELECT * FROM ERS_REIMBURSEMENT ORDER BY REIMB_SUBMITTED DESC"; //no semicolon
 			
 			//STATEMENT INTERFACE - implementation exposed via connection
 			Statement statement = conn.createStatement();
@@ -30,8 +31,8 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 				Reimbursement temp = new Reimbursement();
 				temp.setId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
-				temp.setSubmitted(rs.getDate(3));
-				temp.setResolved(rs.getDate(4));
+				temp.setSubmitted(rs.getTimestamp(3));
+				temp.setResolved(rs.getTimestamp(4));
 				temp.setDescription(rs.getString(5));
 				temp.setAuthor(rs.getInt(6));
 				temp.setResolver(rs.getInt(7));
@@ -52,14 +53,36 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	 * Prepared Statement
 	 */
 	public Reimbursement findByID(Integer id) {
-		
-		return null;
+		Reimbursement r = null;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_ID = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				r = new Reimbursement();
+				r.setId(rs.getInt(1));
+				r.setAmount(rs.getDouble(2));
+				r.setSubmitted(rs.getTimestamp(3));
+				r.setResolved(rs.getTimestamp(4));
+				r.setDescription(rs.getString(5));
+				r.setAuthor(rs.getInt(6));
+				r.setResolver(rs.getInt(7));
+				r.setStatus(rs.getInt(8));
+				r.setType(rs.getInt(9));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return r;
 	}
 
 	public List<Reimbursement> findAllByID(Integer id) {
 		List <Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR = ?";
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR = ? ORDER BY REIMB_SUBMITTED DESC";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -67,8 +90,8 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 				Reimbursement temp = new Reimbursement();
 				temp.setId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
-				temp.setSubmitted(rs.getDate(3));
-				temp.setResolved(rs.getDate(4));
+				temp.setSubmitted(rs.getTimestamp(3));
+				temp.setResolved(rs.getTimestamp(4));
 				temp.setDescription(rs.getString(5));
 				temp.setAuthor(rs.getInt(6));
 				temp.setResolver(rs.getInt(7));
@@ -89,7 +112,7 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	public List<Reimbursement> findPendingReimbs() {
 		List <Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID = 1";
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID = 1 ORDER BY REIMB_SUBMITTED";
 			Statement s = conn.createStatement();
 			
 			ResultSet rs = s.executeQuery(sql);
@@ -98,8 +121,8 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 				Reimbursement temp = new Reimbursement();
 				temp.setId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
-				temp.setSubmitted(rs.getDate(3));
-				temp.setResolved(rs.getDate(4));
+				temp.setSubmitted(rs.getTimestamp(3));
+				temp.setResolved(rs.getTimestamp(4));
 				temp.setDescription(rs.getString(5));
 				temp.setAuthor(rs.getInt(6));
 				temp.setResolver(rs.getInt(7));
@@ -120,7 +143,7 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	public List<Reimbursement> findPastReimbs() {
 		List <Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID != 1";
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_STATUS_ID != 1 ORDER BY REIMB_SUBMITTED DESC";
 			Statement s = conn.createStatement();
 			
 			ResultSet rs = s.executeQuery(sql);
@@ -128,8 +151,8 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 				Reimbursement temp = new Reimbursement();
 				temp.setId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
-				temp.setSubmitted(rs.getDate(3));
-				temp.setResolved(rs.getDate(4));
+				temp.setSubmitted(rs.getTimestamp(3));
+				temp.setResolved(rs.getTimestamp(4));
 				temp.setDescription(rs.getString(5));
 				temp.setAuthor(rs.getInt(6));
 				temp.setResolver(rs.getInt(7));
@@ -150,19 +173,18 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	public Reimbursement insert(Reimbursement obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String sql = "INSERT INTO ERS_USER(AMOUNT,SUBMITTED,RESOLVED,DESCRIPTION,AUTHOR,RESOLVER"
-					+ ",STATUS,TYPE) VALUES(?,?,?,?,?,?,?,?)";
-			String[] keyNames = {"USER_ID"};
+			String sql = "INSERT INTO ERS_REIMBURSEMENT(REIMB_AMOUNT,REIMB_SUBMITTED,"
+					+ "REIMB_DESCRIPTION,REIMB_AUTHOR,"
+					+ "REIMB_STATUS_ID,REIMB_TYPE_ID) VALUES(?,?,?,?,?,?)";
+			String[] keyNames = {"REIMB_ID"};
 			
 			PreparedStatement ps = conn.prepareStatement(sql,keyNames);
 			ps.setDouble(1, obj.getAmount());
-			ps.setDate(2, obj.getSubmitted());
-			ps.setDate(3, obj.getResolved());
-			ps.setString(4, obj.getDescription());
-			ps.setInt(5, obj.getAuthor());
-			ps.setInt(6, obj.getResolver());
-			ps.setInt(7, obj.getStatus());
-			ps.setInt(8, obj.getType());
+			ps.setTimestamp(2, obj.getSubmitted());
+			ps.setString(3, obj.getDescription());
+			ps.setInt(4, obj.getAuthor());
+			ps.setInt(5, obj.getStatus());
+			ps.setInt(6, obj.getType());
 			
 			int numRows = ps.executeUpdate();
 			if(numRows > 0) {
@@ -180,8 +202,21 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	}
 
 	public Reimbursement update(Reimbursement obj) {
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String sql = "UPDATE ERS_REIMBURSEMENT SET REIMB_STATUS_ID = ? WHERE REIMB_ID = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, obj.getStatus());
+			ps.setInt(2, obj.getId());
+			ps.executeUpdate();
+			
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		return null;
+		return obj;
 	}
 
 }

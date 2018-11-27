@@ -1,9 +1,0 @@
-package com.revature.pojos;
-
-import java.sql.Date;
-
-public class User {
-	
-	
-
-}

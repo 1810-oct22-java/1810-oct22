@@ -1,0 +1,7 @@
+<div class="jumbotron">
+
+	<input type="text" name="username" class="form-control col-6" placeholder = "username">
+	<input type="password" name="password" class="form-control col-6" placeholder = "password">
+	<input type="submit" class="btn btn-submit" value="Log In" id="LogIn">
+
+</div>
