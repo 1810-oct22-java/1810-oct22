@@ -1,6 +1,51 @@
-/**
- * 
- */
+window.onload = function(){
+	loadHomeView();
+	
+	//loadLoginView();
+	$('#loginNav').on('click',loadLoginView);
+	//$('#SubmitNav').on('click',loadSubmitView);
+	
+}
+
+function loadLoginView(){
+	//var login = $('#login').val();
+	var obj = {
+			username: $('username').val(),
+			password: $('password').val()
+	}
+	var toSend = JSON.stringify(obj);
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if( xhr.readyState == 4){
+			//xhr.status == 200)
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+			console.log(xhr.responseType);
+			
+			$('#view').html(xhr.responseText);
+		}
+	}
+	//xhr.open("GET","login.view",true);
+	xhr.open("POST","login.view",true);
+	xhr.setRequestHeader("Content-type","application/json");
+	//xhr.send();
+	xhr.send(JSON.stringify(obj))
+}
+
+function loadHomeView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+		}
+	}
+	xhr.open("GET","home.view",true);
+	xhr.send();
+}
+
+
+
+/*
 
 window.onload = function() {
 	loadLogInView();
@@ -13,9 +58,10 @@ window.onload = function() {
 	$('#homeNav').on('click', loadHomeView);
 }
 function loadLogInView() {
+	var login = $('#login').val();
 	var obj = {
-		Username: $('usename').val(),
-		Password: $('pasword').val()
+		Username: $('username').val(),
+		Password: $('password').val()
 	};
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -67,3 +113,5 @@ function loadEmployeeView(){
 function loadManagerView(){
 	
 }
+*/
+ 
