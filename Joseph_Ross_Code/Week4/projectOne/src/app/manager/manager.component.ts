@@ -17,7 +17,7 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings;
 
   dtTrigger: any = new Subject();
 
@@ -34,13 +34,14 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
+
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 
   rerender(): void {
     
-
+    console.log("before render");
     var self = this;
 
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -49,46 +50,21 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+
+    console.log("after render");
     
   }
 
   ngOnInit() {
 
-     //Redirect session if user is not logged in
-     if(!this.envVars.isLoggedIn()){
+    //Redirect session if user is not logged in
+    if(!this.envVars.isLoggedIn()){
       this.router.navigate(['login']);
       
     } else {
 
-      var self = this;
-
       //Loads all reimbursments
-      //this.loadAllReimbursements();
-
-      $(document).ready(function() {
-        var table = $('#reimb-table').DataTable();
-     
-        $('#reimb-table tbody').on( 'click', 'tr', function () {
-
-            $('#approve-btn').prop( "disabled", true );
-            $('#deny-btn').prop( "disabled", true );
-            $('#reimb-id-display').text("-");
-
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-
-            if($(this).children().eq(5).text() == "1"){
-              self.selectedReimbId = $(this).children().eq(0).text();
-
-              $('#approve-btn').prop( "disabled", false );
-              $('#deny-btn').prop( "disabled", false );
-
-              $('#reimb-id-display').text(self.selectedReimbId + "");
-            }
-
-        } );
-     
-    } );
+      this.loadAllReimbursements();
     }
   }
 
@@ -104,6 +80,8 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
 
   loadAllReimbursements(): void {
 
+    var self = this;
+
     this.dtOptions = {
       ajax: {
         url: this.envVars.getApiUrl() + "getAllReimbursementsServlet",
@@ -112,6 +90,32 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
           "password" : this.envVars.getPassword()
         },
         type: 'POST',
+        complete: function(settings, json) {
+
+          $('#reimb-table tbody').unbind();
+          $('#reimb-table').unbind();
+      
+          var table = $('#reimb-table').DataTable();
+        
+          $('#reimb-table tbody').on( 'click', 'tr', function () {
+      
+              $('#approve-btn').prop( "disabled", true );
+              $('#deny-btn').prop( "disabled", true );
+              $('#reimb-id-display').text("-");
+      
+              table.$('tr.selected').removeClass('selected');
+              $(this).addClass('selected');
+      
+              if($(this).children().eq(5).text() == "1"){
+                self.selectedReimbId = $(this).children().eq(0).text();
+      
+                $('#approve-btn').prop( "disabled", false );
+                $('#deny-btn').prop( "disabled", false );
+      
+                $('#reimb-id-display').text(self.selectedReimbId + "");
+              }
+          });
+        }
       },
       columns: [
         {
@@ -144,8 +148,6 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
         },
       ]
     };
-
-    
   }
 
   approve(): void {
@@ -173,7 +175,8 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
         $('#approve-btn').prop( "disabled", true );
         $('#deny-btn').prop( "disabled", true );
         $('#reimb-id-display').text("-");
-      }
+      },
+      
     });
   }
 }

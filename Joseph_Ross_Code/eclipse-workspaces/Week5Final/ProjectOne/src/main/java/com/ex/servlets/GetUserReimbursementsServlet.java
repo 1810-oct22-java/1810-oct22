@@ -50,13 +50,13 @@ public class GetUserReimbursementsServlet extends HttpServlet{
 			ArrayList<ReimbursementEntry> records = UserDao.getAllSubmittedReimburements(user);
 			
 			//Convert the array list to JSON and send it to client
-			writer.write("[");
+			writer.write("{ \"data\": [");
 			writer.write(mapper.writeValueAsString(records.get(0)));
 			for(int i = 1; i < records.size(); i++) {
 				writer.write(",");
 				writer.write(mapper.writeValueAsString(records.get(i)));
 			}
-			writer.write("]");
+			writer.write("]}");
 			
 		} catch (InvalidUsernameAndPasswordException e) {
 			
