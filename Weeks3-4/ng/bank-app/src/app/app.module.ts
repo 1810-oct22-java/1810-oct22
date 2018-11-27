@@ -1,23 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-<<<<<<< HEAD
-import { AppRoutingModule } from './app-routing.module';
-=======
->>>>>>> d8973066582ce2cc8b1b46d4a95627e610dd3ed6
 import { AppComponent } from './app.component';
+import { IndexComponent } from './components/index/index.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IndexComponent,
+    DashboardComponent,
+    NavbarComponent
   ],
   imports: [
-<<<<<<< HEAD
     BrowserModule,
-    AppRoutingModule
-=======
-    BrowserModule
->>>>>>> d8973066582ce2cc8b1b46d4a95627e610dd3ed6
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

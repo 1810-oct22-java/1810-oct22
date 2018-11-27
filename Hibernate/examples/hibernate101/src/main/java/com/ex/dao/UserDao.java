@@ -41,6 +41,17 @@ public class UserDao {
 	//PERSIST
 	
 	//UPDATE
+	public void update(User u) {
+		Session session = util.getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			session.update(u);
+			tx.commit();
+		}
+		finally {
+			session.close();
+		}
+	}
 	
 	//MERGE
 	
