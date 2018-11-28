@@ -30,6 +30,7 @@ public class EmployeeServlet extends HttpServlet {
 		List<Reimbursement> rs = rService.getAllRmbs();
 		HttpSession session = req.getSession();
 		String[] s = session.getAttribute("user").toString().split(", ");
+		logger.trace(s);
 		String userId = null;
 		String roleId = null;
 		for (String x : s) {
