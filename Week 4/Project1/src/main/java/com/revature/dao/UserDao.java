@@ -79,7 +79,7 @@ public class UserDao implements DAO<User, Integer> {
 	}
 	
 	public User findByUsername(String Username) {
-		User u = null;
+		User u = new User();
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "SELECT * FROM ERS_USER WHERE USERNAME = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -87,7 +87,6 @@ public class UserDao implements DAO<User, Integer> {
 			
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				u = new User();
 				u.setId(rs.getInt(1));
 				u.setUsername(Username);
 				u.setPassword(rs.getString(3));
@@ -110,15 +109,16 @@ public class UserDao implements DAO<User, Integer> {
 	public User insert(User obj) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String sql = "INSERT INTO ERS_USER(FIRSTNAME,LASTNAME,EMAIL,PW,ROLE_ID) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO ERS_USER(USERNAME,PW,FIRSTNAME,LASTNAME,USER_EMAIL,USER_ROLE_ID) VALUES(?,?,?,?,?,?)";
 			String[] keyNames = { "USER_ID" };
 
 			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
-			ps.setString(1, obj.getFirstName());
-			ps.setString(2, obj.getLastName());
-			ps.setString(3, obj.getEmail());
-			ps.setString(4, obj.getPassword());
-			ps.setInt(5, obj.getRoleID());
+			ps.setString(1, obj.getUsername());
+			ps.setString(2, obj.getPassword());
+			ps.setString(3, obj.getFirstName());
+			ps.setString(4, obj.getLastName());
+			ps.setString(5, obj.getEmail());
+			ps.setInt(6, obj.getRoleID());
 
 			int numRows = ps.executeUpdate();
 			if (numRows > 0) {

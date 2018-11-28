@@ -204,11 +204,14 @@ public class ReimbursementDao implements DAO<Reimbursement,Integer>{
 	public Reimbursement update(Reimbursement obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String sql = "UPDATE ERS_REIMBURSEMENT SET REIMB_STATUS_ID = ? WHERE REIMB_ID = ?";
+			String sql = "UPDATE ERS_REIMBURSEMENT SET REIMB_STATUS_ID = ?, "
+					+ "REIMB_RESOLVER = ?, REIMB_RESOLVED = ? WHERE REIMB_ID = ?";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, obj.getStatus());
-			ps.setInt(2, obj.getId());
+			ps.setInt(2, obj.getResolver());
+			ps.setTimestamp(3, obj.getResolved());
+			ps.setInt(4, obj.getId());
 			ps.executeUpdate();
 			
 			conn.commit();

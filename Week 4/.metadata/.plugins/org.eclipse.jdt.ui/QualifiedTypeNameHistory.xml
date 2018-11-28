@@ -2,17 +2,12 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.revature.pojos.ReimbursementStatus"/>
 <fullyQualifiedTypeName name="com.revature.pojos.UserRoles"/>
-<fullyQualifiedTypeName name="com.revature.dao.UserDao"/>
-<fullyQualifiedTypeName name="com.revature.dao.ReimbursementDao"/>
 <fullyQualifiedTypeName name="com.revature.dao.ReimbursementTypeDao"/>
 <fullyQualifiedTypeName name="com.revature.pojos.ReimbursementType"/>
 <fullyQualifiedTypeName name="com.revature.dao.UserRolesDao"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
 <fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="java.util.logging.Logger"/>
 <fullyQualifiedTypeName name="com.revature.service.ReimbursementService"/>
 <fullyQualifiedTypeName name="com.revature.pojos.Reimbursement"/>
@@ -22,4 +17,9 @@
 <fullyQualifiedTypeName name="com.revature.pojos.NameAndPass"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.sql.Timestamp"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+<fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="com.revature.dao.ReimbursementDao"/>
+<fullyQualifiedTypeName name="com.revature.dao.UserDao"/>
 </qualifiedTypeNameHistroy>

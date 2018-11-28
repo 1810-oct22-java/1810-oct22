@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -28,7 +29,10 @@ public class ViewPastServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//consult service layer for data
-		User u = uService.findById(1);
+		HttpSession session=req.getSession(false);
+		System.out.println(session.getAttribute("user"));
+		User u = (User) session.getAttribute("user");
+		
 		List<Reimbursement> reimbs = rService.getUserReimbs(u);
 		
 		//convert to JSON

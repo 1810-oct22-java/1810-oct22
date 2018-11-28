@@ -25,34 +25,14 @@ public class FileReimbServlet extends HttpServlet{
 	private static Logger log = Logger.getLogger(FileReimbServlet.class);
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//consult service layer for data
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session=req.getSession(false);
 		System.out.println(session.getAttribute("user"));
 		User u = (User) session.getAttribute("user");
 		
-		
-		
-		List<Reimbursement> reimbs = ReimbursementService.getUserReimbs(u);
-		System.out.println(reimbs);
-		
-		//convert to JSON
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(reimbs);
-		log.trace("FINDING ALL REIMBURSEMENTS. JSON: " + json);
-		
-		//send response
-		PrintWriter writer = resp.getWriter();
-		resp.setContentType("/application/json");
-		writer.write(json);
-		
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
-		rService.addReimbursement(r.getAmount(),r.getType(),r.getDescription());
+		rService.addReimbursement(r.getAmount(),r.getType(),r.getDescription(),u.getId());
 		log.trace("ADDED NEW REIMBURSEMENT "+r);
 	}
 	

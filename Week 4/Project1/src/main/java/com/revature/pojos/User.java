@@ -5,8 +5,8 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
-	private String FirstName;
-	private String LastName;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private int roleID;
 	
@@ -30,16 +30,16 @@ public class User {
 		this.password = password;
 	}
 	public String getFirstName() {
-		return FirstName;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.firstName = firstName;
 	}
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -55,8 +55,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", FirstName=" + FirstName
-				+ ", LastName=" + LastName + ", email=" + email + ", roleID=" + roleID + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", roleID=" + roleID + "]";
 	}
 
 }

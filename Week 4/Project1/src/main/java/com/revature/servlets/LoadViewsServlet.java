@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.pojos.NameAndPass;
 
 public class LoadViewsServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 5788439482292060664L;
 	
 	private static Logger log = Logger.getLogger(LoadViewsServlet.class);
 	
@@ -28,17 +28,12 @@ public class LoadViewsServlet extends HttpServlet {
 	
 	static String process(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException { 
 		log.info("LOAD VIEW REQUEST SENT TO: " + req.getRequestURI());
-		if (req.getRequestURI().equals("/Project1/home.view")) {
-			ObjectMapper mapper = new ObjectMapper();
-			NameAndPass nap = mapper.readValue(req.getInputStream(),NameAndPass.class);
-			System.out.println(nap.getUsername());
-			
-			return "employee";
-		}
 		
 		switch(req.getRequestURI()) {
 		case "/Project1/login.view" :
 			return "login";
+		case "/Project1/error-login.view" :
+			return "error-login";
 		case "/Project1/employee.view" :
 			return "employee";
 		case "/Project1/manager.view" :
@@ -51,6 +46,8 @@ public class LoadViewsServlet extends HttpServlet {
 			return "pending";
 		case "/Project1/old.view" :
 			return "old";
+		case "/Project1/register.view" :
+			return "register";
 		}
 		return null;
 	}

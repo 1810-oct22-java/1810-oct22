@@ -26,7 +26,7 @@ public class ReimbursementService {
 		return reimbs;
 	}
 	
-	public static void addReimbursement(double Amount, int type, String description) {
+	public static void addReimbursement(double Amount, int type, String description, int Author) {
 		log.trace(Amount + " " + type + " " + description);
 		Reimbursement r = new Reimbursement();
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -35,7 +35,7 @@ public class ReimbursementService {
 		r.setType(type);
 		r.setDescription(description);
 		//set
-		r.setAuthor(1);
+		r.setAuthor(Author);
 		r.setStatus(1);
 		System.out.println(r);
 		rDao.insert(r);

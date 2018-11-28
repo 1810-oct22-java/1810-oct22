@@ -26,38 +26,35 @@ public class LoginServlet extends HttpServlet {
 	private static Logger log = Logger.getLogger(LoginServlet.class);
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// functionality to go back to login.html
-		// REQUEST DISPATCHER
-
-		req.getRequestDispatcher("login.html").forward(req, resp);
-	}
-
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// login functionality here:
-		String username = null;
-		String password = null;
 		
 		ObjectMapper usrmap = new ObjectMapper();
 		User usr = usrmap.readValue(req.getInputStream(), User.class);
 		
-		User u = uService.validateUser(username, password);
+		User u = uService.validateUser(usr.getUsername(),usr.getPassword());
 		
 		//convert to JSON
 		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(u);
-		log.trace("RETURNING USER. JSON: " + json);
-		
-		//send response
-		PrintWriter writer = resp.getWriter();
-		resp.setContentType("/application/json");
-		writer.write(json);
 
-		if (u == null) {
-			req.getRequestDispatcher("partials/error-login.html").forward(req, resp);
+		if (u.getId()==0) {
+			String json = mapper.writeValueAsString(usr);
+			log.trace("RETURNING USER. JSON: " + json);
+			
+			//send response
+			PrintWriter writer = resp.getWriter();
+			resp.setContentType("/application/json");
+			writer.write(json);
 		} else {
 			// successful login
+			String json = mapper.writeValueAsString(u);
+			log.trace("RETURNING USER. JSON: " + json);
+			
+			//send response
+			PrintWriter writer = resp.getWriter();
+			resp.setContentType("/application/json");
+			writer.write(json);
+			
 			// Add user to session
 			HttpSession session = req.getSession();
 
@@ -66,8 +63,6 @@ public class LoginServlet extends HttpServlet {
 			log.trace("ADDING USER TO SESSION: " + session.getId());
 
 			session.setAttribute("user", u);
-			
-			log.trace(session.getAttribute("role"));
 
 		}
 

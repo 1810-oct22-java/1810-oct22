@@ -12,15 +12,14 @@ public class UserService {
 	
 	public static User validateUser(String username, String password) {
 		User u = uDao.findByUsername(username);
-		log.debug(u.getUsername());
-		log.debug(u.getPassword());
-		log.debug("this" + password);
 		
-		if(u.getPassword().equals(password)) {
-			log.debug("got here");
+		log.debug(u);
+		if(u.getId()==0 || u.getPassword().equals(password)) {
 			return u;
 		}
-		return null;
+		else {
+			return new User();
+		}
 	}
 	
 	public static User findById(int id) {
@@ -31,6 +30,10 @@ public class UserService {
 	public static User findByUsername(String username) {
 		User u = uDao.findByUsername(username);
 		return u;
+	}
+	
+	public void insertUser(User u) {
+		uDao.insert(u);
 	}
 
 }
