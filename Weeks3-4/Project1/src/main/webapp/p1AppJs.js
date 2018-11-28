@@ -7,6 +7,7 @@ window.onload = function(){
 	$('#homeNav').on('click', loadHomeView);
 	$('#loginNav').on('click', loadLoginView);
 	$('#signUpNav').on('click', loadSignUpView);
+	$('#logoutNav').on('click', logout)
 }
 
 function loadHomeView(){
@@ -18,6 +19,18 @@ function loadHomeView(){
 		}
 	}
 	xhr.open("GET", "home.view", true);
+	xhr.send();	
+}
+
+function logout () {
+	console.log('logout')
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			loadHomeView();
+		}
+	}
+	xhr.open("GET", "logout", true);
 	xhr.send();	
 }
 
