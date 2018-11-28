@@ -11,16 +11,16 @@ import java.util.List;
 import com.p1.pojos.Reimbursement;
 import com.p1.util.ConnectionFactory;
 
-public class ReimbursementDao implements Dao<Reimbursement, Integer>{
+public class ReimbursementDao implements Dao<Reimbursement, Integer> {
 
 	@Override
 	public List<Reimbursement> findAll() {
 		List<Reimbursement> Reimbursements = new ArrayList<Reimbursement>();
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String query = "select * from reimbursement order by submitted" ;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String query = "select * from reimbursement order by submitted";
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
-			while(rs.next()) {
+			while (rs.next()) {
 				Reimbursement temp = new Reimbursement();
 				temp.setId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
@@ -41,12 +41,12 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 
 	public List<Reimbursement> findByAuthor(int author) {
 		List<Reimbursement> Reimbursements = new ArrayList<Reimbursement>();
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "select * from reimbursement where author = ? ";
-			PreparedStatement ps = conn.prepareStatement(sql); 
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, author);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Reimbursement g = new Reimbursement();
 				g.setId(rs.getInt(1));
 				g.setAmount(rs.getDouble(2));
@@ -67,16 +67,16 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 
 	@Override
 	public Reimbursement save(Reimbursement obj) {
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
 			String sql = "INSERT INTO Reimbursement (NAME) VALUES(?)";
-			String[] keyNames = {"id"};
+			String[] keyNames = { "id" };
 			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
 //			ps.setString(1, obj.getName());
 			int numRows = ps.executeUpdate();
-			if(numRows > 0) {
+			if (numRows > 0) {
 				ResultSet pk = ps.getGeneratedKeys();
-				while(pk.next()) {
+				while (pk.next()) {
 					obj.setId(pk.getInt(1));
 				}
 				conn.commit();
@@ -89,31 +89,39 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 
 	@Override
 	public Reimbursement update(Reimbursement obj) {
-		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "update reimbursement set status_id = ? where id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, obj.getStatus_id());
+			ps.setInt(2, obj.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public void delete(Reimbursement obj) {
-		
+
 	}
 
 	@Override
 	public Reimbursement create(Reimbursement obj) {
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "INSERT INTO reimbursement (amount,submitted,resolved,description,author,resolver,status_id,type_id) VALUES(?,?,?,?,?,?,?,?)";
-			String[] keyNames = {"id"};
+			String[] keyNames = { "id" };
 			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
 			ps.setDouble(1, obj.getAmount());
 			ps.setTimestamp(2, obj.getSubmitted());
 			ps.setTimestamp(3, obj.getResolved());
 			ps.setString(4, obj.getDescription());
-			ps.setInt(5,  obj.getAuthor());
+			ps.setInt(5, obj.getAuthor());
 			ps.setInt(6, obj.getResolver());
 			ps.setInt(7, obj.getStatus_id());
 			ps.setInt(8, obj.getType_id());
 			int numRows = ps.executeUpdate();
-			if (numRows > 0) {				
+			if (numRows > 0) {
 				ResultSet pk = ps.getGeneratedKeys();
 				while (pk.next()) {
 					obj.setId(pk.getInt(1));
@@ -125,14 +133,14 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 		return obj;
 	}
 
-	public List<Reimbursement> findById(int id) {
+	public List<Reimbursement> findById2(int id) {
 		List<Reimbursement> r = new ArrayList<Reimbursement>();
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "select * from reimbursement where id = ? ";
-			PreparedStatement ps = conn.prepareStatement(sql); 
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Reimbursement g = new Reimbursement();
 				g.setId(rs.getInt(1));
 				g.setAmount(rs.getDouble(2));
@@ -153,7 +161,27 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer>{
 
 	@Override
 	public Reimbursement findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Reimbursement r = null;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String query = "select * from reimbursement where id = ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				r = new Reimbursement();
+				r.setId(rs.getInt(1));
+				r.setAmount(rs.getDouble(2));
+				r.setSubmitted(rs.getTimestamp(3));
+				r.setResolved(rs.getTimestamp(4));
+				r.setDescription(rs.getString(5));
+				r.setAuthor(rs.getInt(6));
+				r.setResolver(rs.getInt(7));
+				r.setStatus_id(rs.getInt(8));
+				r.setType_id(rs.getInt(9));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return r;
 	}
 }

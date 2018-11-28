@@ -39,11 +39,18 @@ public class ReimbursementService {
 	}
 
 	public List<Reimbursement> getRmbById(int id) {
-		List<Reimbursement> r = reimDao.findById(id);
+		List<Reimbursement> r = reimDao.findById2(id);
 		if (r.isEmpty()) {
 			return null;
 		}
 		return r;
 	}
+	
+	public static void updateStatus(int id, int status) {
+		Reimbursement r = reimDao.findById(id);
+		r.setStatus_id(status);
+		reimDao.update(r);
+	}
+
 
 }

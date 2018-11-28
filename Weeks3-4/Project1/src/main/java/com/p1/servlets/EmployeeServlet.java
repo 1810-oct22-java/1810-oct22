@@ -55,4 +55,11 @@ public class EmployeeServlet extends HttpServlet {
 		resp.setContentType("application/json");
 		writer.write(json);
 	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
+		rService.updateStatus(r.getId(), r.getStatus_id());
+	}
 }

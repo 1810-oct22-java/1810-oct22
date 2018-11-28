@@ -33,16 +33,34 @@
 					<td>${r.description}</td>
 					<td>${r.author}</td>
 					<td>${r.resolver}</td>
-					<td>${r.status_id}</td>
+					<td id = "status${r.id}">${r.status_id}</td>
 					<td>${r.type_id}</td>
 					<td>
-						<button class="fa fa-check"></button>
-						<button class="fa fa-times"></button>
+						<button class="fa fa-check" onclick="updateStatus(${r.id}, 1)"></button>
+						<button class="fa fa-times" onclick="updateStatus(${r.id}, 2)"></button>
 					</td>
 				</tr>
 			`)
 			$('#reimbursementsList').append(data);
 		}
+		
+		function updateStatus(id, status) {
+			const info = {
+					id,
+					status_id: status
+			}
+			const xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					$(`status${id}`).html(status)
+				}
+			}
+			xhr.open("PUT", "employee", true)
+			xhr.setRequestHeader("Content-type", "application/json");
+			const go = JSON.stringify(info);
+			xhr.send(go);
+		}
+		
 	</script>
 
 

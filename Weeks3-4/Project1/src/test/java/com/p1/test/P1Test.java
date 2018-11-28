@@ -23,7 +23,7 @@ public class p1Test {
 	
 	@Test
 	public void findRByIdTest() {
-		List<Reimbursement> r =  rDao.findById(1); 
+		List<Reimbursement> r =  rDao.findById2(1); 
 		assertNotNull(r);	
 	}
 
