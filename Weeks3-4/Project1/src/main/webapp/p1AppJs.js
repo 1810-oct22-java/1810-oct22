@@ -173,3 +173,4 @@ function loadCreateReimPage () {
 	xhr.open("GET", "createReim.view");
 	xhr.send();
 }
+

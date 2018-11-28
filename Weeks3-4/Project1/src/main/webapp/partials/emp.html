@@ -2,9 +2,9 @@
 <div>
 
 	<h1>Create Reimbursement Request</h1>
-	<input type="number" id="amount" placeholder="Amount"> 
-	<input type="text" id="description" placeholder="Description">
-	<input type="text" id="type" placeholder="Type">
+	<input type="number" id="amount" placeholder="Amount"> <input
+		type="text" id="description" placeholder="Description"> <input
+		type="text" id="type" placeholder="Type">
 	<button id="createReimBtn">Create Reimbursement</button>
 
 	<script>
@@ -28,7 +28,7 @@
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
-					reimbursementList();
+					loadReimbursements2();
 				}
 			}
 			xhr.open("POST", "reimbursement", true);
@@ -40,9 +40,7 @@
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4 && xhr.status == 200){
-					console.log('1', xhr.responseText);
-					let reimbursements = JSON.parse(xhr.responseText);
-					console.log('2', reimbursements)
+					reimbursements = JSON.parse(xhr.responseText);
 					for(let r of reimbursements) {
 						reimbursementList(r)
 					}
@@ -52,8 +50,21 @@
 			xhr.send();
 		}
 		
+		function loadReimbursements2 () {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					reimbursements = JSON.parse(xhr.responseText);
+					let r = reimbursements.pop()
+					reimbursementList(r)
+				}
+			}
+			xhr.open("GET", "employee");
+			xhr.send();
+		}
+		
 		function reimbursementList (r) {
-			console.log('generate rbm list')
+			console.log('generating list')
 			var data = $(`
 				<tr>
 					<th scope="row">${r.id}</th>
