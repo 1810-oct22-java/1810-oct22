@@ -15,10 +15,7 @@ public class Reimbursement {
 	private int statusId;
 	private int typeId;
 	
-	public Reimbursement() {
-
-	}
-
+	
 	public Reimbursement(double amount, Timestamp submitted, String description, int author, int statusId, int typeId) {
 		super();
 		this.amount = amount;
@@ -27,7 +24,11 @@ public class Reimbursement {
 		this.author = author;
 		this.statusId = statusId;
 		this.typeId = typeId;
-	}	
+	}
+	
+	public Reimbursement() {
+
+	}
 
 	public int getId() {
 		return Id;

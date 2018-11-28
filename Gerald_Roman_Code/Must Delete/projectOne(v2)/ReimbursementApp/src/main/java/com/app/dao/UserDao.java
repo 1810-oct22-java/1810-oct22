@@ -80,12 +80,12 @@ public class UserDao implements DAO<User, Integer> {
 			while(rs.next()){
 				user = new User();
 				user.setUserId(rs.getInt(1));
-				user.setUsername(rs.getString(2));
-				user.setPassword(rs.getString(3));
-				user.setFirstName(rs.getString(4));
-				user.setLastName(rs.getString(5));
-				user.setEmail(rs.getString(6));
-				user.setRoleId(rs.getInt(7));
+				//user.setUsername(rs.getString(2));
+				user.setPassword(rs.getString(2));
+				user.setFirstName(rs.getString(3));
+				user.setLastName(rs.getString(4));
+				user.setEmail(rs.getString(5));
+				user.setRoleId(rs.getInt(6));
 			}
 		}catch(SQLException e){
 			e.printStackTrace();

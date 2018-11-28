@@ -11,18 +11,15 @@ import com.app.pojo.Reimbursement;
 public class ReimbService {
 	static ReimbursementDao reimbDao = new ReimbursementDao();
 	static ArrayList<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
-
-	public Reimbursement addReimbursement(double amount, String description, int author, int typeId) {
+	
+	public Reimbursement addReimbursement(Double amount, String desctiption, Integer author, int typeID) {
 		Timestamp time = new Timestamp(System.currentTimeMillis());
-
-		Reimbursement obj = new Reimbursement(amount, time, description, author, 1, typeId);
+		Reimbursement obj = new Reimbursement(amount, time, desctiption,author,1,typeID);
 		return reimbDao.save(obj);
 	}
-
 	public static List<Reimbursement> checkAllReimbursements() {
 		return reimbDao.findAll();
 	}
-
 	public static Reimbursement findUser(int id) {
 		return reimbDao.findById(id);
 	}

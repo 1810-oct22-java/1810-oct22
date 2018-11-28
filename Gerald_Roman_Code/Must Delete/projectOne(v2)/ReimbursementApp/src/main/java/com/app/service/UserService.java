@@ -18,9 +18,6 @@ public class UserService {
 		userDao.save(u);
 		return u;
 	}
-	public static User getUser(int userId) {
-		return userDao.findById(userId);
-	}
 
 	public Reimbursement makeReimbursement(Reimbursement r) {
 		reimbursementDao.save(r);

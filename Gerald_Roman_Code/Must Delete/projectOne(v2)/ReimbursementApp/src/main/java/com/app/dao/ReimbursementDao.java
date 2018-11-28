@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,20 +71,12 @@ public class ReimbursementDao implements DAO<Reimbursement, Integer> {
 	public Reimbursement save(Reimbursement obj) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String sql = "INSERT INTO ERS_REIMBURSEMENT (REIMB_AMOUNT, REIM_SUBMITTED, REIMB_DESCRIPTION, REIMB_AUTHOR, REIMB_STATUS_ID, REIMB_TYPE_ID)"
-					+ "VALUES(?,?,?,?,?,?)";
-		
-			String[] keyNames = { "REIMB_ID" };// need to change;
+			String sql = "INSERT INTO ERS_REIMBURSEMENT (REIMB_AMOUNT, REIM_SUBMITTED, REIMB_RESOLVED, REIMB_DESCRIPTION, REIMB_RECEIPT, REIMB_AUTHOR, REIMB_RESOLVER, REIMB_STATUS_ID, REIMB_TYPE_ID)"
+					+ "VALUES(?,?,?,?,?,?,?,?,?)";
+
+			String[] keyNames = { "ID" };// need to change;
 			PreparedStatement ps = conn.prepareStatement(sql, keyNames);
-		
-			ps.setDouble(1, obj.getAmount());
-			ps.setTimestamp(2, obj.getSubmitted());
-			ps.setString(3, obj.getDescription());
-			ps.setInt(4, obj.getAuthor());
-			ps.setInt(5, obj.getStatusId());
-			ps.setInt(6, obj.getTypeId());
-			
-/*
+
 			ps.setDouble(1, obj.getAmount());
 			ps.setTimestamp(2, obj.getSubmitted());
 			ps.setTimestamp(3, obj.getResolved());
@@ -94,7 +85,7 @@ public class ReimbursementDao implements DAO<Reimbursement, Integer> {
 			ps.setInt(6, obj.getResolver());
 			ps.setInt(7, obj.getStatusId());
 			ps.setInt(8, obj.getTypeId());
-*/
+
 			int numRows = ps.executeUpdate();
 			if (numRows == 1) {
 				ResultSet pk = ps.getGeneratedKeys();

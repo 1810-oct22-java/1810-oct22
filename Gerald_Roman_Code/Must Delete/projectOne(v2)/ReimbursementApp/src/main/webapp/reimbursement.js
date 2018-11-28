@@ -69,7 +69,7 @@ function addReimbursement() {
 			//appendToReimbursementsList(obj);
 		}
 	}
-	xhr.open("POST", "reimbursement",true);
+	xhr.open("POST", "reimbursement");
 	xhr.setRequestHeader("Content-Type", "application/json");
 	console.log(toSend);
 	xhr.send(toSend);
