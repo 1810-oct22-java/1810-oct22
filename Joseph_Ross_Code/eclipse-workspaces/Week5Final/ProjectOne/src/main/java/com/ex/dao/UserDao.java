@@ -56,7 +56,7 @@ public class UserDao {
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			String query = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR = " + user.getUserId();
+			String query = "SELECT REIMB_ID,REIMB_AMOUNT,REIMB_SUBMITTED,REIMB_RESOLVED,REIMB_DESCRIPTION,ERS_USERS.ERS_USERNAME,REIMB_TYPE,REIMB_STATUS FROM ERS_REIMBURSEMENT JOIN ERS_USERS ON ERS_USERS.ERS_USERS_ID = ERS_REIMBURSEMENT.REIMB_AUTHOR JOIN ERS_REIMBURSEMENT_TYPE ON ERS_REIMBURSEMENT.REIMB_TYPE_ID = ERS_REIMBURSEMENT_TYPE.REIMB_TYPE_ID JOIN ERS_REIMBURSEMENT_STATUS ON ERS_REIMBURSEMENT.RERIMB_STATUS_ID = ERS_REIMBURSEMENT_STATUS.REIMB_STATUS_ID WHERE REIMB_AUTHOR = " + user.getUserId();
 			
 			Statement stm = conn.createStatement();
 			
@@ -66,15 +66,13 @@ public class UserDao {
 			
 			while(rs.next()) {
 				ReimbursementEntry temp = new ReimbursementEntry();
-				//temp.setReimbId(rs.getInt(1));
 				temp.setAmount(rs.getDouble(2));
 				temp.setTimeSubmitted(rs.getString(3));
 				temp.setTimeResolved(rs.getString(4));
 				temp.setDesc(rs.getString(5));
-				temp.setUserId(rs.getInt(7));
-				temp.setResolverId(rs.getInt(8));
-				temp.setStatusId(rs.getInt(9));
-				temp.setReimbTypeId(rs.getInt(10));
+				temp.setUsername(rs.getString(6));
+				temp.setType(rs.getString(7));
+				temp.setStatus(rs.getString(8));
 				reimbRecords.add(temp);
 			}
 		}
@@ -90,7 +88,7 @@ public class UserDao {
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			String query = "SELECT * FROM ERS_REIMBURSEMENT";
+			String query = "SELECT REIMB_ID,REIMB_AMOUNT,REIMB_SUBMITTED,REIMB_RESOLVED,REIMB_DESCRIPTION,ERS_USERS.ERS_USERNAME,REIMB_TYPE,REIMB_STATUS FROM ERS_REIMBURSEMENT JOIN ERS_USERS ON ERS_USERS.ERS_USERS_ID = ERS_REIMBURSEMENT.REIMB_AUTHOR JOIN ERS_REIMBURSEMENT_TYPE ON ERS_REIMBURSEMENT.REIMB_TYPE_ID = ERS_REIMBURSEMENT_TYPE.REIMB_TYPE_ID JOIN ERS_REIMBURSEMENT_STATUS ON ERS_REIMBURSEMENT.RERIMB_STATUS_ID = ERS_REIMBURSEMENT_STATUS.REIMB_STATUS_ID";
 			
 			Statement stm = conn.createStatement();
 			
@@ -103,10 +101,10 @@ public class UserDao {
 				temp.setTimeSubmitted(rs.getString(3));
 				temp.setTimeResolved(rs.getString(4));
 				temp.setDesc(rs.getString(5));
-				temp.setUserId(rs.getInt(7));
-				temp.setResolverId(rs.getInt(8));
-				temp.setStatusId(rs.getInt(9));
-				temp.setReimbTypeId(rs.getInt(10));
+				temp.setUsername(rs.getString(6));
+				temp.setType(rs.getString(7));
+				temp.setStatus(rs.getString(8));
+
 				reimbRecords.add(temp);
 			}
 		}

@@ -7,6 +7,9 @@ public class ReimbursementEntry {
 	private String timeSubmitted ;
 	private String timeResolved;
 	private String desc;
+	private String username;
+	private String type;
+	private String status;
 	private int userId;
 	private int resolverId;
 	private int statusId;
@@ -20,6 +23,9 @@ public class ReimbursementEntry {
 			String timeSubmitted,
 			String timeResolved,
 			String desc,
+			String username,
+			String type,
+			String status,
 			int userId,
 			int resolverId,
 			int statusId,
@@ -31,17 +37,46 @@ public class ReimbursementEntry {
 		this.timeSubmitted = timeSubmitted;
 		this.timeResolved = timeResolved;
 		this.desc = desc;
+		this.username = username;
+		this.type = type;
+		this.status = status;
 		this.userId = userId;
 		this.resolverId = resolverId;
 		this.statusId = statusId;
 		this.reimbTypeId = reimbTypeId;
 	}
 	
+
 	@Override
 	public String toString() {
 		return "ReimbursementEntry [reimbId=" + reimbId + ", amount=" + amount + ", timeSubmitted=" + timeSubmitted
-				+ ", timeResolved=" + timeResolved + ", desc=" + desc + ", userId=" + userId + ", resolverId="
-				+ resolverId + ", statusId=" + statusId + ", reimbTypeId=" + reimbTypeId + "]";
+				+ ", timeResolved=" + timeResolved + ", desc=" + desc + ", username=" + username + ", type=" + type
+				+ ", status=" + status + ", userId=" + userId + ", resolverId=" + resolverId + ", statusId=" + statusId
+				+ ", reimbTypeId=" + reimbTypeId + "]";
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public int getReimbId() {

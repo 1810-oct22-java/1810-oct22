@@ -105,8 +105,10 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
       
               table.$('tr.selected').removeClass('selected');
               $(this).addClass('selected');
+
+
       
-              if($(this).children().eq(5).text() == "1"){
+              if($(this).children().eq(5).text() == "PENDING"){
                 self.selectedReimbId = $(this).children().eq(0).text();
       
                 $('#approve-btn').prop( "disabled", false );
@@ -135,16 +137,16 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
           data: 'desc'
         },
         {
-          title: 'User Id',
-          data: 'userId'
+          title: 'Username',
+          data: 'username'
         },
         {
           title: 'Status',
-          data: 'statusId'
+          data: 'status'
         },
         {
           title: 'Type',
-          data: 'reimbTypeId'
+          data: 'type'
         },
       ]
     };
@@ -170,7 +172,7 @@ export class ManagerComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       type: 'POST',
       success: function (response: String) {
-        //self.rerender();
+        self.rerender();
 
         $('#approve-btn').prop( "disabled", true );
         $('#deny-btn').prop( "disabled", true );

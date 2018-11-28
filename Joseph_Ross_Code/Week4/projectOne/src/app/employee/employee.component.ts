@@ -102,11 +102,11 @@ export class EmployeeComponent implements AfterViewInit, OnDestroy, OnInit {
         },
         {
           title: 'Status',
-          data: 'statusId'
+          data: 'status'
         },
         {
           title: 'Type',
-          data: 'reimbTypeId'
+          data: 'type'
         },
       ]
     };
@@ -120,6 +120,7 @@ export class EmployeeComponent implements AfterViewInit, OnDestroy, OnInit {
 
     if(this.dollarAmount == null){
       alert("Please enter a dollar amount!");
+      return;
     }
 
     if(this.dollarAmount <= 0){
@@ -134,10 +135,12 @@ export class EmployeeComponent implements AfterViewInit, OnDestroy, OnInit {
 
     if(this.description.length > 250){
       alert("Description must be less that 251 characters!");
+      return;
     }
 
     if(this.typeToIndex() == '0'){
       alert("Please select a valid type!");
+      return;
     }
 
     $.ajax({
