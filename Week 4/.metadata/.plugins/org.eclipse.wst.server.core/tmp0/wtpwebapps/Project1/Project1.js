@@ -174,14 +174,14 @@ function loadPendingReimbs(){
 			for (let r of reimbs) {
 				let ts = new Date(r.submitted);
 				let date = formatDate(ts);
-				var th = $(`<tr>
-					<td>${r.author}</td>
+				var th = $(`<tr class="table-light">
+					<td>${r.authorln}</td>
 					<td>${date}</td>
 					<td>${r.description}</td>
 					<td>$${r.amount}</td>
 					<td>
-					<button value ="${r.id}" class = "approve btn btn-info">Approve</button>
-					<button value ="${r.id}" class = "deny btn btn-info">Deny</button>
+					<button value ="${r.id}" class = "approve btn btn-success">Approve</button>
+					<button value ="${r.id}" class = "deny btn btn-danger">Deny</button>
 					</td>
 					</tr>`);
 				$('#pendReimbList tr:last').after(th);
@@ -264,7 +264,7 @@ function loadOldReimbs(){
 				if (r.status=="2") {
 					var status = "Approved";
 					var th = $(`<tr class="table-success">
-							<td>${r.author}</td>
+							<td>${r.authorln}</td>
 							<td>${date}</td>
 							<td>${r.description}</td>
 							<td>$${r.amount}</td>
@@ -275,7 +275,7 @@ function loadOldReimbs(){
 				else {
 					var status = "Denied";
 					var th = $(`<tr class="table-danger">
-							<td>${r.author}</td>
+							<td>${r.authorln}</td>
 							<td>${date}</td>
 							<td>${r.description}</td>
 							<td>$${r.amount}</td>

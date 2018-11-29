@@ -13,7 +13,7 @@ public class Reimbursement {
 	private int resolver;
 	private int status;
 	private int type;
-	
+	private String authorln;
 	
 	public int getId() {
 		return id;
@@ -68,6 +68,12 @@ public class Reimbursement {
 	}
 	public void setType(int type) {
 		this.type = type;
+	}
+	public String getAuthorln() {
+		return authorln;
+	}
+	public void setAuthorln(String authorln) {
+		this.authorln = authorln;
 	}
 	@Override
 	public String toString() {

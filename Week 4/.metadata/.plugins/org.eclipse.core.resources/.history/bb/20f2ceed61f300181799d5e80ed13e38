@@ -1,0 +1,11 @@
+<div class="jumbotron text-center">
+
+ <h1 class="display-4">Login</h1>
+	<input type="text" id="username" class="form-control col-6" placeholder = "username">
+	<input type="password" id="password" class="form-control col-6" placeholder = "password">
+	<br>
+	<button id ="LogIn" class = "btn btn-dark">Log In</button>
+	<button id ="Register" class = "btn btn-link">or register</button>
+	
+
+</div>
