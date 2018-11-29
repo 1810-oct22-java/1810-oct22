@@ -63,6 +63,24 @@
 		
 		function reimbursementList (r) {
 			console.log('generating list')
+			let sId = ""
+			let tId = ""
+			if (r.status_id === 1) {
+				sId = "Pending"
+			} else if (r.status_id === 2) {
+				sId = "Approved"
+			} else if (r.status_id === 3) {
+				sId = "Denied"
+			}
+ 			if (r.type_id === 1) {
+				tId = "Lodging"
+			} else if (r.type_id === 2) {
+				tId = "Travel"
+			} else if (r.type_id === 3) {
+				tId = "Food"
+			} else if (r.type_id === 4) {
+				tId = "Other"
+			}
 			var data = $(`
 				<tr>
 					<th scope="row">${r.id}</th>
@@ -72,12 +90,8 @@
 					<td>${r.description}</td>
 					<td>${r.author}</td>
 					<td>${r.resolver}</td>
-					<td>${r.status_id}</td>
-					<td>${r.type_id}</td>
-					<td>
-						<button class="fa fa-check"></button>
-						<button class="fa fa-times"></button>
-					</td>
+					<td>${sId}</td>
+					<td>${tId}</td>
 				</tr>
 			`)
 			$('#reimbursementsList').append(data);
@@ -97,7 +111,6 @@
 				<th scope="col">Resolver</th>
 				<th scope="col">Status</th>
 				<th scope="col">Type</th>
-				<th scope="col">Approve/Deny</th>
 			</tr>
 		</thead>
 		<tbody id='reimbursementsList'>
