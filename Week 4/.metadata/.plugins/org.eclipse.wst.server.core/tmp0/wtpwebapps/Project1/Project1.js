@@ -92,6 +92,7 @@ function loadRegisterView() {
 			//do things w/ response
 			$('#view').html(xhr.responseText);
 			$('#RegisterNew').on("click",register);
+			$('#Return').on("click",loadLoginView);
 		}
 	}
 	xhr.open("GET", "register.view", true);
