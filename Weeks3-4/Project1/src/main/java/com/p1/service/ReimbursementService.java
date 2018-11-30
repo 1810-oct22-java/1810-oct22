@@ -46,11 +46,10 @@ public class ReimbursementService {
 		return r;
 	}
 	
-	public static void updateStatus(int id, int status) {
+	public void updateStatus(int id, int status, Timestamp resolved) {
 		Reimbursement r = reimDao.findById(id);
 		r.setStatus_id(status);
 		reimDao.update(r);
 	}
-
 
 }

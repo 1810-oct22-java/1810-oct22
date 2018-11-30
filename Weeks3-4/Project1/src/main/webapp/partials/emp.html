@@ -2,10 +2,17 @@
 <div>
 
 	<h1>Create Reimbursement Request</h1>
-	<input type="number" id="amount" placeholder="Amount"> 
-	<input type="text" id="description" placeholder="Description"> 
-	<input type="text" id="type" placeholder="Type">
-	<button id="createReimBtn">Create Reimbursement</button>
+	<div class="form-group col-3">
+		<input type="number" id="amount" placeholder="Amount"> 
+		<input type="text" id="description" placeholder="Description">
+		<select class="form-control" id="type">
+			<option value="1">Lodging</option>
+			<option value="2">Travel</option>
+			<option value="3">Food</option>
+			<option value="4">Other</option>
+		</select>
+		<button id="createReimBtn">Create Reimbursement</button>
+	</div>
 
 	<script>
 		$(() => {

@@ -2,6 +2,7 @@ package com.p1.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -60,7 +61,8 @@ public class EmployeeServlet extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
-		rService.updateStatus(r.getId(), r.getStatus_id());
+		rService.updateStatus(r.getId(), r.getStatus_id(), timestamp);
 	}
 }

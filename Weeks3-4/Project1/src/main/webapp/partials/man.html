@@ -1,4 +1,8 @@
-
+<style>
+	h1 {
+		text-align: -webkit-center;
+	}
+</style>
 <div>
 
 	<script>
@@ -16,6 +20,24 @@
 					for(let r of reimbursements) {
 						reimbursementList(r)
 					}
+				}
+			}
+			xhr.open("GET", "employee");
+			xhr.send();
+		}
+		
+		function loadReimbursements2 () {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					console.log('1', xhr.responseText);
+					let reimbursements = JSON.parse(xhr.responseText);
+					console.log('2', reimbursements)
+					for(let r of reimbursements) {
+						reimbursementList(r)
+					}
+					$("#reimbursementsList tr").remove()
+					loadReimbursements()
 				}
 			}
 			xhr.open("GET", "employee");
@@ -54,8 +76,8 @@
 					<td id = "status${r.id}">${sId}</td>
 					<td>${tId}</td>
 					<td>
-						<button class="fa fa-check" onclick="updateStatus(${r.id}, 1)"></button>
-						<button class="fa fa-times" onclick="updateStatus(${r.id}, 2)"></button>
+						<button class="fa fa-check" onclick="updateStatus(${r.id}, 2)"></button>
+						<button class="fa fa-times" onclick="updateStatus(${r.id}, 3)"></button>
 					</td>
 				</tr>
 			`)
@@ -65,12 +87,14 @@
 		function updateStatus(id, status) {
 			const info = {
 					id,
-					status_id: status
+					status_id: status,
+					resolved: Date.now()
 			}
 			const xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4 && xhr.status == 200){
 					$(`status${id}`).html(status)
+					loadReimbursements2()
 				}
 			}
 			xhr.open("PUT", "employee", true)
@@ -81,6 +105,7 @@
 		
 	</script>
 
+	<h1>Reimbursement List</h1>
 
 	<table class="table">
 		<thead>
