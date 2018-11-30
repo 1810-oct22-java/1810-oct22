@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoadHomeViewServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//req.getRequestDispatcher("partials/home.html");
-		req.getRequestDispatcher("home.view");
+		req.getRequestDispatcher("partials/home.html");
+		
 	}
 }

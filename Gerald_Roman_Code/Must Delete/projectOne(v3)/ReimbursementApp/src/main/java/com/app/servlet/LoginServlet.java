@@ -34,24 +34,15 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userId", checkUser.getUserId());
 			session.setAttribute("roleId", checkUser.getRoleId());
 			logger.trace("ADDING USER TO SESSION: " + session.getId());
-			//resp.sendRedirect("home.view");
-			//resp.sendRedirect("employee.view");
-			if(u.getRoleId() == 1) {
-				resp.sendRedirect("employee.view");
-				//resp.sendRedirect("partials/employee.html");
-				}
-			else{
-				//resp.sendRedirect("partials/manager.html");
-				resp.sendRedirect("manager.view");
-			}
-
+			resp.sendRedirect("home.view");
+//			if(roleId == "1") {	}
 		}
 
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//req.getRequestDispatcher("login.view").forward(req, resp);
+		//req.getRequestDispatcher("login.html").forward(req, resp);
 		req.getRequestDispatcher("login").forward(req, resp);
 	}
 

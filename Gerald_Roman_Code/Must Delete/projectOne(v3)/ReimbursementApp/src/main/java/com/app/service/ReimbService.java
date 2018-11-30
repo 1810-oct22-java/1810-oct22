@@ -27,16 +27,4 @@ public class ReimbService {
 		return reimbDao.findById(id);
 	}
 
-	/*
-	 * public List<Reimbursement> findUser(int id) { return reimbDao.findById(id); }
-	 */
-	public static void updateStatus(int id, int status) {
-		Reimbursement obj = reimbDao.findById(id);
-		obj.setStatusId(status);
-		reimbDao.update(obj);
-	}
-//	public static Reimbursement findUser(int id) {
-//		return reimbDao.findById(id);
-//	}
-
 }

@@ -9,7 +9,6 @@ public class Type {
     /**
      * @return int return the typeId
      */
-    
     public int getTypeId() {
         return typeId;
     }
