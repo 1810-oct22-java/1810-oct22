@@ -103,7 +103,6 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer> {
 
 	@Override
 	public void delete(Reimbursement obj) {
-
 	}
 
 	@Override

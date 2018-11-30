@@ -12,8 +12,8 @@ public class ReimbursementService {
 	
 //	public static void main(String[] args) {
 //		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//		Reimbursement r = new Reimbursement(38, timestamp,timestamp,"sdf",2,1,1,1);
-//		createReimbursement(r);
+//		Reimbursement r = new Reimbursement(38, timestamp,timestamp,"sevefvefefvdf",2,1,1,1);
+//		createReimbursement(38, timestamp, timestamp, "sddsfssd", 2,1,1,1);
 //		System.out.println(getRmbByAuthor(2));
 //		System.out.println(getAllRmbs());
 //		System.out.println(getRmbById(1));

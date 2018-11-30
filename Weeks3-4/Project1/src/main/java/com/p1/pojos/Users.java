@@ -12,8 +12,9 @@ public class Users {
 	
 	public Users() {}
 
-	public Users(String username, String password, String first_name, String last_name, String email, int role_id) {
+	public Users(int users_id, String username, String password, String first_name, String last_name, String email, int role_id) {
 		super();
+		this.users_id = users_id;
 		this.username = username;
 		this.password = password;
 		this.first_name = first_name;
