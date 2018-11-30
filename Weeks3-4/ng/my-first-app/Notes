@@ -1,0 +1,26 @@
+( )=" " Event Binding
+[ ]=" " Property Binding
+[(ngModel)]="name of variable that it binds" Two way Binding requires form model
+Directive: a means to provide custom behavoir to hmtl
+ngIf
+ngFor
+ngSwitch
+
+Gaurd function blocks things from following a route
+
+Modules/Dependency Injection
+    code spliting
+        break up js into chunks that you send when they're needed instead of loading everything at once
+        loads what you need faster
+        saves data because if you don't need something you never get it
+    Seperation of Concerns
+        Modules split code into chunks and those chunks can refrenece eachother so they don't have to duplicate code
+        Services can be used in different components so you don't need to duplicate code
+            Services
+                provide in: root means manage me like a singleton and pass me where I'm needed
+                putting a service in a component constructor tells it it's a dependency
+                Single source of truth
+                    data that many elements access but is held in one location
+            A lifecycle hook is something you import like OnInit which is an interface that you can implement
+
+When a page is loaded the app-root is "bootstraped" in

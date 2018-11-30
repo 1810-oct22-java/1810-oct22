@@ -16,3 +16,13 @@ Demo:
 <button (click)="toggleIf()">Test ngIf</button>
 <div *ngIf="showIf">Using ngIf!</div>
 
+<hr>
+<b>ngFor
+</b>
+<ul>
+  <li *ngFor="let n of numArr">{{n}}</li>
+</ul>
+<b>ngSwitch</b>
+<ul *ngFor="let e of employees" [ngSwitch]="e.role">
+  <li *ngSwitch></li>
+</ul>

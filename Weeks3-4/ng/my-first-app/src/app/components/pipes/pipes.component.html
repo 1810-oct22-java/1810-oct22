@@ -1,3 +1,11 @@
-<p>
-  pipes works!
-</p>
+pipes ||
+
+<input type="text" [(ngModel)]="text" >
+{{ text | uppercase}}
+<br>
+current time is:
+{{currentTime}}
+formated time:
+{{currentTime | date:'medium'|uppercase}}
+<br>
+Money{{1000|currency}}
