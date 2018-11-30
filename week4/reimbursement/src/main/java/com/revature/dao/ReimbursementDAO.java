@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,17 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.pojo.Reimbursement;
+import com.revature.pojo.Transaction;
 import com.revature.util.ConnectionFactory;
 
 public class ReimbursementDAO implements DAO<Reimbursement, Integer> {
 
 	@Override
 	public List findAll() {
-		List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+		List<Transaction> reimbursements = new ArrayList<Transaction>();
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			System.out.println("inside try");
-			String query = "select * from ERS_REIMBURSEMENT order by REIMB_ID";
+			String query = "SELECT ER.REIMB_ID, EU.ERS_USERNAME, ER.REIMB_AMOUNT, ER.REIMB_DESCRIPTION, ER.REIMB_RESOLVED, ER.REIMB_SUBMITTED, ERS.REIMB_STATUS, ERT.REIMB_TYPE, EUR.ERS_USERNAME FROM ERS_REIMBURSEMENT ER\r\n"
+					+ "JOIN ERS_REIMBURSEMENT_STATUS ERS ON ER.REIMB_STATUS_ID = ERS.REIMB_STATUS_ID\r\n"
+					+ "JOIN ERS_REIMBURSEMENT_TYPE ERT ON ER.REIMB_TYPE_ID = ERT.REIMB_TYPE_ID\r\n"
+					+ "JOIN ERS_USERS EU ON ER.REIMB_AUTHOR = EU.ERS_USERS_ID "
+					+ "JOIN ERS_USERS EUR ON ER.REIMB_RESOLVER = EUR.ERS_USERS_ID " + "ORDER BY ER.REIMB_ID";
 
 			// STATEMENT INTERFACE - implementation exposed via connection
 			Statement statement = conn.createStatement();
@@ -29,16 +35,17 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer> {
 
 			// returns false when there are no more rows in result set
 			while (rs.next()) {
-				Reimbursement temp = new Reimbursement();
+				Transaction temp = new Transaction();
 				temp.setReimbID(rs.getInt(1));
-				temp.setReimbAmount(rs.getDouble(2));
-				temp.setReimbSubmitted(rs.getDate(3));
-				temp.setReimbResolved(rs.getDate(4));
-				temp.setReimbDescription(rs.getString(5));
-				temp.setReimbAuthor(rs.getInt(7));
-				temp.setReimbResolver(rs.getInt(8));
-				temp.setReimbStatusID(rs.getInt(9));
-				temp.setReimbTypeID(rs.getInt(10));
+				temp.setReimbAuthor(rs.getString(2));
+				temp.setReimbAmount(rs.getInt(3));
+				temp.setReimbDescription(rs.getString(4));
+				temp.setReimbResolved(rs.getDate(5));
+				temp.setReimbSubmitted(rs.getDate(6));
+				System.out.println(temp.getReimbSubmitted());
+				temp.setReimbStatus(rs.getString(7));
+				temp.setReimbType(rs.getString(8));
+				temp.setReimbResolver(rs.getString(9));
 				reimbursements.add(temp);
 			}
 
@@ -63,13 +70,14 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer> {
 				System.out.println(r.getReimbID());
 				r.setReimbAmount(rs.getDouble(2));
 				r.setReimbSubmitted(rs.getDate(3));
+				
 				r.setReimbResolved(rs.getDate(4));
 				r.setReimbDescription(rs.getString(5));
 				r.setReimbAuthor(rs.getInt(7));
 				r.setReimbResolver(rs.getInt(8));
 				r.setReimbStatusID(rs.getInt(8));
 				r.setReimbTypeID(rs.getInt(10));
-				
+
 			}
 
 		} catch (SQLException e) {
@@ -112,13 +120,15 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer> {
 		return obj;
 	}
 
-	public Reimbursement update(int id, int status) {
+	public Reimbursement update(int id, int status, int user, Date date) {
 		System.out.println("update dao method");
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "update ERS_REIMBURSEMENT set REIMB_STATUS_ID = ? where REIMB_ID= ?";
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "update ERS_REIMBURSEMENT set REIMB_STATUS_ID = ?, REIMB_RESOLVER = ?, REIMB_RESOLVED = ? where REIMB_ID= ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, status);
-			ps.setInt(2, id);
+			ps.setInt(2, user);
+			ps.setDate(3, date);
+			ps.setInt(4, id);
 			ps.executeUpdate();
 			System.out.println("finished update");
 		} catch (SQLException e) {
@@ -141,28 +151,35 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer> {
 		return null;
 	}
 
-	public List<Reimbursement> findAll(int id) {
-		List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+	public List<Transaction> findAll(int id) {
+		List<Transaction> reimbursements = new ArrayList<Transaction>();
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			System.out.println("inside try");
-			String sql = "select * from ERS_REIMBURSEMENT where REIMB_AUTHOR=?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			String query = "SELECT ER.REIMB_ID, EU.ERS_USERNAME, ER.REIMB_AMOUNT, ER.REIMB_DESCRIPTION, ER.REIMB_RESOLVED, ER.REIMB_SUBMITTED, ERS.REIMB_STATUS, ERT.REIMB_TYPE, EUR.ERS_USERNAME FROM ERS_REIMBURSEMENT ER\r\n"
+					+ "JOIN ERS_REIMBURSEMENT_STATUS ERS ON ER.REIMB_STATUS_ID = ERS.REIMB_STATUS_ID\r\n"
+					+ "JOIN ERS_REIMBURSEMENT_TYPE ERT ON ER.REIMB_TYPE_ID = ERT.REIMB_TYPE_ID\r\n"
+					+ "JOIN ERS_USERS EU ON ER.REIMB_AUTHOR = EU.ERS_USERS_ID "
+					+ "JOIN ERS_USERS EUR ON ER.REIMB_RESOLVER = EUR.ERS_USERS_ID " + "WHERE ER.REIMB_AUTHOR = ?";
+
+			String[] keyNames = { "Reimb_Id" };
+
+			PreparedStatement ps = conn.prepareStatement(query, keyNames);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
 			// returns false when there are no more rows in result set
 			while (rs.next()) {
-				Reimbursement temp = new Reimbursement();
+				Transaction temp = new Transaction();
 				temp.setReimbID(rs.getInt(1));
-				temp.setReimbAmount(rs.getDouble(2));
-				temp.setReimbSubmitted(rs.getDate(3));
-				temp.setReimbResolved(rs.getDate(4));
-				temp.setReimbDescription(rs.getString(5));
-				temp.setReimbAuthor(rs.getInt(7));
-				temp.setReimbResolver(rs.getInt(8));
-				temp.setReimbStatusID(rs.getInt(9));
-				temp.setReimbTypeID(rs.getInt(10));
+				temp.setReimbAuthor(rs.getString(2));
+				temp.setReimbAmount(rs.getInt(3));
+				temp.setReimbDescription(rs.getString(4));
+				temp.setReimbResolved(rs.getDate(5));
+				temp.setReimbSubmitted(rs.getDate(6));
+				temp.setReimbStatus(rs.getString(7));
+				temp.setReimbType(rs.getString(8));
+				temp.setReimbResolver(rs.getString(9));
 				reimbursements.add(temp);
 			}
 
@@ -170,6 +187,6 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer> {
 			e.printStackTrace();
 		}
 		return reimbursements;
-	}
 
+	}
 }

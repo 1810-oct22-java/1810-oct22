@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.pojo.Reimbursement;
 import com.revature.pojo.StatusChange;
+import com.revature.pojo.Transaction;
 import com.revature.pojo.User;
 import com.revature.service.ReimbursementService;
 import com.revature.service.StatusService;
@@ -39,7 +40,7 @@ public class ReimbursementServlet extends HttpServlet {
 		 * convert the ids into their respective names
 		 * add a button to change a reimbursement 
 		 */
-		List<Reimbursement> reimbursements;
+		List<Transaction> reimbursements;
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("user");
 		log.trace("USER ROLE " + user.getRoleID());
@@ -78,9 +79,13 @@ public class ReimbursementServlet extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		log.trace("UPDATING STATUS");
+		java.sql.Date date = new Date(Calendar.getInstance().getTime().getTime());
+		HttpSession session = req.getSession();
+		User user = (User) session.getAttribute("user");
+		
 		ObjectMapper mapper = new ObjectMapper();
 		StatusChange sc = mapper.readValue(req.getInputStream(), StatusChange.class);
-		log.trace("SENDING ID: " + sc.getId() + " AND STATUS " + sc.getStatus()); 
-		rService.changeStatus(sc.getId(), sc.getStatus());
+		log.trace("SENDING ID: " + sc.getId() + " AND STATUS " + sc.getStatus() + " AND USER " + user.getUserID() + " AND DATE " + date); 
+		rService.changeStatus(sc.getId(), sc.getStatus(), user.getUserID(),date);
 	}
 }

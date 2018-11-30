@@ -6,11 +6,23 @@ window.onload = function (){
 }
 
 function getReimbursements(){
+	var table = document.getElementById("table");
+	while (table.firstChild) {
+	    table.removeChild(table.firstChild);
+	}
+	var aTable = document.getElementById("approvedTable");
+	while (aTable.firstChild) {
+	    aTable.removeChild(aTable.firstChild);
+	}
+	var dTable = document.getElementById("deniedTable");
+	while (dTable.firstChild) {
+	    dTable.removeChild(dTable.firstChild);
+	}
+	
 	console.log("in function");
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			console.log(xhr.responseText);
 			let reimbursements = JSON.parse(xhr.responseText);
 			for(let r of reimbursements){
 				appendToReimbursementList(r);
@@ -21,19 +33,55 @@ function getReimbursements(){
 	xhr.send();
 }
 function appendToReimbursementList(r){
-	console.log(r.reimbStatusID);
+	console.log(r);
+	if(r.reimbStatus == "PENDING"){
+		var td = 
+			$(`<tr>
+				<td>${r.reimbID}</td>
+				<td>${r.reimbAmount}</td>
+				<td id="statID${r.reimbID}">${r.reimbStatus}</td>
+				<td>${r.reimbType}</td>
+				<td>${r.submittedString}</td>
+				<td>${r.reimbDescription}</td>
+				<td>${r.reimbAuthor}</td>
+				<td><button onclick="approve(${r.reimbID},1)">approve</button></td>
+				<td><button onclick="approve(${r.reimbID},2)">deny</button></td>
+			</tr>`);
+		$('#table').append(td);
+		}
 	var td = 
 		$(`<tr>
 			<td>${r.reimbID}</td>
 			<td>${r.reimbAmount}</td>
-			<td id="statID${r.reimbID}">${r.reimbStatusID}</td>
-			<td>${r.reimbTypeID}</td>
-			<td><button onclick="approve(${r.reimbID},1)">approve</button></td>
-			<td><button onclick="approve(${r.reimbID},2)">deny</button></td>
+			<td id="statID${r.reimbID}">${r.reimbStatus}</td>
+			<td>${r.reimbType}</td>
+			<td>${r.submittedString}</td>
+			<td>${r.reimbDescription}</td>
+			<td>${r.reimbAuthor}</td>
+			<td>${r.reimbResolver}</td>
+			<td>${r.resolvedString}</td>
 		</tr>`);
-	$('#table').append(td);
+		if(r.reimbStatus == "APPROVED"){
+			$('#approvedTable').append(td);
+			}
+		if(r.reimbStatus == "DENIED"){
+			$('#deniedTable').append(td);
+			}
+		
 }
 function getUserReimbursements(){
+	var table = document.getElementById("table");
+	while (table.firstChild) {
+	    table.removeChild(table.firstChild);
+	}
+	var aTable = document.getElementById("approvedTable");
+	while (aTable.firstChild) {
+	    aTable.removeChild(aTable.firstChild);
+	}
+	var dTable = document.getElementById("deniedTable");
+	while (dTable.firstChild) {
+	    dTable.removeChild(dTable.firstChild);
+	}
 	console.log("in function");
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
@@ -50,21 +98,46 @@ function getUserReimbursements(){
 }
 function appendToUserReimbursementList(r){
 	console.log(r.reimbStatusID);
+	
+	if(r.reimbStatus == "PENDING"){
+		var td = 
+			$(`<tr>
+				<td>${r.reimbID}</td>
+				<td>${r.reimbAmount}</td>
+				<td id="statID${r.reimbID}">${r.reimbStatus}</td>
+				<td>${r.reimbType}</td>
+				<td>${r.submittedString}</td>
+				<td>${r.reimbDescription}</td>
+				<td>${r.reimbAuthor}</td>
+			</tr>`);
+	$('#table').append(td);
+	}
 	var td = 
 		$(`<tr>
 			<td>${r.reimbID}</td>
 			<td>${r.reimbAmount}</td>
-			<td id="statID${r.reimbID}">${r.reimbStatusID}</td>
-			<td>${r.reimbTypeID}</td>
+			<td id="statID${r.reimbID}">${r.reimbStatus}</td>
+			<td>${r.reimbType}</td>
+			<td>${r.submittedString}</td>
+			<td>${r.reimbDescription}</td>
+			<td>${r.reimbAuthor}</td>
+			<td>${r.reimbResolver}</td>
+			<td>${r.resolvedString}</td>
 		</tr>`);
-	$('#table').append(td);
+	if(r.reimbStatus == "APPROVED"){
+		$('#approvedTable').append(td);
+		}
+	if(r.reimbStatus == "DENIED"){
+		$('#deniedTable').append(td);
+		}
+	
 }
 function loadHomeView(){
 	console.log("loading home");
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			//do things w response
+			// do things w response
 			console.log(xhr.responseText);
 			$('#view').html(xhr.responseText);
 			$('#loginbtn').on('click', login);
@@ -79,7 +152,7 @@ function loadPoolView(){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			//do things w response
+			// do things w response
 			console.log(xhr.responseText);
 			console.log("before view is loaded")
 			$('#view').html(xhr.responseText);
@@ -109,9 +182,7 @@ function login(){
 	
 	xhr.onreadystatechange = function (){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			getUser();
 			$('#view').html(xhr.responseText);
-			getReimbursements();
 			$('#newRe').on('click', newRequest);
 		}
 	}
@@ -135,7 +206,8 @@ function newRequest(){
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status==200){
-			getReimbursements();
+			
+			getUserReimbursements();
 		}
 	}
 	xhr.open("POST", "reimbursements", true);
@@ -156,7 +228,7 @@ function approve(rID,statusID){
 	
 	xhr.onreadystatechange = function (){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			$(`#statID${rID}`).html(statusID);
+			getReimbursements();
 		}
 	}
 	xhr.open("PUT", "reimbursements", true);
@@ -164,6 +236,13 @@ function approve(rID,statusID){
 	xhr.send(toSend);
 }
 
-function getUser(){
-	
+function logout(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+		}
+	}
+	xhr.open("GET", "logout", true);
+	xhr.send();	
 }
