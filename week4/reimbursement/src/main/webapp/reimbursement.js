@@ -97,7 +97,6 @@ function getUserReimbursements(){
 	xhr.send();
 }
 function appendToUserReimbursementList(r){
-	console.log(r.reimbStatusID);
 	
 	if(r.reimbStatus == "PENDING"){
 		var td = 
@@ -198,6 +197,16 @@ function newRequest(){
 			reimbAmount: $('#reAmount').val(),
 			reimbTypeID: $('#reType').val(),
 			reimbDescription: $('#reDes').val()
+	}
+	var a = $('#reAmount').val();
+	var b = $('#reType').val();
+	var c = $('#reDes').val();
+	if(a==null||a=="",b==null||b=="",c==null||c==""){
+		console.log($('#reAmount').val());
+		console.log($('#reType').val());
+		console.log($('#reDes').val());
+		alert("You didn't enter enough information");
+		return;
 	}
 	
 	var toSend = JSON.stringify(obj);
