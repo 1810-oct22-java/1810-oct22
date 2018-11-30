@@ -1,9 +1,15 @@
 <style>
-	h1 {
+	h1, div {
 		text-align: -webkit-center;
 	}
+	.fa-check {
+		color: green;
+	}
+	.fa-times {
+		color: red;
+	}
 </style>
-<div>
+<div class="jumbotron" >
 
 	<script>
 		$(() => {
@@ -48,6 +54,7 @@
 			console.log('generate rbm list')
 			let sId = ""
 			let tId = ""
+			let date = new Date(r.submitted)
 			if (r.status_id === 1) {
 				sId = "Pending"
 			} else if (r.status_id === 2) {
@@ -68,7 +75,7 @@
 				<tr>
 					<th scope="row">${r.id}</th>
 					<td>${r.amount}</td>
-					<td>${r.submitted}</td>
+					<td>${date}</td>
 					<td>${r.resolved}</td>
 					<td>${r.description}</td>
 					<td>${r.author}</td>

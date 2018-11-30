@@ -1,5 +1,10 @@
+<style>
+	div {
+		text-align: -webkit-center;
+	}
+</style>
 
-<div>
+<div class="jumbotron" >
 
 	<h1>Create Reimbursement Request</h1>
 	<div class="form-group col-3">
@@ -74,6 +79,7 @@
 			console.log('generating list')
 			let sId = ""
 			let tId = ""
+			let date = new Date(r.submitted)
 			if (r.status_id === 1) {
 				sId = "Pending"
 			} else if (r.status_id === 2) {
@@ -94,7 +100,7 @@
 				<tr>
 					<th scope="row">${r.id}</th>
 					<td>${r.amount}</td>
-					<td>${r.submitted}</td>
+					<td>${date}</td>
 					<td>${r.resolved}</td>
 					<td>${r.description}</td>
 					<td>${r.author}</td>
