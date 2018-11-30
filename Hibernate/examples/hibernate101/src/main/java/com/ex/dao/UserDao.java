@@ -1,6 +1,8 @@
 package com.ex.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -55,7 +57,6 @@ public class UserDao {
 	
 	//MERGE
 	
-	
 	/*
 	 * Session.get()
 	 * - returns persisted object with specified identifier
@@ -76,7 +77,7 @@ public class UserDao {
 	 * instance if you know its id. Load() take a class object and 
 	 * loads the state into a new instantiated instance of that 
 	 * class in a persistent state
-	 * - Load() will throw an unrecoverable exception if it attempts
+	 * - Load() will throw an ObjectNotFoundException if it attempts
 	 * to load a non existent row
 	 * - the method returns a proxy of the object and does not hit the
 	 * database until an object method is called (while session is still open). 
@@ -102,6 +103,13 @@ public class UserDao {
 		q.setParameter("param", username.toLowerCase());
 		u = (User) q.uniqueResult();
 		return u;
+	}
+	
+	public Set<User> findFollowers(User u){
+		Set<User> followerList = new HashSet<User>();
+		Session session = util.getSession();
+		Query q = session.createQuery("from User where ------------- "); //select from bidirectional mapping
+		return null;
 	}
 	
 	/*

@@ -13,12 +13,11 @@ public class App {
 	static PostDao postDao = new PostDao();
 	
 	public static void main(String[] args) {
-		
-		System.out.println("FINDING ALL");
-		List<User> users = dao.findAll();
-		for(User user : users) {
-			System.out.println(user);
+		List<Post> posts = postDao.getShortPosts();
+		for(Post p : posts) {
+			System.out.println(p);
 		}
+	
 	}
 	
 	static void testingMultiplicity() {

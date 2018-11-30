@@ -3,8 +3,6 @@
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 T
 $src/main/resources/hibernate.cfg.xml,3\1\3176feae82bf4ff4f68f72c9d6d3b850a3110c22
-R
-"src/main/java/com/ex/app/Main.java,8\a\8a3239bc6fa76ae3802387bf561d2b9170e24833
 ]
 -src/main/java/com/ex/util/ConnectionUtil.java,a\6\a64ba9b6f98f01b210601de30e36eaa3bfb33643
 U

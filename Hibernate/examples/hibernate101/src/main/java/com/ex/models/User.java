@@ -1,17 +1,29 @@
 package com.ex.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
+
 @Entity //registers class as entity in DB
 @Table(name="USERS")//allows further configuration of Table in DB
+@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -33,6 +45,16 @@ public class User implements Serializable {
 	
 	@Column(nullable=false, name="LAST_NAME")
 	private String lastname;
+	
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(name="Following", //@JoinTable is used to define the join/link table
+			joinColumns=@JoinColumn(name="USER_ID"), //specify the join/linking column with the main entity
+			inverseJoinColumns=@JoinColumn(name="FOLLOWING_ID")) //inverse side of the relationship 
+	private Set<User> following = new HashSet<User>();
+	
+	//do not need to map bidirectionally, but we want to be able to search both follower and following lists 
+	@ManyToMany(mappedBy="following", cascade=CascadeType.ALL) //refers to the collection on the inverse side of the relationship 
+	private Set<User> followers = new HashSet<User>();
 	
 	public User() {}
 	
@@ -82,6 +104,15 @@ public class User implements Serializable {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	
+	public Set<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Set<User> following) {
+		this.following = following;
 	}
 
 	@Override
