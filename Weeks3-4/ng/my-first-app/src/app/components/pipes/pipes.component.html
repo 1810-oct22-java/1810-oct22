@@ -6,5 +6,7 @@ Exploring cases with pipes:
 {{ text | uppercase}}
 <br>
 Times:  <br>
-Current Time is {{ currentTime }}
+Current Time is {{ currentTime }} <br>
 Formatted Time {{ currentTime | date:'medium' | uppercase }}
+<br>
+Money, {{ 1000 | currency}}
