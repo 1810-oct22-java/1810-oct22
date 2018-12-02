@@ -9,12 +9,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@NamedQueries({
+	@NamedQuery(name="getShortPosts", query = "FROM Post WHERE length(body) < 50"),
+	@NamedQuery(name="getLongPosts", query = "FROM Post WHERE length(body) > 250")
+})
+
 @Entity
 @Table(name="BLOG_POSTS")
+@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Post {
 	
 	@Id 
