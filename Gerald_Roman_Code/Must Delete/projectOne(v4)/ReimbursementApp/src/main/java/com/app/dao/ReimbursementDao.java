@@ -67,32 +67,7 @@ public class ReimbursementDao implements DAO<Reimbursement, Integer> {
 		}
 		return reimb;
 	}
-	
-	public List<Reimbursement> findByUser(Integer id) {
-		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
-		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Reimbursement reimb = new Reimbursement();
-				reimb.setId(rs.getInt(1));
-				reimb.setAmount(rs.getDouble(2));
-				reimb.setSubmitted(rs.getTimestamp(3));
-				reimb.setResolved(rs.getTimestamp(4));
-				reimb.setDescription(rs.getString(5));
-				reimb.setAuthor(rs.getInt(6));
-				reimb.setResolver(rs.getInt(7));
-				reimb.setStatusId(rs.getInt(8));
-				reimb.setTypeId(rs.getInt(9));
-				reimbs.add(reimb);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return reimbs;
-	}
+
 	@Override
 	public Reimbursement save(Reimbursement obj) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -110,6 +85,16 @@ public class ReimbursementDao implements DAO<Reimbursement, Integer> {
 			ps.setInt(5, obj.getStatusId());
 			ps.setInt(6, obj.getTypeId());
 			
+/*
+			ps.setDouble(1, obj.getAmount());
+			ps.setTimestamp(2, obj.getSubmitted());
+			ps.setTimestamp(3, obj.getResolved());
+			ps.setString(4, obj.getDescription());
+			ps.setInt(5, obj.getAuthor());
+			ps.setInt(6, obj.getResolver());
+			ps.setInt(7, obj.getStatusId());
+			ps.setInt(8, obj.getTypeId());
+*/
 			int numRows = ps.executeUpdate();
 			if (numRows == 1) {
 				ResultSet pk = ps.getGeneratedKeys();
@@ -127,15 +112,11 @@ public class ReimbursementDao implements DAO<Reimbursement, Integer> {
 	@Override
 	public Reimbursement update(Reimbursement obj) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			//conn.setAutoCommit(false);
-			String sql = "UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = ?,REIMB_STATUS_ID = ? WHERE REIMB_ID = ?";
+			String sql = "UPDATE ERS_REIMBURSEMENT SET REIMB_RESOLVED = ?,REIMB_RESOLVER = ?,REIMB_STATUS_ID = ? FROM ERS_ID = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setTimestamp(1, obj.getResolved());
-			//ps.setInt(2,obj.getResolver());
-			ps.setInt(2, obj.getStatusId());
-			//conn.commit();
-			ps.setInt(3, obj.getId());
-			ps.executeUpdate();
+			ps.setInt(2,obj.getResolver());
+			ps.setInt(3, obj.getStatusId());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

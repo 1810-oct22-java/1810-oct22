@@ -5,8 +5,6 @@ window.onload = function() {
 	$('#homeNav').on('click', loadHomeView);
 	$('#StatusNav').on('click', loadAuthorView);
 	$('#SubmitNav').on('click', loadSubmitionView);
-	loadStatusView()
-	loadAuthorView()
 	
 	/*
 	 * $('#loginNav').on('click', loadLoginView); $('#homeNav').on('click',
@@ -145,7 +143,7 @@ function getReimbursements(){
 		}
 	}
 	xhr.open("GET", "manager");
-	//xhr.open("GET", "reimbursement");
+	// xhr.open("GET", "reimbursement");
 	xhr.send();
 }
 
@@ -194,7 +192,7 @@ function getAuthorReimbursements(){
 			}
 		}
 	}
-	xhr.open("GET", "reimbursement");
+	xhr.open("GET", "manager");
 	xhr.send();
 }
 
@@ -209,7 +207,7 @@ function appendAuthorReimbursementsList(r){
 				<td>${r.author}</td>
 				<td>${r.resolver}</td>
 				<td id = "statusId${r.id}">${r.statusId}</td>
-				<td>${r.typeId}</td>
+				<td>${r.type}</td>
 				<td>
 				<button class="btn btn-primary" onclick="updateStatus(${r.id},0)">Denied</button>
 				<button class="btn btn-primary" onclick="updateStatus(${r.id},2)">Aproved</button>

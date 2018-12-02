@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.app.dao.ReimbursementDao;
 import com.app.pojo.Reimbursement;
 import com.app.service.ReimbService;
 import com.app.service.UserService;
@@ -23,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ReimbursementServlet extends HttpServlet {
 	private static Logger logger = Logger.getLogger(ReimbursementServlet.class);
 	static ReimbService reimbService = new ReimbService();
-	static ReimbursementDao reimbDao = new ReimbursementDao(); 
 	static UserService userService = new UserService();
 
 	@Override
@@ -50,13 +48,12 @@ public class ReimbursementServlet extends HttpServlet {
 		
 		int id = (int) session.getAttribute("userId");
 		
-		List<Reimbursement> reimb = (List<Reimbursement>) reimbDao.findByUser(id);
+		List<Reimbursement> reimb = (List<Reimbursement>) reimbService.findUser(id);
 		//Reimbursement reimb =  reimbService.findUser(id);
-		logger.trace("TABLE FOR INDIVIDUAL "+ reimb);
+		
 		String json = mapper.writeValueAsString(reimb);
 		PrintWriter write = resp.getWriter();
 		resp.setContentType("application/json");
-		logger.trace("JSON "+ json);
 		write.write(json);
 	}
 

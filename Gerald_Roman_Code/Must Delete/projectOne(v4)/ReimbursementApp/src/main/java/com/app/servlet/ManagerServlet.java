@@ -19,6 +19,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet("/manager")
 public class ManagerServlet extends HttpServlet {
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.getRequestDispatcher("manager.view").forward(req, resp);
+//        //req.getRequestDispatcher("partials/manager.html").forward(req, resp);
+//	}
+
 	static ReimbService reimbService = new ReimbService();
 	private static Logger logger = Logger.getLogger(ManagerServlet.class);
 
@@ -49,10 +55,8 @@ public class ManagerServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.trace("inside doPut");
 		ObjectMapper mapper = new ObjectMapper();
 		Reimbursement reimb = mapper.readValue(req.getInputStream(), Reimbursement.class);
-		logger.trace("INSIDE STATUS ID " + reimb.getStatusId());
-		reimbService.updateStatus(reimb.getId(), reimb.getStatusId());
+		reimbService.updateStatus( reimb.getId(), reimb.getStatusId());
 	}
 }

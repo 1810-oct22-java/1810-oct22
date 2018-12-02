@@ -34,6 +34,8 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userId", checkUser.getUserId());
 			session.setAttribute("roleId", checkUser.getRoleId());
 			logger.trace("ADDING USER TO SESSION: " + session.getId());
+			//resp.sendRedirect("home.view");
+			//resp.sendRedirect("employee.view");
 			if(u.getRoleId() == 1) {
 				resp.sendRedirect("employee.view");
 				//resp.sendRedirect("partials/employee.html");

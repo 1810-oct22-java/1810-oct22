@@ -27,7 +27,7 @@ button {
 	margin: 8px 0;
 	border: none;
 	cursor: pointer;
-	width: auto;
+	width: 100%;
 }
 
 .cancelbtn {
@@ -42,19 +42,15 @@ button {
 </style>
 </head>
 <body>
+	<title>Login Screen</title>
+	<div>
+		<input type="text" name="username" placeholder="Enter Username"
+			class="form-control col-4"> <input type="password"
+			placeholder="Enter Password" name="password"
+			class="form-control col-4">
+		<button class="btn btn-submit" id="btnLogin">Login</button>
+		<button class="cancelbtn" type="reset">Cancel</button>
 
-	<form>
-		<div class="container" id="loginPage">
-			<label for="username"><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" name="username" required> <label
-				for="password"><b>Password</b></label> <input type="password"
-				placeholder="Enter Password" name="password" required>
-		</div>
-
-		<div class="container" style="background-color: #f1f1f1">
-			<button type="submit" id="btnLogin">Login</button>
-			<button type="button" class="canclebtn">Cancel</button>
-		</div>
-	</form>
+	</div>
 </body>
 </html>
