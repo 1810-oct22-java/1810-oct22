@@ -1,35 +1,29 @@
 
-l
-squid:S106"9Replace this use of System.out or System.err by a logger.(Ø¼¢ƒ8úˆõ¸ó,HŸRMAJORZ
+osquid:S1854/";Remove this useless assignment to local variable "u50load".(ÿûêª8ÊÂ€¼ó,HÌRMAJORZ
 CODE_SMELL
 l
-squid:S106"9Replace this use of System.out or System.err by a logger.(çß¿¸8õ¥Â¹ó,H RMAJORZ
+squid:S106("9Replace this use of System.out or System.err by a logger.(ğâºª8ÊÂ€¼ó,HÉRMAJORZ
+CODE_SMELL
+l
+squid:S106+"9Replace this use of System.out or System.err by a logger.(ªÜö8ÊÂ€¼ó,H†RMAJORZ
 CODE_SMELL
 q
-squid:S106"9Replace this use of System.out or System.err by a logger.(úõ–áùÿÿÿÿ8ÊÂ€¼ó,H£RMAJORZ
-CODE_SMELL
-`squid:S1481/",Remove this unused "u50load" local variable.(ÿûêª8ÊÂ€¼ó,H¥RMINORZ
+squid:S106"9Replace this use of System.out or System.err by a logger.(úõ–áùÿÿÿÿ8¦¡¦¼ó,HÈRMAJORZ
 CODE_SMELL
 l
-squid:S1067"9Replace this use of System.out or System.err by a logger.(Ø¼¢ƒ8Í™¯¼ó,H¹RMAJORZ
+squid:S1064"9Replace this use of System.out or System.err by a logger.(çß¿¸8Í™¯¼ó,H£RMAJORZ
 CODE_SMELL
-osquid:S1854/";Remove this useless assignment to local variable "u50load".(ÿûêª8ÊÂ€¼ó,H§RMAJORZ
-CODE_SMELL
-l
-squid:S1062"9Replace this use of System.out or System.err by a logger.(Âæ“ú8¦¡¦¼ó,H¸RMAJORZ
+`squid:S1481/",Remove this unused "u50load" local variable.(ÿûêª8ÊÂ€¼ó,HÇRMINORZ
 CODE_SMELL
 q
-squid:S106."9Replace this use of System.out or System.err by a logger.(¼Ãßûøÿÿÿÿ8ÍìÁ¹ó,HRMAJORZ
-CODE_SMELL
-l
-squid:S106("9Replace this use of System.out or System.err by a logger.(ğâºª8ÊÂ€¼ó,H¢RMAJORZ
-CODE_SMELL
-l
-squid:S106+"9Replace this use of System.out or System.err by a logger.(ªÜö8ÊÂ€¼ó,H¡RMAJORZ
-CODE_SMELL
-l
-squid:S1064"9Replace this use of System.out or System.err by a logger.(çß¿¸8ÕÑ‹¼ó,H²RMAJORZ
+squid:S106*"9Replace this use of System.out or System.err by a logger.(øš±êúÿÿÿÿ8üæ¶®ö,H…RMAJORZ
 CODE_SMELL
 q
-squid:S106*"9Replace this use of System.out or System.err by a logger.(øš±êúÿÿÿÿ8ÊÂ€¼ó,H¤RMAJORZ
+squid:S106."9Replace this use of System.out or System.err by a logger.(¼Ãßûøÿÿÿÿ8ÍìÁ¹ó,HÒRMAJORZ
+CODE_SMELL
+l
+squid:S1062"9Replace this use of System.out or System.err by a logger.(Âæ“ú8ÊÂ€¼ó,HÍRMAJORZ
+CODE_SMELL
+l
+squid:S1067"9Replace this use of System.out or System.err by a logger.(Ø¼¢ƒ8ÕÑ‹¼ó,HĞRMAJORZ
 CODE_SMELL

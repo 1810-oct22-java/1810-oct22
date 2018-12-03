@@ -10,7 +10,7 @@
  	</defaultCache>   
 
 	<cache
-    	name="employee"
+    	name="user"
     	maxElementsInMemory="10000"
     	eternal="false"
     	timeToIdleSeconds="300"

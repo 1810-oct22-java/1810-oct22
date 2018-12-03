@@ -20,10 +20,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
-
 @Entity //registers class as entity in DB
 @Table(name="USERS")//allows further configuration of Table in DB
-@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
+//@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

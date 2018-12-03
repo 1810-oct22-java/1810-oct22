@@ -1,10 +1,24 @@
 
+k
+squid:S106Z"9Replace this use of System.out or System.err by a logger.(” ®P8œü…¹ó,HÁRMAJORZ
+CODE_SMELL
+k
+squid:S106X"9Replace this use of System.out or System.err by a logger.(«Ÿƒq8íÓ‚¹ó,HÃRMAJORZ
+CODE_SMELL
+Zsquid:S1481o"&Remove this unused "q" local variable.(Å´ºî8™««®ö,HêRMINORZ
+CODE_SMELL
+squid:S2293m"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚şÀò8™««®ö,HèRMINORZ
+CODE_SMELL
+_squid:S1168p"+Return an empty collection instead of null.(¥¹ï8“¼µ®ö,HñRMAJORZ
+CODE_SMELL
+isquid:S1854o"5Remove this useless assignment to local variable "q".(Å´ºî8™««®ö,HìRMAJORZ
+CODE_SMELL
+asquid:S1172l"(Remove this unused method parameter "u".(Ó‘Ï¸şÿÿÿÿ8™««®ö,HëRMAJORZ
+CODE_SMELL
 l
-squid:S106X"9Replace this use of System.out or System.err by a logger.(íãŠ•8íÓ‚¹ó,H¾RMAJORZ
+squid:S106Y"9Replace this use of System.out or System.err by a logger.(íãŠ•8íÓ‚¹ó,HÂRMAJORZ
 CODE_SMELL
-k
-squid:S106W"9Replace this use of System.out or System.err by a logger.(«Ÿƒq8œü…¹ó,H¿RMAJORZ
+esquid:S1481m"1Remove this unused "followerList" local variable.(‚şÀò8™««®ö,HéRMINORZ
 CODE_SMELL
-k
-squid:S106Y"9Replace this use of System.out or System.err by a logger.(” ®P8íÓ‚¹ó,HÀRMAJORZ
+tsquid:S1854m"@Remove this useless assignment to local variable "followerList".(‚şÀò8™««®ö,HíRMAJORZ
 CODE_SMELL

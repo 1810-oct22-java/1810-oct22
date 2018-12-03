@@ -14,7 +14,7 @@ public class Solution {
 		String[] actual = crossword(crossword, words);
 		String[] expected = {"++++++++++", "+POLAND+++", "+++H++++++", 
 				"+++A++++++", "+++SPAIN++", "+++A++N+++", "++++++D+++",
-				"++++++I+++", "++++++A+++" , "++++++++++" };
+				"++++++I+++", "++++++A+++" , "++++++++++" }; 
 
 
 	}
