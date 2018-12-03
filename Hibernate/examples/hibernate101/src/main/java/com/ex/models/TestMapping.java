@@ -1,7 +1,8 @@
 package com.ex.models;
 
 /*
- * Will be mapped to a PERSON table via Hibernate mapping XML file instead of annotations
+ * Will be mapped to a PERSON table via Hibernate mapping XML 
+ * file instead of annotations
  */
 public class TestMapping {
 	
