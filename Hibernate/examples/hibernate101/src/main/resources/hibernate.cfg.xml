@@ -27,14 +27,14 @@
 		<!-- show HQL commands as they're carried out in the console -->
 		<property name="show_sql">true</property>
  
-		<!-- Conigure L2 cache -->
+		<!-- Conigure L2 cache 
 		<property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.cache.use_query_cache">true</property>
 		<property name="hibernate.cache.provider_configuration_file_resource_path">/ehcache.xml</property>
 		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
 		<property name="hibernate.connection.release_mode">on_close</property>
 		<property name="hibernate.connection.isolation">8</property> 
-		
+		-->
 		<!-- classes to be configured via annotations -->
 		<mapping class="com.ex.models.User"/>
 		<mapping class="com.ex.models.Post"/>

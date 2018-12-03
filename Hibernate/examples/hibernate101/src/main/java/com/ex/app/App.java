@@ -13,11 +13,12 @@ public class App {
 	static PostDao postDao = new PostDao();
 	
 	public static void main(String[] args) {
-		List<Post> posts = postDao.getShortPosts();
-		for(Post p : posts) {
-			System.out.println(p);
-		}
-	
+		
+		User u = new User("phil", "123", "fn", "ln");
+		User u1 = new User("ted", "f", "f", "f");
+		u.getFollowing().add(u1);
+		dao.save(u1);
+		dao.save(u);
 	}
 	
 	static void testingMultiplicity() {

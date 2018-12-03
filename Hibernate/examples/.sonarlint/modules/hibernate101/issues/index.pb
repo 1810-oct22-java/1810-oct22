@@ -15,3 +15,9 @@ Q
 !src/main/java/com/ex/app/App.java,e\3\e35b628bf5d9b599bbb508463d2fe45b684bb52f
 U
 %src/main/java/com/ex/dao/UserDao.java,c\1\c1219f187777c8b21bb7ed597e94fd14b936cddb
+V
+&src/main/resources/TestMapping.hbm.xml,1\e\1ee29636a9e244f312ff6c75679e200c5d2562df
+N
+src/main/resources/ehcache.xml,d\8\d89290b271cf44545b289c9b096c86fbeb520eb3
+\
+,src/main/java/com/ex/models/TestMapping.java,a\6\a6eba7c186b922b42d3edd20cc17589f3f82e259
