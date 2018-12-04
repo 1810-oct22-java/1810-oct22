@@ -1,5 +1,8 @@
 package com.ex.autowiring;
 
+import org.springframework.stereotype.Component;
+
+@Component //Springs basic annotation to register a class as a bean
 public class Department {
 
 	private String name;
