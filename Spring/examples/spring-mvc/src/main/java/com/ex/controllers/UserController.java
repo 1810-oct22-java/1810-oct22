@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,7 @@ public class UserController {
 			return new ResponseEntity<User>(u, HttpStatus.OK);
 		}
 	}
+	
 	//CREATE
 	@RequestMapping(method=RequestMethod.POST,
 			consumes=MediaType.APPLICATION_JSON_VALUE,
@@ -59,6 +61,20 @@ public class UserController {
 		}
 	}
 	
-	
+	//UPDATE 
+	@RequestMapping(value="/{id}",
+			method=RequestMethod.PUT,
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User u){
+		User user = service.updateUser(id, u);
+		if(user == null) {
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
+		}
+		else {
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		}
+		
+	}
 
 }

@@ -45,5 +45,25 @@ public class UserService {
 			return null;
 		}
 	}
+	
+	public User updateUser(int id, User u) {
+		User old = getById(id);
+		if(old == null) {
+			return addUser(u);
+		}
+		else {
+			int index = 0;
+			//weird work around to change in-memory store of users
+			for(User s : users) {
+				if(s.getId() == id) {
+					s.setBio(u.getBio());
+					s.setUsername(u.getUsername()); //make sure username doesnt exist
+					s.setPassword(u.getPassword());
+					return s;
+				}
+			}
+		}
+		return null;
+	}
 
 }
