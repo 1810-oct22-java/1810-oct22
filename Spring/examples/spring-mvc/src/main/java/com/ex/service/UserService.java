@@ -44,6 +44,23 @@ public class UserService {
 		else {
 			return null;
 		}
+	} 
+	public User updateUser(int id, User u){
+		User old = getById(id);
+		if(old == null){
+			return addUser(u);
+		}
+		else{
+			for(User s : users){
+				if(s.getId() == id){
+					s.setBio(u.getBio());
+					s.setUsername(u.getUsername());
+					s.setPassword(u.getPassword());
+				}
+			}
+			return u;
+		}
+
 	}
 
 }

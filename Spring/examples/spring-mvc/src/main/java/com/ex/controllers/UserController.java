@@ -44,6 +44,32 @@ public class UserController {
 			return new ResponseEntity<User>(u, HttpStatus.OK);
 		}
 	}
+	@RequestMapping(method= RequestMethod.POST,
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> addUser(User u){
+		u = service.addUser(u);
+		if(u == null){
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
+		}
+		else{
+			return new ResponseEntity<User>(u,HttpStatus.CREATE);
+
+		}
+	}
+	@RequestMapping(method= RequestMethod.PUT,
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> addUser(User u){
+		u = service.addUser(u);
+		if(u == null){
+			return new ResponseEntity<User>(HttpStatus.CREATE);
+		}
+		else{
+			return new ResponseEntity<User>(u,HttpStatus.OK);
+
+		}
+	}
 	
 	
 
