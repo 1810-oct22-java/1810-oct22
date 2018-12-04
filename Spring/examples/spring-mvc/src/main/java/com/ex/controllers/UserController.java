@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,19 @@ public class UserController {
 		else {
 			//return ok status
 			return new ResponseEntity<User>(u, HttpStatus.OK);
+		}
+	}
+	//CREATE
+	@RequestMapping(method=RequestMethod.POST,
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> addUser(@RequestBody User u) {
+		u = service.addUser(u);
+		if(u == null) {
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
+		}
+		else {
+			return new ResponseEntity<User>(u, HttpStatus.CREATED);
 		}
 	}
 	
