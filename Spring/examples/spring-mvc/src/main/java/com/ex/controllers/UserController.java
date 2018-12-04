@@ -60,10 +60,10 @@ public class UserController {
 	@RequestMapping(method= RequestMethod.PUT,
 		consumes=MediaType.APPLICATION_JSON_VALUE,
 		produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> addUser(User u){
-		u = service.addUser(u);
+	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User u){
+		u = service.updateUser(id,u);
 		if(u == null){
-			return new ResponseEntity<User>(HttpStatus.CREATE);
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
 		}
 		else{
 			return new ResponseEntity<User>(u,HttpStatus.OK);
