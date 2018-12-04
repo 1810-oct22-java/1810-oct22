@@ -1,5 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
     "editor.renderWhitespace": "all",
-    "debug.allowBreakpointsEverywhere": true
+    "debug.allowBreakpointsEverywhere": true,
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
