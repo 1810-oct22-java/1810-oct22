@@ -27,4 +27,8 @@ Configuration metadata for our application context -->
 		<property name="hello" ref="thisIsABean" />
 	</bean>
 
+	<bean id="employee" class="com.ex.autowiring.Employee" autowiring="byType"></bean>
+
+	<bean id="department" class="com.ex.autowiring.Department"></bean>
+
 </beans>

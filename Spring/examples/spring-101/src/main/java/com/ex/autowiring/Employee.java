@@ -4,7 +4,6 @@ public class Employee {
 	
 	private String name;
 	private double salary;
-	
 	private Department department;
 	
 	public Employee() {}
@@ -12,7 +11,6 @@ public class Employee {
 	public Employee(String name) {
 		this.name = name;
 	}
-
 	public String getName() {
 		return name;
 	}
@@ -31,5 +29,10 @@ public class Employee {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-
+	/*
+	@Override
+	public toString(){
+		
+	}
+	*/
 }
