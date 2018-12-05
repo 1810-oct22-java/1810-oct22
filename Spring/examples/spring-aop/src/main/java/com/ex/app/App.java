@@ -19,6 +19,9 @@ public class App {
 		
 		System.out.println("Calling set method from second");
 		second.setA(1);
+		
+		System.out.println("CALLING RISKY");
+		first.risky();
 	}
 
 }

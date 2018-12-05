@@ -20,6 +20,7 @@ public class First {
 	
 	public void risky() throws RuntimeException{
 		System.out.println("risky business");
+		throw new RuntimeException();
 	}
 
 }
