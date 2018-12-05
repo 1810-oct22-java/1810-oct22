@@ -1,0 +1,9 @@
+
+Wsquid:S1068	"%Remove this unused "b" private field.(Ûâ³ ùÿÿÿÿH¬RMAJORZ
+CODE_SMELL
+‚squid:S1450"PRemove the "a" field and declare it as a local variable in the relevant methods.(Þ‹®øÿÿÿÿH­RMINORZ
+CODE_SMELL
+‚squid:S1450	"PRemove the "b" field and declare it as a local variable in the relevant methods.(Ûâ³ ùÿÿÿÿH®RMINORZ
+CODE_SMELL
+Wsquid:S1068"%Remove this unused "a" private field.(Þ‹®øÿÿÿÿH«RMAJORZ
+CODE_SMELL

@@ -1,0 +1,14 @@
+
+]squid:S1905")Remove this unnecessary cast to "Second".(½ã­ğ8¦öïø÷,HåRMINORZ
+CODE_SMELL
+k
+squid:S106"9Replace this use of System.out or System.err by a logger.(ŸñáW8Ôıßø÷,HÊRMAJORZ
+CODE_SMELL
+l
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÙéÔ8éŸñø÷,HêRMAJORZ
+CODE_SMELL
+asquid:S1905"(Remove this unnecessary cast to "First".(¬éŠ¯ÿÿÿÿÿ8¬±Úø÷,HÃRMINORZ
+CODE_SMELL
+l
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÔÒÅÎ8³Ç£ù÷,H˜RMAJORZ
+CODE_SMELL

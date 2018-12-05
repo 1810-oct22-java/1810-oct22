@@ -1,0 +1,14 @@
+
+j
+squid:S106
+"9Replace this use of System.out or System.err by a logger.(æ¨¤šøÿÿÿÿH¦RMAJORZ
+CODE_SMELL
+tsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(œÜ¦ĞH¨RMAJORZ
+CODE_SMELL
+j
+squid:S106"9Replace this use of System.out or System.err by a logger.(å‘ÒğüÿÿÿÿH§RMAJORZ
+CODE_SMELL
+¬%squid:RedundantThrowsDeclarationCheck"eRemove the declaration of thrown exception 'java.lang.RuntimeException' which is a runtime exception.(œÜ¦ĞH¥RMINORZ
+CODE_SMELL
+€squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(¯åÕøÿÿÿÿ8¥éŸù÷,H–RMAJORZ
+CODE_SMELL
