@@ -1,0 +1,190 @@
+
+
+logon to cassandra
+
+cqlsh -u cassandra -p cassandra
+
+To describle all available keyspaces
+DESC keyspaces;
+select * from system_schema.keyspaces;
+
+
+To describle specifice keyspaces
+DESC keyspace rams1;
+
+To create keyspace 
+
+CREATE KEYSPACE revature WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  ;
+
+to use keyspace
+
+use ram100;
+
+create table e1(empno int primary key,ename text,sal int);
+
+CREATE COLUMNFAMILY emp_cf 
+(empno int PRIMARY KEY, ename text, job text, mgr int, hiredate text,sal int,comm int,deptno int);
+
+
+insert into e1(empno,ename,sal) values (1,'ABC',10);
+
+select * from e1;
+
+insert into e1(empno,ename,sal) values (1,'ABC',100);
+
+select * from e1 ;
+will upsert
+
+To update
+update e1 set sal=111 where empno=1;
+
+To Delete
+delete from e1 where empno=1;
+
+To Alter
+
+alter table e1 add comm int;
+
+To rename a column
+ALTER TABLE e1 RENAME old_C_name TO new_c_name;
+
+you can not rename 
+PK column
+index column
+partition column
+
+Dropping a column
+ALTER TABLE table_name DROP column_name;
+
+Drop table 
+
+DROP TABLE IF EXISTS table_name;
+
+
+Partition keys restrictions
+
+The partition key columns support only two operators: = and IN
+select * from emp ALLOW FILTERING ;
+============================================
+
+CREATE TABLE emp5 (empno int PRIMARY KEY, ename text, job text, mgr int, hiredate text,sal int,comm int,deptno int);
+
+insert into  emp (empno,comm,deptno,ename,hiredate,job,mgr,sal) VALUES(7499,300,30,'ALLEN','1981-02-20','SALESMAN',7698,1600);
+insert into  emp (empno,comm,deptno,ename,hiredate,job,mgr,sal) VALUES(7521,500,30,'WARD','1981-02-22','SALESMAN',7698,1250);
+insert into  emp (empno,comm,deptno,ename,hiredate,job,mgr,sal) VALUES(7566,NULL,20,'JONES','1981-04-02','MANAGER',7839,2975);
+
+
+
+
+
+select count(*),max(sal),min(sal),avg(sal),sum(sal)  from emp;
+
+
+CREATE INDEX dept_idx ON emp (deptno);
+
+Drop index IF EXISTS keyspacename.indexname
+========================================
+To copy data from file to table 
+
+CREATE TABLE emp5 (empno int PRIMARY KEY, ename text, job text, mgr int, hiredate text,sal int,comm int,deptno int);
+
+copy this to d.txt
+
+empno,ename,job,mgr,hiredate,sal,comm,deptno
+7369,SMITH,CLERK,7902,1980-12-17,800,,10
+7499,ALLEN,SALESMAN,7698,1981-02-20,1600,300,30
+7521,WARD,SALESMAN,7698,1981-02-22,1250,500,30
+7566,JONES,MANAGER,7839,1981-04-02,2975,,20
+7654,MARTIN,SALESMAN,7698,1981-09-28,1250,1400,30
+7698,BLAKE,MANAGER,7839,1981-05-01,2850,,30
+7782,CLARK,MANAGER,7839,1981-06-09,2450,,10
+7788,SCOTT,ANALYST,7566,1982-12-09,3000,,20
+7839,KING,PRESIDENT,,1981-11-17,5000,,10
+7844,TURNER,SALESMAN,7698,1981-09-08,1500,0,30
+7876,ADAMS,CLERK,7788,1983-01-12,1100,,20
+7900,JAMES,CLERK,7698,1981-12-03,950,,30
+7902,FORD,ANALYST,7566,1981-12-03,3000,,20
+7934,MILLER,CLERK,7782,1982-01-23,1300,,10
+
+COPY COMMAND:
+COPY emp5 (empno,ename,job,mgr,hiredate,sal,comm,deptno) FROM '/home/ramswins/d.txt' WITH header = true AND delimiter = ',';
+
+=======================================================================
+
+to copy from table to file
+
+COPY emp5 (empno,comm,deptno,ename,hiredate,job,mgr,sal)  TO '/home/ramswins/employee1.txt' WITH header = true AND delimiter = '|';
+
+
+------------------------------------------------------------------------------
+ 
+
+
+ 
+======================
+
+Collection data types:
+
+Create a sample table with collectio data type
+(SET, LIST, MAP):
+ 
+CREATE TABLE IF NOT EXISTS tbl_Employee
+(
+    EmpID INT PRIMARY KEY 
+    ,EmpName VARCHAR
+    ,Emails SET<text>
+    ,Hobbies LIST<text>
+    ,Address MAP<text,text>
+) ;
+
+==========================
+
+INSERT INTO tbl_Employee
+(EmpID,EmpName,Emails,Hobbies,Address)
+VALUES
+(
+    1
+    ,'Anvesh'
+    ,{'test1@gmail.com','test2@gmail.com'}
+    ,['Blogging','Animation','Photography']
+    ,{'home': 'Gujarat', 'office': 'Hyderabad'}
+);
+
+==========================================
+=================================
+Update data on Collection type:
+
+ 
+UPDATE tbl_Employee SET Emails = Emails + {'test3@gmail.com'} WHERE EmpID=1;
+UPDATE tbl_Employee SET Hobbies = Hobbies + ['Watching Movies'] WHERE EmpID=1;
+UPDATE tbl_Employee SET Address = Address + {'farm':'Bhavnagar'} WHERE EmpID=1;
+
+======================================
+Filter on Collection type:
+
+ 
+SELECT * FROM tbl_Employee WHERE Address CONTAINS 'Gujarat' ALLOW FILTERING;
+SELECT * FROM tbl_Employee WHERE Hobbies CONTAINS 'Blogging' ALLOW FILTERING;
+SELECT * FROM tbl_Employee WHERE Emails CONTAINS 'test1@gmail.com' ALLOW FILTERING;
+
+
+
+A universally unique identifier (UUID) is a 128-bit number
+ create table users(cid uuid primary key,ename text);
+
+A universally unique identifier (UUID)  
+INSERT INTO users(cid, ename) VALUES(uuid(), 'my name');
+
+
+insert into users(cid, ename) values(now(), 'my name1');
+
+CREATE MATERIALIZED VIEW m2 AS SELECT * FROM employee where deptno is not null
+  PRIMARY KEY (empno,deptno);
+
+ cassandra.yaml
+
+CREATE ROLE ram WITH PASSWORD = 'ram' 
+    AND  SUPERUSER = true
+    AND LOGIN = true;
+
+CREATE KEYSPACE messages WITH REPLICATION={'class': 'NetworkTopologyStrategy', 'us-west': 3, 'us-east': 2);
