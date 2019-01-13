@@ -153,7 +153,7 @@ var add = function(a,b) { return a+b};
 var addArrow = (a,b)=> {return a+b; }
 
 
-//scopes, hoising, operators, loops, statements
+//scopes, hoisting, operators, loops, statements
 
 //var will never give block scope unless "let" is included
 

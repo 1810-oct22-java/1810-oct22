@@ -20,10 +20,10 @@ public class HelloServlets extends GenericServlet{
 	static int counter = 0;
 
 	/*
-	 * LIFECYCLE OF A SERVLER! init() service() destroy()
+	 * LIFECYCLE OF A SERVLET! init() service() destroy()
 	 * 
 	 * init is called by the container when the servlet is initialized.
-	 * Here you can configure things like paramters, loggers, etc. 
+	 * Here you can configure things like parameters, loggers, etc. 
 	 * Basically anything
 	 * 
 	 */

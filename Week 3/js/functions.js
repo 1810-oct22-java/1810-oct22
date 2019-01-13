@@ -21,7 +21,7 @@ function func(){
 func();
 
 /*
-A function expression is very similar to and has almost the same syntaz as a funciton
+A function expression is very similar to and has almost the same syntax as a funciton
 declaration, however the main difference is that a function declaration has a name,
 which can be ommitted in function expressions to create anonymous functions and function
 expression can be used to create IIFE's which run as soon as they're defined. 
@@ -35,7 +35,7 @@ functionExpression();
 //IIFE's are a design pattern, also known as a self-executing anonymous functions
 
 (function() {
-    consoe.log ("this is an immediately invoked fucntion expression");
+    console.log ("this is an immediately invoked function expression");
 })();//parentheses at the end to invoke function
 
 var person = (function () {

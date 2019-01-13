@@ -77,13 +77,13 @@
         }
 
 
-        /*$('#add').on('click',function(){
+        $('#add').on('click',function(){
             let newItem = $('#newItem').val();
             //let elem = $(`<li>${newItem}</li>`);
             let elem = $('<li></li>').text(newItem);
             $('#toBuy').append(elem);
             $('#newItem').val('');
-        });*/
+        });
 
         $('#toBuy').on('click','li',function() {
             let boughtItem = $(this);

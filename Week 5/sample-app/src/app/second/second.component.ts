@@ -31,7 +31,7 @@ export class SecondComponent implements OnInit {
   }
 
   getStarWarsHeros() {
-    this.sampleService.getStarWarsPeople(5).subscribe(
+    this.sampleService.getStarWarsPeople(14).subscribe(
       (starWarsHero) => this.starWarsHeros.push(starWarsHero),
       (error) => this.errorMsg = 'Something went wrong on the network... Sorry.'
     );

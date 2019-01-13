@@ -1,7 +1,9 @@
-<p>
-  <input type="text" id="projectName" [(ngModel)]="editedProjectName">
+<p *ngIf="this.sampleService">
+  <input type="text" id="projectName" [(ngModel)]="this.sampleService.ProjectName">
+  <!--
   <button (click) = "updateProject()">Update</button>
   <button (click) = "resetProjectName()">Reset</button>
+  -->
 </p>
 
 <div *ngIf="errorMsg">
@@ -10,6 +12,9 @@
   </h6>
   <p>{{errorMsg}}</p>
 </div>
-<h3>Star Wars Hero:</h3>
-<h4>{{starWarsHeros[0].name}}</h4>
+
+<div *ngIf="this.starWarsHeros[0]">
+  <h3>Star Wars Hero:</h3>
+  <h4>{{starWarsHeros[0].name}}</h4>
+</div>
 
